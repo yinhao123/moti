@@ -5,17 +5,16 @@
 				<view class="userImg"></view>
 				<view class="userName">请叫我锦鲤</view>
 			</view>
-			<view class="">icon</view>
+			<view class="iconfont moti-xiaoxi"></view>
 		</view>
 		<view class="others">
 			<view class="othersItem" v-for="(item,index) in othersList" :key="index">
-				<view class="itemIcon">icon</view>
+				<view class="iconfont itemIcon" :class="item.icon"></view>
 				<view :class="index == othersList.length-1?'item lastChild':'item'"
-					@click="toPath(item.path)">
+					@tap="toPath(item.path)">
 					<view class="">{{item.text}}</view>
-					<view class="icon">></view>
+					<view class="iconfont moti-jiantou"></view>
 				</view>
-				
 			</view>
 		</view>
 	</view>
@@ -26,10 +25,10 @@
 		data() {
 			return {
 				othersList:[
-					{id:0,text:"订单",path:""},
-					{id:0,text:"口令兑换",path:"/pages/exchange/exchange"},
-					{id:0,text:"收获地址",path:"/pages/address/address"},
-					{id:0,text:"优惠券",path:""}
+					{id:0,text:"订单",path:"",icon:"moti-calendar"},
+					{id:0,text:"口令兑换",path:"/pages/exchange/exchange",icon:"moti-calendar"},
+					{id:0,text:"收获地址",path:"/pages/address/address",icon:"moti-dizhi"},
+					{id:0,text:"优惠券",path:"",icon:"moti-youhuiquan"}
 				]
 			}
 		},
@@ -78,6 +77,9 @@
 				width: 90%;
 				height: 130upx;
 				padding: 0 30upx;
+				.itemIcon{
+					margin-right: 30upx;
+				}
 				view{
 					line-height: 130upx;
 				}
