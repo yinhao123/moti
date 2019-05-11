@@ -14,6 +14,7 @@
 
 <style>
 	@import './common/uni.css';
+	@import './common/iconfont.css';
 	page {
 		background-color: #F4F5F6;
 		height: 100%;

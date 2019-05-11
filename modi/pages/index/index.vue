@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
 		首页
+		<i class="iconfont moti-wangluobanji"></i>
 	</view>
 </template>
 
