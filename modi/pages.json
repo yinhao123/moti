@@ -40,23 +40,23 @@
 				"pagePath": "pages/index/index",
 				// "iconPath": "static/component.png",
 				// "selectedIconPath": "static/componentHL.png",
-				"text": "MOTI"
+				"text": "商城"
 			},
 			{
 				"pagePath": "pages/sign/sign",
 				// "iconPath": "static/api.png",
 				// "selectedIconPath": "static/apiHL.png",
-				"text": "MOTI"
+				"text": "打卡"
 			}, {
 				"pagePath": "pages/cart/cart",
 				// "iconPath": "static/extui.png",
 				// "selectedIconPath": "static/extuiHL.png",
-				"text": "MOTI"
+				"text": "购物车"
 			}, {
 				"pagePath": "pages/mine/mine",
 				// "iconPath": "static/template.png",
 				// "selectedIconPath": "static/templateHL.png",
-				"text": "MOTI"
+				"text": "我的"
 			}
 		]
 	}

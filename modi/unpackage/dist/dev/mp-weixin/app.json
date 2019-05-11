@@ -20,19 +20,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "MOTI"
+        "text": "商城"
       },
       {
         "pagePath": "pages/sign/sign",
-        "text": "MOTI"
+        "text": "打卡"
       },
       {
         "pagePath": "pages/cart/cart",
-        "text": "MOTI"
+        "text": "购物车"
       },
       {
         "pagePath": "pages/mine/mine",
-        "text": "MOTI"
+        "text": "我的"
       }
     ]
   },
