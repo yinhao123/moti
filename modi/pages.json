@@ -24,6 +24,12 @@
             	"navigationBarTitleText": "MOTI"
             }
         }
+        ,{
+            "path" : "pages/address/address",
+            "style" : {
+				"navigationBarTitleText": "MOTI"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
