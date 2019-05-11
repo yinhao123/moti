@@ -27,7 +27,7 @@
 			return {
 				othersList:[
 					{id:0,text:"订单",path:""},
-					{id:0,text:"口令兑换",path:""},
+					{id:0,text:"口令兑换",path:"/pages/exchange/exchange"},
 					{id:0,text:"收获地址",path:"/pages/address/address"},
 					{id:0,text:"优惠券",path:""}
 				]

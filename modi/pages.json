@@ -30,6 +30,12 @@
 				"navigationBarTitleText": "MOTI"
 			}
         }
+        ,{
+            "path" : "pages/exchange/exchange",
+            "style" : {
+				"navigationBarTitleText": "MOTI"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
