@@ -3,14 +3,61 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "MOTI"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/cart/cart",
+            "style": {
+            	"navigationBarTitleText": "MOTI"
+            }
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style": {
+            	"navigationBarTitleText": "MOTI"
+            }
+        }
+        ,{
+            "path" : "pages/sign/sign",
+            "style": {
+            	"navigationBarTitleText": "MOTI"
+            }
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#F8F8F8",
+		"list": [{
+				"pagePath": "pages/index/index",
+				// "iconPath": "static/component.png",
+				// "selectedIconPath": "static/componentHL.png",
+				"text": "MOTI"
+			},
+			{
+				"pagePath": "pages/sign/sign",
+				// "iconPath": "static/api.png",
+				// "selectedIconPath": "static/apiHL.png",
+				"text": "MOTI"
+			}, {
+				"pagePath": "pages/cart/cart",
+				// "iconPath": "static/extui.png",
+				// "selectedIconPath": "static/extuiHL.png",
+				"text": "MOTI"
+			}, {
+				"pagePath": "pages/mine/mine",
+				// "iconPath": "static/template.png",
+				// "selectedIconPath": "static/templateHL.png",
+				"text": "MOTI"
+			}
+		]
 	}
 }
