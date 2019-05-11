@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		首页
+		个人中心页
 	</view>
 </template>
 
@@ -11,15 +11,12 @@
 				
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
-
+			
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>

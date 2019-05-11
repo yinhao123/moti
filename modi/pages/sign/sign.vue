@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		首页
+		打卡签到页
 	</view>
 </template>
 
@@ -11,15 +11,12 @@
 				
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
-
+			
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>
