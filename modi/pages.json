@@ -36,6 +36,14 @@
 				"navigationBarTitleText": "MOTI"
 			}
         }
+        ,{
+            "path" : "pages/editAddress/editAddress",
+            "style" : {"navigationBarTitleText": "编辑地址"}
+        }
+        ,{
+            "path" : "pages/coupon/coupon",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

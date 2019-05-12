@@ -26,9 +26,9 @@
 			return {
 				othersList:[
 					{id:0,text:"订单",path:"",icon:"moti-calendar"},
-					{id:0,text:"口令兑换",path:"/pages/exchange/exchange",icon:"moti-calendar"},
+					{id:0,text:"口令兑换",path:"/pages/exchange/exchange",icon:"moti-iconfontduihuan"},
 					{id:0,text:"收获地址",path:"/pages/address/address",icon:"moti-dizhi"},
-					{id:0,text:"优惠券",path:"",icon:"moti-youhuiquan"}
+					{id:0,text:"优惠券",path:"/pages/coupon/coupon",icon:"moti-youhuiquan"}
 				]
 			}
 		},
