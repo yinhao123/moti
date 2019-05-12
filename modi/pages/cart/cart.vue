@@ -11,11 +11,11 @@
 			<view class="checkbox-boxTop" @tap="allSelect">
 				<view class="">
 					<view class="checkbox">
-					<view :class="[isAllselected?'on':'']"></view>
+						<view :class="[isAllselected?'on':'']"></view>
+					</view>
+					<view class="text">全选</view>
 				</view>
-				<view class="text">全选</view>
-				</view>
-				
+
 				<view class="delBtn" @tap="deleteList" v-if="selectedList.length>0">删除</view>
 			</view>
 			<!-- 商品列表 -->
@@ -411,6 +411,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
 		.delBtn {
 			border: solid 1upx #f06c7a;
 			color: #f06c7a;
@@ -421,6 +422,7 @@
 			justify-content: center;
 			align-items: center;
 		}
+
 		.checkbox {
 			width: 35upx;
 			height: 35upx;
@@ -442,6 +444,7 @@
 	.checkbox-box {
 		display: flex;
 		align-items: center;
+
 		.checkbox {
 			width: 35upx;
 			height: 35upx;
