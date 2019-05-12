@@ -50,7 +50,7 @@
 			onConfirm:function (event){
 				this.pickerText = event;
 			},
-			onCancel(e) {
+			onCancel:function (e){
 				console.log(e)
 			}
 		}
