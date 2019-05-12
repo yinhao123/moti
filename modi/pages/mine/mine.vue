@@ -74,7 +74,6 @@
 			.othersItem{
 				display: flex;
 				justify-content: space-between;
-				width: 90%;
 				height: 130upx;
 				padding: 0 30upx;
 				.itemIcon{
