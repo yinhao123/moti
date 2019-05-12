@@ -9,23 +9,25 @@
 					</view>
 					<view class="userAddres">
 						<view class="">{{item.address}}</view>
-						<view class="">icon</view>
+						<view class="iconfont moti-bianji" @tap="toEditAddress"></view>
 					</view>
 					<view class="addressEdit">
 						<view class="">
-							check
-							<label for="">
-								设为默认地址
-							</label>
+							<radio-group @change="radioChange(item.value)">
+								<label for="">
+									<radio :value="item.value" :checked="item.checkStatus" style="transform:scale(0.7)" color="#ff0000" />
+									设为默认地址
+								</label>
+							</radio-group>
 						</view>
-						<view class="">
+						<view class="del" @tap="delAddress">
 							删除
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="addBtn">
-				<view class="addNewAddress">添加新地址</view>
+				<view class="addNewAddress" @tap="toEditAddress">添加新地址</view>
 			</view>
 		</template>
 		<template v-else>
@@ -43,13 +45,25 @@
 		data() {
 			return {
 				addressList:[
-					{id:0,name:"木木0",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:true},
-					{id:1,name:"木木1",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:false}
+					{id:0,name:"木木0",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:true,value:"1"},
+					{id:1,name:"木木1",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:false,value:"12"}
 				]
 			}
 		},
 		methods: {
-			
+			radioChange:function (addressId){
+				for (let i = 0; i < this.addressList.length; i++) {
+					this.addressList[i].checkStatus?this.addressList[i].checkStatus = false:this.addressList[i].checkStatus = true;
+				}
+			},
+			toEditAddress:function (){
+				uni.navigateTo({
+					url: "/pages/editAddress/editAddress"
+				});
+			},
+			delAddress:function (){
+				console.log("删除地址")
+			}
 		}
 	}
 </script>
