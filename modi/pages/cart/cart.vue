@@ -8,15 +8,14 @@
 			</view>
 		</view>
 		<view class="" v-else>
-			<view class="checkbox-boxTop" @tap="allSelect">
-				<view class="">
+			<view class="checkbox-boxTop">
+				<view class="checkAll" @tap="allSelect">
 					<view class="checkbox">
 						<view :class="[isAllselected?'on':'']"></view>
 					</view>
 					<view class="text">全选</view>
-				</view>
-
-				<view class="delBtn" @tap="deleteList" v-if="selectedList.length>0">删除</view>
+				</view>	
+				<view class="delBtn" v-if="selectedList.length>0"> <text>已选{{selectedList.length}}件商品</text>  <text @tap="deleteList" >删除</text></view>
 			</view>
 			<!-- 商品列表 -->
 			<view class="goods-list">
@@ -411,13 +410,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
+.checkAll{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 		.delBtn {
-			border: solid 1upx #f06c7a;
 			color: #f06c7a;
 			padding: 0 30upx;
 			height: 50upx;
-			border-radius: 30upx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
