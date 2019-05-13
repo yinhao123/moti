@@ -44,6 +44,10 @@
             "path" : "pages/coupon/coupon",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/order/order",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
