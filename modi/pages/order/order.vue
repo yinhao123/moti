@@ -5,7 +5,7 @@
 				<view>订单编号：{{items.order}}</view>
 				<view>{{items.orderType}}</view>
 			</view>
-			<view class="itemsInfo">
+			<view class="itemsInfo" @tap="orderDetailPath">
 				<view class="goodsItem" v-for="(goods,index0) in items.orderInfo" :key="index0">
 					<view class="goodsImg">
 						<image :src="goods.imgUrl" mode=""></image>
@@ -29,7 +29,7 @@
 			<view class="itemsBtn">
 				<view class="btn">退款中</view>
 				<view class="btn">付款</view>
-				<view class="btn">取消订单</view>
+				<view class="btn cancel">取消订单</view>
 			</view>
 		</view>
 	</view>
@@ -84,7 +84,11 @@
 			}
 		},
 		methods: {
-			
+			orderDetailPath:function (){
+				uni.navigateTo({
+					url: "/pages/orderDetail/orderDetail"
+				});
+			}
 		}
 	}
 </script>
@@ -194,6 +198,13 @@
 					font-size: 22upx;
 					border-radius: 10upx;
 					margin: 0 10upx;
+				}
+				.cancel{
+					background: #fff;
+					border: 2upx solid #a2a2a2;
+					border-radius: 10upx;
+					box-sizing: border-box;
+					color: #9a9a9a;
 				}
 			}
 		}

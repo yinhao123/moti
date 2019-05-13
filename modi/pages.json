@@ -48,6 +48,14 @@
             "path" : "pages/order/order",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/orderDetail/orderDetail",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
+        ,{
+            "path" : "pages/refund/refund",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
