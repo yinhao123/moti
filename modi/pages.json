@@ -48,6 +48,10 @@
             "path" : "pages/order/order",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/placeOrder/placeOrder",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

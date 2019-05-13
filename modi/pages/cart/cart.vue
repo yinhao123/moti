@@ -14,8 +14,9 @@
 						<view :class="[isAllselected?'on':'']"></view>
 					</view>
 					<view class="text">全选</view>
-				</view>	
-				<view class="delBtn" v-if="selectedList.length>0"> <text>已选{{selectedList.length}}件商品</text>  <text @tap="deleteList" >删除</text></view>
+				</view>
+				<view class="delBtn" v-if="selectedList.length>0"> <text class="haveSel">已选{{selectedList.length}}件商品</text> <text
+					 class="deltxt" @tap="deleteList">删除</text></view>
 			</view>
 			<!-- 商品列表 -->
 			<view class="goods-list">
@@ -63,17 +64,19 @@
 			</view>
 			<!-- 脚部菜单 -->
 			<view class="footer" :style="{bottom:footerbottom}">
+				<!-- 
 				<view class="checkbox-box" @tap="allSelect">
 					<view class="checkbox">
 						<view :class="[isAllselected?'on':'']"></view>
 					</view>
 					<view class="text">全选</view>
 				</view>
-				<view class="delBtn" @tap="deleteList" v-if="selectedList.length>0">删除</view>
+				<view class="delBtn" @tap="deleteList" v-if="selectedList.length>0">删除</view> -->
 				<view class="settlement">
-					<view class="sum">合计:<view class="money">￥{{sumPrice}}</view>
+					<view class="sum">合计:
+						<view class="money">￥{{sumPrice}}</view>
 					</view>
-					<view class="btn" @tap="toConfirmation">结算({{selectedList.length}})</view>
+					<view class="btn" @tap="toConfirmation">去下单</view>
 				</view>
 			</view>
 		</view>
@@ -257,7 +260,7 @@
 					data: tmpList,
 					success: () => {
 						uni.navigateTo({
-							url: '../order/confirmation'
+							url: '../placeOrder/placeOrder'
 						})
 					}
 				})
@@ -410,18 +413,27 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-.checkAll{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+		padding: 10upx 30upx;
+
+		.checkAll {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.haveSel {
+			margin-right: 30upx;
+		}
+
 		.delBtn {
-			color: #f06c7a;
-			padding: 0 30upx;
 			height: 50upx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+
+		.deltxt {
+			color: #ff0000;
 		}
 
 		.checkbox {
@@ -710,12 +722,12 @@
 	}
 
 	.footer {
-		width: 92%;
-		padding: 0 4%;
+		width: 100%;
+		// padding: 0 4%;
 		background-color: #fbfbfb;
 		height: 100upx;
 		display: flex;
-		justify-content: space-between;
+		// justify-content: space-between;
 		align-items: center;
 		font-size: 28upx;
 		position: fixed;
@@ -734,13 +746,14 @@
 		}
 
 		.settlement {
-			width: 60%;
+			width: 100%;
+			height: 100upx;
 			display: flex;
-			justify-content: flex-end;
+			justify-content: space-between;
 			align-items: center;
-
+			padding: 0 0 0 4%;
 			.sum {
-				width: 50%;
+				// width: 50%;
 				font-size: 28upx;
 				margin-right: 10upx;
 				display: flex;
@@ -748,19 +761,19 @@
 
 				.money {
 					font-weight: 600;
+					color: #ff0000;
 				}
 			}
 
 			.btn {
 				padding: 0 30upx;
-				height: 50upx;
-				background-color: #f06c7a;
+				height: 100upx;
+				width: 250upx;
+				background-color: #000;
 				color: #fff;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-
-				border-radius: 30upx;
 			}
 		}
 	}
