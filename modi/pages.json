@@ -49,15 +49,15 @@
             "style" : {"navigationBarTitleText": "MOTI"}
         }
         ,{
-<<<<<<< HEAD
             "path" : "pages/orderDetail/orderDetail",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
         ,{
             "path" : "pages/refund/refund",
-=======
+			"style" : {"navigationBarTitleText": "MOTI"},
+		}
+		,{
             "path" : "pages/placeOrder/placeOrder",
->>>>>>> 5fc5b616187bead0bd4ae9d603eea0fc4e70ca8d
             "style" : {"navigationBarTitleText": "MOTI"}
         }
     ],
