@@ -2,16 +2,20 @@
 	<view class="content">
 		<form @submit="formSubmit" >
 			<view class="formItem">
-				<input type="text" value="" placeholder="姓名"/>
+				<input class="formInput" type="text" value="" placeholder="姓名"/>
 			</view>
 			<view class="formItem">
-				<input type="text" value="" placeholder="电话"/>
+				<input class="formInput" type="text" value="" placeholder="电话"/>
 			</view>
 			<view class="formItem">
-				<input type="text" :value="pickerText.label" @focus="showMulLinkageThreePicker" placeholder="省份 城市 区县"/>
+				<view class="formInput" :style="!pickerText.label?'color: #808080;':''" 
+					@tap="showMulLinkageThreePicker">
+					{{pickerText.label?pickerText.label:"省份 城市 区县"}}
+				</view>
+				<input type="hidden" style="display: none;" name="address" :value="pickerText.label"/>
 			</view>
 			<view class="formItem">
-				<input type="text" value="" placeholder="详细地址"/>
+				<input class="formInput" type="text" value="" placeholder="详细地址"/>
 			</view>
 		</form>	
 		<view class="formBtn">
@@ -65,7 +69,7 @@
 			padding: 0 40upx;
 			display: flex;
 			align-items: center;
-			input{
+			.formInput{
 				width: 100%;
 				height: 120upx;
 				line-height: 120upx;
