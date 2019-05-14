@@ -1,11 +1,7 @@
 <template>
 	<view>
 		<!-- 收货地址 -->
-		
 		<view class="addr" @tap="selectAddress">
-			<view class="icon">
-				<image src="../../static/img/addricon.png" mode=""></image>
-			</view>
 			<view class="right">
 				<view class="tel-name">
 					<view class="name">
@@ -42,7 +38,7 @@
 			</view>
 		</view>
 		<!-- 提示-备注 -->
-		<view class="order">
+		<!-- 		<view class="order">
 			<view class="row">
 				<view class="left">
 					积分 :
@@ -59,40 +55,57 @@
 					<input placeholder="选填,备注内容" v-model="note" />
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 明细 -->
 		<view class="detail">
-			<view class="row">
+			<view class="row" style="border-bottom: 1px solid #eee;">
 				<view class="nominal">
-					商品金额
+					合计
 				</view>
 				<view class="content">
 					￥{{goodsPrice}}
 				</view>
 			</view>
-			<view class="row">
+			<!-- 			<view class="row">
 				<view class="nominal">
 					运费
 				</view>
 				<view class="content">
 					￥+{{freight}}
 				</view>
-			</view>
-			<view class="row">
+			</view> -->
+			<view class="row" style="border-bottom: 1px solid #eee;">
 				<view class="nominal">
-					积分抵扣
+					优惠券
 				</view>
 				<view class="content">
-					￥-{{deduction}}
+					￥-{{coupon}}
+					<i class="iconfont moti-right"></i>
 				</view>
 			</view>
+			<view class="distribution">
+				<view class="">
+					配送方式
+				</view>
+				<view class="waydet">
+					<block  v-for="(item,index) in distribution" :key="index">	
+						<text :data-id="index" :class="index == changeid?'act':''" @tap="selsend($event)"> {{ item }} </text>
+					</block>
+<!-- 					<text class="act">一小时达</text>
+					<text>次日达</text>
+					<text>普通快递</text> -->
+				</view>
+			</view>
+		</view>
+		<view class="connectKf">
+			<text>联系客服</text>
 		</view>
 		<view class="blck">
 
 		</view>
 		<view class="footer">
 			<view class="settlement">
-				<view class="sum">合计:<view class="money">￥{{sumPrice}}</view>
+				<view class="sum"> {{buylist.length}}件商品 <view class="money">￥{{sumPrice}}</view>
 				</view>
 				<view class="btn" @tap="toPay">提交订单</view>
 			</view>
@@ -111,20 +124,24 @@
 				note: '', //备注
 				int: 1200, //抵扣积分
 				deduction: 0, //抵扣价格
+				coupon: 10.00, //优惠券
+				changeid:0,
+					distribution:['一小时达','次日达','普通快递'],
 				recinfo: {
 					id: 1,
-					name: "大黑哥",
+					name: "木木",
 					head: "大",
-					tel: "18816881688",
+					tel: "13700100011",
 					address: {
 						region: {
-							"label": "广东省-深圳市-福田区",
+							"label": "北京市-北京市-朝阳区",
 							"value": [18, 2, 1],
 							"cityCode": "440304"
 						},
-						detailed: '深南大道1111号无名摩登大厦6楼A2'
+						detailed: '东煌大厦19层'
 					},
 					isDefault: true
+				
 				}
 
 			};
@@ -142,7 +159,8 @@
 						this.goodsPrice = this.goodsPrice + (this.buylist[i].number * this.buylist[i].price);
 					}
 					this.deduction = this.int / 100;
-					this.sumPrice = this.goodsPrice - this.deduction + this.freight;
+					// this.sumPrice = this.goodsPrice - this.deduction + this.freight;
+					this.sumPrice = this.goodsPrice - this.coupon;
 					//强制保留两位小数
 					this.sumPrice = this.sumPrice.toFixed(2);
 					this.goodsPrice = this.goodsPrice.toFixed(2);
@@ -177,6 +195,10 @@
 						console.log('remove buylist success');
 					}
 				});
+			},
+			selsend(e){
+				console.log(e.currentTarget.dataset.id);
+				this.changeid = e.currentTarget.dataset.id;
 			},
 			toPay() {
 				//商品列表
@@ -224,11 +246,15 @@
 
 <style lang="scss">
 	.addr {
-		width: 86%;
-		padding: 20upx 3%;
-		margin: 30upx auto 20upx auto;
-		box-shadow: 0upx 5upx 20upx rgba(0, 0, 0, 0.1);
-		border-radius: 20upx;
+		// width: 86%;
+		// padding: 20upx 3%;
+		// margin: 30upx auto 20upx auto;
+		// box-shadow: 0upx 5upx 20upx rgba(0, 0, 0, 0.1);
+		// border-radius: 20upx;
+		// display: flex;
+		width: 100%;
+		padding: 30upx 3%;
+		background-color: #ffffff;
 		display: flex;
 
 		.icon {
@@ -261,11 +287,11 @@
 	}
 
 	.buy-list {
-		width: 86%;
-		padding: 10upx 3%;
-		margin: 30upx auto 20upx auto;
-		box-shadow: 0upx 5upx 20upx rgba(0, 0, 0, 0.1);
-		border-radius: 20upx;
+		width: 100%;
+		padding: 5px 3%;
+		margin: 16px auto 0 auto;
+		background-color: #fff;
+		border-bottom: 1px solid #eee;
 
 		.row {
 			margin: 30upx 0;
@@ -297,7 +323,7 @@
 					position: relative;
 
 					.title {
-						width: 100%;
+						width: 97%;
 						font-size: 28upx;
 						display: -webkit-box;
 						-webkit-box-orient: vertical;
@@ -329,7 +355,7 @@
 						height: 40upx;
 
 						.price {
-							color: #f06c7a;
+							color: #ff0000;
 						}
 
 						.number {
@@ -379,8 +405,8 @@
 	}
 
 	.footer {
-		width: 92%;
-		padding: 0 4%;
+		width: 100%;
+		// padding: 0 4%;
 		background-color: #fbfbfb;
 		height: 100upx;
 		display: flex;
@@ -391,14 +417,46 @@
 		bottom: 0upx;
 		z-index: 5;
 
+		// 		.settlement {
+		// 			width: 80%;
+		// 			display: flex;
+		// 			justify-content: flex-end;
+		// 			align-items: center;
+		// 
+		// 			.sum {
+		// 				width: 50%;
+		// 				font-size: 28upx;
+		// 				margin-right: 10upx;
+		// 				display: flex;
+		// 				justify-content: flex-end;
+		// 
+		// 				.money {
+		// 					font-weight: 600;
+		// 				}
+		// 			}
+		// 
+		// 			.btn {
+		// 				padding: 0 30upx;
+		// 				height: 60upx;
+		// 				background-color: #f06c7a;
+		// 				color: #fff;
+		// 				display: flex;
+		// 				justify-content: center;
+		// 				align-items: center;
+		// 				font-size: 30upx;
+		// 				border-radius: 40upx;
+		// 			}
+		// 		}
 		.settlement {
-			width: 80%;
+			width: 100%;
+			height: 100upx;
 			display: flex;
-			justify-content: flex-end;
+			justify-content: space-between;
 			align-items: center;
+			padding: 0 0 0 4%;
 
 			.sum {
-				width: 50%;
+				// width: 50%;
 				font-size: 28upx;
 				margin-right: 10upx;
 				display: flex;
@@ -406,35 +464,35 @@
 
 				.money {
 					font-weight: 600;
+					color: #ff0000;
 				}
 			}
 
 			.btn {
 				padding: 0 30upx;
-				height: 60upx;
-				background-color: #f06c7a;
+				height: 100upx;
+				width: 250upx;
+				background-color: #000;
 				color: #fff;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				font-size: 30upx;
-				border-radius: 40upx;
 			}
 		}
 	}
 
 	.detail {
-		width: 86%;
-		padding: 10upx 3%;
-		margin: 30upx auto 20upx auto;
-		box-shadow: 0upx 5upx 20upx rgba(0, 0, 0, 0.1);
-		border-radius: 20upx;
+		width: 100%;
+		background-color: #fff;
+		// margin: 30upx auto 20upx auto;
+
 
 		.row {
 			height: 60upx;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			padding: 20upx 3%;
 
 			.nominal {
 				font-size: 28upx;
@@ -442,8 +500,50 @@
 
 			.content {
 				font-size: 26upx;
-				color: #f06c7a;
+				color: #ff0000;
+
+				i {
+					color: #e8e8e8;
+				}
 			}
+		}
+		.distribution{
+			
+			display: flex;
+			flex-direction: column;
+			padding: 20upx 3%;
+			.waydet{
+				margin-top: 20upx;
+				text{
+				border: 1px solid #e8e8e8;
+				color: #e8e8e8;
+				padding: 10upx 20upx;
+				margin-right: 10upx;
+				font-size: 24upx;
+				border-radius: 8upx;
+				}
+				.act{
+					border: none;
+					background-color: #000;
+					color: #ffffff;
+				}
+			}
+			
+			
+		}
+	}
+
+	.connectKf {
+		display: flex;
+		justify-content: flex-end;
+		padding: 20upx;
+
+		text {
+			color: #9a9a9a;
+			border: 1px solid #9a9a9a;
+			padding: 10upx 30upx;
+			border-radius: 10upx;
+			font-size: 24upx;
 		}
 	}
 </style>
