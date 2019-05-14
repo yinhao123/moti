@@ -1,5 +1,9 @@
 <template>
 	<view class="content">
+		<!-- 底部按钮 -->
+		<view class="bottom">
+			<view class="btn">提交</view>
+		</view>
 		<view class="refundHead">
 			<view>订单编号</view>
 			<view>{{orderNum}}</view>
@@ -81,10 +85,10 @@
 				orderNum:"12315234",
 				title: 'choose/previewImage',
 				imageList: [],
-				sourceTypeIndex: 2,
-				sourceType: ['拍照', '相册', '拍照或相册'],
-				sizeTypeIndex: 2,
-				sizeType: ['压缩', '原图', '压缩或原图'],
+				sourceTypeIndex: 0,
+				sourceType: ['请选择','有损坏', '不想要了', '没钱了'],
+				sizeTypeIndex: 0,
+				sizeType: ['请选择','8元', '16元', '32元'],
 				countIndex: 8,
 				count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 			}
@@ -183,6 +187,20 @@
 					margin: 0;
 					padding: 0 30upx 60upx 30upx;
 				}
+			}
+		}
+		.bottom{
+			width: 100%;
+			height: 100upx;
+			position: fixed;
+			bottom: 40upx;
+			.btn{
+				width: 95%;
+				text-align: center;
+				margin: 0 auto;
+				line-height: 100upx;
+				background: #000;
+				color: #fff;
 			}
 		}
 	}
