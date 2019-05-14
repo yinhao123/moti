@@ -49,6 +49,14 @@
             "style" : {"navigationBarTitleText": "MOTI"}
         }
         ,{
+            "path" : "pages/orderDetail/orderDetail",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
+        ,{
+            "path" : "pages/refund/refund",
+			"style" : {"navigationBarTitleText": "MOTI"}
+		}
+		,{
             "path" : "pages/placeOrder/placeOrder",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
