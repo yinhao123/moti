@@ -99,5 +99,8 @@
 				}
 			}
 		}
+		.btnCon{
+			width: 100%;
+		}
 	}
 </style>

@@ -54,7 +54,7 @@
         }
         ,{
             "path" : "pages/refund/refund",
-			"style" : {"navigationBarTitleText": "MOTI"},
+			"style" : {"navigationBarTitleText": "MOTI"}
 		}
 		,{
             "path" : "pages/placeOrder/placeOrder",
