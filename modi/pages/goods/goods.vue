@@ -297,12 +297,9 @@ export default {
 		},
 		// 加入购物车
 		joinCart(){
-			if(this.selectSpec==null){
-				return this.showSpec(()=>{
-					uni.showToast({title: "已加入购物车"});
-				});
-			}
-			uni.showToast({title: "已加入购物车"});
+			return this.showSpec(()=>{
+				uni.showToast({title: "已加入购物车"});
+			});
 		},
 		//立即购买
 		buy(){
