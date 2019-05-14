@@ -88,14 +88,30 @@
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
 			<view class="layer" @tap.stop="discard">
-				<view class="content" v-for="(items,index) in goodsData.spec" :key="index">
+				<view class="content">
+					<view class="title">口味</view>
+					<view class="sp">
+						<view v-for="(items,index0) in goodsData.spec0" @tap="setSelectSpec(0,index0)" :key="index0" :class="[selectSpec0 == index0?'on':'']">
+							{{items}}
+						</view>
+					</view>
+				</view>
+				<view class="content">
+					<view class="title">规格</view>
+					<view class="sp">
+						<view v-for="(items,index1) in goodsData.spec1" @tap="setSelectSpec(1,index1)" :key="index1" :class="[selectSpec1 == index1?'on':'']">
+							{{items}}
+						</view>
+					</view>
+				</view>
+				<!-- <view class="content" v-for="(items,index) in goodsData.spec" :key="index">
 					<view class="title">{{items.title}}</view>
 					<view class="sp">
 						<view v-for="(item,index0) in items.type" :key="index0"
-						:class="[index0==selectSpec?'on':'']" 
-						@tap="setSelectSpec(index0)">{{item}}</view>
+						:class="[item.checked?'on':'']"
+						@tap="setSelectSpec(index,index0)">{{item.name}}</view>
 					</view>
-				</view>
+				</view> -->
 				<view class="btn"><view class="button" @tap="hideSpec">完成</view></view>
 			</view>
 		</view>
@@ -211,10 +227,8 @@ export default {
 				discount:"满298.00减20.00元、满445.00减30.00元、满298.00减20.00元",
 				service:"优惠券x3",
 				specDefault:"(新品)绿豆冰沙 4支装",
-				spec:[
-					{id:"12",title:"口味",type:["(新品)绿豆冰沙","(新品)风情芒果","经典烟草","香醇烟草","强劲薄荷"]},
-					{id:"1123",title:"规格",type:["单支装","4只装"]}
-				],
+				spec0:["(新品)绿豆冰沙","(新品)风情芒果","经典烟草","香醇烟草","强劲薄荷"],
+				spec1:["单支装","4只装"],
 				comment:{
 					number:102,
 					userface:'../../static/img/face.jpg',
@@ -223,7 +237,8 @@ export default {
 				}
 				
 			},
-			selectSpec:null,//选中规格
+			selectSpec0:null,//选中规格
+			selectSpec1:null,//选中规格
 			isKeep:false,//收藏
 			//商品描述html
 			descriptionStr:'<div style="text-align:center;"><img width="100%" src="https://s2.ax1x.com/2019/03/28/AdOogx.jpg"/><img width="100%" src="https://s2.ax1x.com/2019/03/28/AdOHKK.jpg"/><img width="100%" src="https://s2.ax1x.com/2019/03/28/AdOTv6.jpg"/></div>'
@@ -264,12 +279,6 @@ export default {
 		swiperChange(event) {
 			this.currentSwiper = event.detail.current;
 		},
-		//消息列表
-		toMsg(){
-			uni.navigateTo({
-				url:'../msg/msg'
-			})
-		},
 		toCart(){
 			uni.switchTab({
 				url:"/pages/cart/cart"
@@ -277,9 +286,10 @@ export default {
 		},
 		// 客服
 		toChat(){
-			uni.navigateTo({
-				url:"../msg/chat/chat?name=客服008"
-			})
+			uni.showToast({title: "联系客服"});
+			// uni.navigateTo({
+			// 	url:"../msg/chat/chat?name=客服008"
+			// })
 		},
 		// 分享
 		share(){
@@ -292,9 +302,9 @@ export default {
 			}, 150);
 		},
 		//收藏
-		keep(){
-			this.isKeep = this.isKeep?false:true;
-		},
+		// keep(){
+		// 	this.isKeep = this.isKeep?false:true;
+		// },
 		// 加入购物车
 		joinCart(){
 			return this.showSpec(()=>{
@@ -303,11 +313,9 @@ export default {
 		},
 		//立即购买
 		buy(){
-			if(this.selectSpec==null){
-				return this.showSpec(()=>{
-					this.toConfirmation();
-				});
-			}
+			return this.showSpec(()=>{
+				this.toConfirmation();
+			});
 			this.toConfirmation();
 		},
 		//跳转确认订单页面
@@ -327,13 +335,15 @@ export default {
 		},
 		//跳转评论列表
 		showComments(goodsid){
-			
+			console.log("跳转评论列表")
 		},
 		//选择规格
-		setSelectSpec(index){
-			this.selectSpec = index;
-			this.selectSpec.checked
-			console.log(this.selectSpec)
+		setSelectSpec(id,index){
+			if(id == 0){
+				this.selectSpec0 = index
+			}else{
+				this.selectSpec1 = index
+			}
 		},
 		//减少数量
 		sub(){
