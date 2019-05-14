@@ -70,7 +70,7 @@
         }
         ,{
             "path" : "pages/pay/success/success",
-            "style" : {}
+            "style" : {"navigationBarTitleText": "MOTI"}
         }
     ],
 	"globalStyle": {
