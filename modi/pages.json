@@ -60,6 +60,10 @@
             "path" : "pages/placeOrder/placeOrder",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/goods/goods",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
