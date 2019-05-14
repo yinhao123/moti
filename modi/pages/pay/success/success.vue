@@ -19,9 +19,18 @@
 				</view>
 			</view>
 		</view>
-		<view class="back">
-			<view class="btn" @tap="toUser">个人中心</view>
+		<view class="orderCode">
+			<text>订单编号</text>
+			<text>201903092340238</text>
 		</view>
+		<view class="buyerInfo">
+			<text>收货人：木木</text>
+			<text>收货地址：北京市北京市朝阳区东煌大厦19层</text>
+			<text>联系电话：13901009900</text>
+		</view>
+<!-- 		<view class="back">
+			<view class="btn" @tap="toUser">个人中心</view>
+		</view> -->
 	</view>
 </template>
 
@@ -84,6 +93,25 @@
 			border-radius: 8upx;
 			color: #606060;
 		}
+	}
+}
+.orderCode{
+	width: 100%;
+	background-color:#fff;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30upx;
+	padding: 20upx 3%;
+}
+.buyerInfo{
+	width: 100%;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	margin-top: 30upx;
+	padding: 20upx 3%;
+	text{
+		padding: 10upx 0;
 	}
 }
 	.icon {
