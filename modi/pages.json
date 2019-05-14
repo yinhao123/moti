@@ -68,10 +68,6 @@
             "path" : "pages/pay/payment/payment",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
-        ,{
-            "path" : "pages/pay/success/success",
-            "style" : {}
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -81,9 +77,9 @@
 	},
 	"tabBar": {
 		"color": "#7A7E83",
-		"selectedColor": "#007AFF",
-		"borderStyle": "black",
-		"backgroundColor": "#F8F8F8",
+		"selectedColor": "#000000",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/01.png",
