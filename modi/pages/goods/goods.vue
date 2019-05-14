@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="contentBody">
 		<!-- 底部菜单 -->
 		<view class="footer">
 			<view class="icons">
@@ -54,7 +54,20 @@
 					取消
 				</view>
 			</view>
-			
+		</view>
+		<!-- 满减-模态层弹窗 -->
+		<view class="popup fullReduce" :class="fullReduceClass" @touchmove.stop.prevent="discard" @tap="hidefullReduce">
+			<!-- 遮罩层 -->
+			<view class="mask"></view>
+			<view class="layer" @tap.stop="discard">
+				<view class="content">
+					<view class="row" v-for="(item,index) in goodsData.fullReduce" :key="index">
+						<view class="title">{{item.title}}</view>
+						<view class="description">{{item.content}}</view>
+					</view>
+				</view>
+				<view class="btn"><view class="button" @tap="hidefullReduce">我知道了</view></view>
+			</view>
 		</view>
 		<!-- 服务-模态层弹窗 -->
 		<view class="popup service" :class="serviceClass" @touchmove.stop.prevent="discard" @tap="hideService">
@@ -67,7 +80,7 @@
 						<view class="description">{{item.description}}</view>
 					</view>
 				</view>
-				<view class="btn"><view class="button" @tap="hideService">完成</view></view>
+				<view class="btn"><view class="button" @tap="hideService">我知道了</view></view>
 			</view>
 		</view>
 		<!-- 规格-模态层弹窗 -->
@@ -75,24 +88,12 @@
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
 			<view class="layer" @tap.stop="discard">
-				<view class="content">
-					<view class="title">选择规格：</view>
+				<view class="content" v-for="(items,index) in goodsData.spec" :key="index">
+					<view class="title">{{items.title}}</view>
 					<view class="sp">
-						<view v-for="(item,index) in goodsData.spec" :class="[index==selectSpec?'on':'']" @tap="setSelectSpec(index)" :key="index">{{item}}</view>
-					</view>
-					<view class="length" v-if="selectSpec!=null">
-						<view class="text">数量</view>
-						<view class="number">
-							<view class="sub" @tap.stop="sub">
-								<view class="icon jian"></view>
-							</view>
-							<view class="input" @tap.stop="discard">
-								<input type="number" v-model="goodsData.number" />
-							</view>
-							<view class="add"  @tap.stop="add">
-								<view class="icon jia"></view>
-							</view>
-						</view>
+						<view v-for="(item,index0) in items.type" :key="index0"
+						:class="[index0==selectSpec?'on':'']" 
+						@tap="setSelectSpec(index0)">{{item}}</view>
 					</view>
 				</view>
 				<view class="btn"><view class="button" @tap="hideSpec">完成</view></view>
@@ -120,7 +121,7 @@
 		</view>
 		<!-- 服务-规则选择 -->
 		<view class="info-box spec">
-			<view class="row" @tap="showService">
+			<view class="row" @tap="showfullReduce">
 				<view class="text">促销</view>
 				<view class="content"><view class="serviceitem">{{goodsData.discount}}</view></view>
 				<view class="arrow"><view class="iconfont moti-right"></view></view>
@@ -194,6 +195,7 @@ export default {
 			currentSwiper: 0,
 			anchorlist:[],//导航条锚点
 			selectAnchor:0,//选中锚点
+			fullReduceClass:'',//满减弹窗css类，控制开关动画
 			serviceClass: '',//服务弹窗css类，控制开关动画
 			specClass: '',//规格弹窗css类，控制开关动画
 			shareClass:'',//分享弹窗css类，控制开关动画
@@ -205,10 +207,14 @@ export default {
 				number:1,
 				kd:"满99包邮",
 				sell:"12314",
+				fullReduce:[{"title":"满减",content:"满298.00减20.00元、满445.00减30.00元、满298.00减20.00元"}],
 				discount:"满298.00减20.00元、满445.00减30.00元、满298.00减20.00元",
 				service:"优惠券x3",
 				specDefault:"(新品)绿豆冰沙 4支装",
-				spec:["XS","S","M","L","XL","XXL"],
+				spec:[
+					{id:"12",title:"口味",type:["(新品)绿豆冰沙","(新品)风情芒果","经典烟草","香醇烟草","强劲薄荷"]},
+					{id:"1123",title:"规格",type:["单支装","4只装"]}
+				],
 				comment:{
 					number:102,
 					userface:'../../static/img/face.jpg',
@@ -264,6 +270,11 @@ export default {
 				url:'../msg/msg'
 			})
 		},
+		toCart(){
+			uni.switchTab({
+				url:"/pages/cart/cart"
+			})
+		},
 		// 客服
 		toChat(){
 			uni.navigateTo({
@@ -312,7 +323,7 @@ export default {
 				data:tmpList,
 				success: () => {
 					uni.navigateTo({
-						url:'../order/confirmation'
+						url:'/pages/placeOrder/placeOrder'
 					})
 				}
 			})
@@ -324,6 +335,8 @@ export default {
 		//选择规格
 		setSelectSpec(index){
 			this.selectSpec = index;
+			this.selectSpec.checked
+			console.log(this.selectSpec)
 		},
 		//减少数量
 		sub(){
@@ -365,6 +378,18 @@ export default {
 		back() {
 			uni.navigateBack();
 		},
+		//满减弹窗
+		showfullReduce() {
+			console.log('show');
+			this.fullReduceClass = 'show';
+		},
+		//关闭满减弹窗
+		hidefullReduce() {
+			this.fullReduceClass = 'hide';
+			setTimeout(() => {
+				this.fullReduceClass = 'none';
+			}, 200);
+		},
 		//服务弹窗
 		showService() {
 			console.log('show');
@@ -390,7 +415,6 @@ export default {
 		hideSpec() {
 			this.specClass = 'hide';
 			//回调
-
 			this.selectSpec&&this.specCallback&&this.specCallback();
 			this.specCallback = false;
 			setTimeout(() => {
@@ -405,7 +429,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.contentBody{
+	padding-bottom: 100upx;
+}
 @keyframes showPopup {
 		0% {
 			opacity: 0;
@@ -767,17 +793,16 @@ export default {
 		}
 		.btn {
 			width: 100%;
-			height: 100upx;
+			height: 150upx;
 			.button {
 				width: 100%;
-				height: 80upx;
-				border-radius: 40upx;
+				height: 90upx;
+				background: #000000;
 				color: #fff;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background-color: #f47952;
-				font-size: 28upx;
+				font-size: 22upx;
 			}
 		}
 	}
@@ -804,6 +829,29 @@ export default {
 	&.none {
 		display: none;
 	}
+	&.fullReduce {
+		.row {
+			margin: 30upx 0;
+			display: flex;
+			justify-content: space-between;
+			.title {
+				font-size: 22upx;
+				width: 100upx;
+				height: 40upx;
+				text-align: center;
+				line-height: 40upx;
+				background: #fff;
+				color: #e00005;
+				border: 1upx solid #e00005;
+				box-sizing: border-box;
+				margin-right: 20upx;
+			}
+			.description {
+				font-size: 22upx;
+				color: #000000;
+			}
+		}
+	}
 	&.service {
 		.row {
 			margin: 30upx 0;
@@ -819,75 +867,28 @@ export default {
 	}
 	&.spec {
 		.title {
-			font-size: 30upx;
+			font-size: 24upx;
 			margin: 30upx 0;
 		}
 		.sp {
-			display: flex;
 			view {
-				font-size: 28upx;
-				padding: 5upx 20upx;
-				border-radius: 8upx;
-				margin: 0 30upx 20upx 0;
-				background-color: #f6f6f6;
+				display: inline-block;
+				font-size: 22upx;
+				padding: 10upx 20upx;
+				height: 40upx;
+				line-height: 40upx;
+				margin: 10upx;
+				background-color: #fff;
+				color: #000000;
+				border-radius: 10upx;
+				border:2upx solid #bababa;
 				&.on {
-					padding: 3upx 18upx;
-					border: solid 1upx #f47925;
+					background-color: #000;
+					color: #fff;
+					border:2upx solid #000;
 				}
 			}
 		}
-		.length{
-			margin-top: 30upx;
-			border-top: solid 1upx #aaa;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding-top: 20upx;
-			.text{
-				font-size: 30upx;
-			}
-			.number{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				.input{
-					width: 80upx;
-					height: 60upx;
-					margin: 0 10upx;
-					background-color: #f3f3f3;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					text-align: center;
-					input{
-						width: 80upx;
-						height: 60upx;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						text-align: center;
-						font-size: 26upx;
-					}
-				}
-				
-				.sub ,.add{
-					width: 60upx;
-					height: 60upx;
-					background-color: #f3f3f3;
-					border-radius: 5upx;
-					.icon{
-						font-size: 30upx;
-						width: 60upx;
-						height: 60upx;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						
-					}
-				}
-			}
-		}
-		
 	}
 }
 .share{
