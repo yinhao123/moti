@@ -72,6 +72,10 @@
             "path" : "pages/pay/success/success",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/notes/notes",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

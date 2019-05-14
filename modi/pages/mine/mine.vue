@@ -5,7 +5,7 @@
 				<view class="userImg"></view>
 				<view class="userName">请叫我锦鲤</view>
 			</view>
-			<view class="iconfont moti-xiaoxi"></view>
+			<view class="iconfont moti-xiaoxi" @tap="goNotes"></view>
 		</view>
 		<view class="others">
 			<view class="othersItem" v-for="(item,index) in othersList" :key="index">
@@ -38,6 +38,11 @@
 				uni.navigateTo({
 					url: url
 				});
+			},
+			goNotes:function (){
+				uni.navigateTo({
+					url:"../notes/notes"
+				})
 			}
 		}
 	}
