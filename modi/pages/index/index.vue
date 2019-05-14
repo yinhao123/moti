@@ -64,6 +64,9 @@
 					{id:1,title:'物化弹',banner:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',list:[
 						{name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
 						{name:'MOTI物化弹（四颗装）',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
+						{name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
+						{name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
+						{name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
 						{name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"}
 					]},
 					{id:2,title:'购套装',banner:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',list:[
