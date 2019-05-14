@@ -3,9 +3,9 @@
 		<!-- 轮播图 -->
 		<view class="swiper">
 			<view class="swiper-box">
-				<swiper circular="true" autoplay="true" @change="swiperChange">
-					<swiper-item v-for="swiper in swiperList" :key="swiper.id">
-						<image :src="swiper.img" @tap="toSwiper(swiper)" mode="widthFix"></image>
+				<swiper class="swiperCon" circular="true" autoplay="true" @change="swiperChange">
+					<swiper-item class="swiperItem" v-for="swiper in swiperList" :key="swiper.id">
+						<image :src="swiper.img" @tap="toSwiper(swiper)" class="bannerImg"></image>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -98,11 +98,16 @@
 <style scoped lang="scss">
 	.content{
 		height: 100%;
-		uni-swiper{
-			height: 300upx;
-			uni-image{
+		.swiper-box{
+			.swiperCon{
 				width: 100%;
-				object-fit: contain;
+				height: 300upx;
+				.swiperItem{
+					image{
+						width: 100%;
+						height: 300upx;
+					}
+				}
 			}
 		}
 		.category-list{
