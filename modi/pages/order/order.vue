@@ -142,7 +142,7 @@
 							align-self:flex-start;
 							view{
 								align-self:flex-start;
-								font-size: 30upx;
+								font-size: 24upx;
 								font-family: ArialMT;
 							}
 							.goodsName{
