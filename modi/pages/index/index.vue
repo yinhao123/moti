@@ -60,22 +60,22 @@
 				showCategoryIndex:0,
 				categoryList:[
 					{id:1,title:'物化弹',banner:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',list:[
-						{id:"11",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
-						{id:"12",name:'MOTI物化弹（四颗装）',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
-						{id:"13",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
-						{id:"14",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
-						{id:"15",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"},
-						{id:"16",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',price:"299.00"}
+						{id:"11",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'../../static/p1.png',price:"299.00"},
+						{id:"12",name:'MOTI物化弹（四颗装）',img:'../../static/p2.png',price:"299.00"},
+						{id:"13",name:'MOTI物化弹',img:'../../static/p3.png',price:"299.00"},
+						{id:"14",name:'MOTI物化弹',img:'../../static/p1.png',price:"299.00"},
+						{id:"15",name:'MOTI物化弹',img:'../../static/p2.png',price:"299.00"},
+						{id:"16",name:'MOTI物化弹',img:'../../static/p3.png',price:"299.00"}
 					]},
 					{id:2,title:'购套装',banner:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',list:[
-						{id:"21",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',price:"299.00"},
-						{id:"22",name:'MOTI物化弹（四颗装）',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',price:"299.00"},
-						{id:"23",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',price:"299.00"}
+						{id:"21",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'../../static/t1.png',price:"299.00"},
+						{id:"22",name:'MOTI物化弹（四颗装）',img:'../../static/t1.png',price:"299.00"},
+						{id:"23",name:'MOTI物化弹',img:'../../static/t1.png',price:"299.00"}
 					]},
 					{id:3,title:'一次性',banner:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',list:[
-						{id:"31",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',price:"299.00"},
-						{id:"32",name:'MOTI物化弹（四颗装）',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',price:"299.00"},
-						{id:"33",name:'MOTI物化弹',img:'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',price:"299.00"}
+						{id:"31",name:'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',img:'../../static/u1.png',price:"299.00"},
+						{id:"32",name:'MOTI物化弹（四颗装）',img:'../../static/u2.png',price:"299.00"},
+						{id:"33",name:'MOTI物化弹',img:'../../static/u1.png',price:"299.00"}
 					]}
 				]
 			}

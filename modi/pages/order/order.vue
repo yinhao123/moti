@@ -48,7 +48,7 @@
 						orderNum:1,
 						orderInfo:[
 							{
-								imgUrl:"/static/logo.png",
+								imgUrl:"/static/u1.png",
 								goodsNum:1,
 								goodsName:"MOTI大礼盒（1杆+10物化弹+4MOJO）",
 								goodsInfo:"MOTOxMOJO大礼盒 礼盒版499.00",
@@ -63,14 +63,14 @@
 						orderType:"待付款",
 						orderInfo:[
 							{
-								imgUrl:"/static/logo.png",
+								imgUrl:"/static/22.png",
 								goodsNum:1,
 								goodsName:"MOTI一次性物化棒 一次性物化棒单只",
 								goodsInfo:"浓情雪茄 39.00",
 								goodsPrice:39.00
 							},
 							{
-								imgUrl:"/static/logo.png",
+								imgUrl:"/static/77.png",
 								goodsNum:1,
 								goodsName:"MOTI一次性物化棒 一次性物化棒单只",
 								goodsInfo:"浓情雪茄 39.00",
