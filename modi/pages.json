@@ -64,6 +64,14 @@
             "path" : "pages/goods/goods",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/pay/payment/payment",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
+        ,{
+            "path" : "pages/pay/success/success",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
