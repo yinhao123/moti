@@ -46,11 +46,23 @@
 			return {
 				// 轮播图片
 				swiperList: [
-					{ id: 1, src: 'url1', img: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg' },
-					{ id: 2, src: 'url2', img: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg' },
-					{ id: 3, src: 'url3', img: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg' }
+					{ id: 1, src: 'url1', img: '../../static/dk1.png' },
+					{ id: 2, src: 'url2', img: '../../static/dk2.png' },
+					{ id: 3, src: 'url3', img: '../../static/dk3.png' },
+					{ id: 4, src: 'url4', img: '../../static/dk4.png' }
 				]
 			}
+		},
+		onBackPress: function(){
+			// // uni.switchTab({
+			// // 	url:"/pages/index/index"
+			// // });
+			// uni.navigateBack({
+			// 	delta: 3
+			// });
+			uni.switchTab({
+				url:"/pages/index/index"
+			})
 		},
 		methods: {
 			//轮播图指示器
