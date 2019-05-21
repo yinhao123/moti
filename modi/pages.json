@@ -88,6 +88,18 @@
             "path" : "pages/sign/step3/step3",
             "style" : {}
         }
+        ,{
+            "path" : "pages/logIn/logIn",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/logUp/logUp",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/passwordReset/passwordReset",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
