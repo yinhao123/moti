@@ -90,7 +90,7 @@
         }
         ,{
             "path" : "pages/logIn/logIn",
-            "style" : {}
+            "style" : {"navigationBarTitleText": "MOTI"}
         }
         ,{
             "path" : "pages/logUp/logUp",
@@ -98,6 +98,10 @@
         }
         ,{
             "path" : "pages/passwordReset/passwordReset",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/loginCode/loginCode",
             "style" : {}
         }
     ],
