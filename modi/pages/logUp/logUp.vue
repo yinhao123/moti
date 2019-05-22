@@ -1,6 +1,6 @@
 <template>
 	<view class="wrapper">
-		<form action="">
+		<form action="" @submit="formSubmit">
 			<view class="input-wrapper">
 				<text class="iconfont">&#xe660;</text>
 				<input type="text" name="input" placeholder="请输入用户名" />
@@ -14,7 +14,7 @@
 				<input type="text" password="true" name="input" placeholder="请输入验证码" />
 				<navigator>发送验证码</navigator>
 			</view>
-			<button>立即注册</button>
+			<button formType="submit">立即注册</button>
 		</form>
 		<view class="agreement">*注册即代表您同意<navigator>《MOTI商城用户协议》</navigator>
 		</view>
@@ -27,6 +27,11 @@
 			return {
 
 			};
+		},
+		methods:{
+			formSubmit: function(e) {
+				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+			}
 		}
 	}
 </script>
