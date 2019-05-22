@@ -6,12 +6,6 @@
 					<text class="iconfont">&#xe655;</text>
 					<input type="number"  name="user" placeholder="请输入手机号"  v-model="user"/>
 				</view>
-<<<<<<< HEAD
-				<view>
-					<text class="iconfont">&#xe647;</text>
-					<input type="text" name="authCode" placeholder="请输入验证码"  v-model="authCode"/>
-					<button>获取验证码</button>
-=======
 				<view class="from-items codeCon">
 					<view class="code">
 						<text class="iconfont">&#xe647;</text>
@@ -20,7 +14,6 @@
 					<view class="getCode">
 						获取验证码
 					</view>
->>>>>>> 69eb7ff2e6a2208586bed2282c03624bf91da111
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
@@ -123,13 +116,9 @@
 					color: #fa5151;
 				}
 			}
-<<<<<<< HEAD
 
-			>button {
-=======
 			
 			button {
->>>>>>> 69eb7ff2e6a2208586bed2282c03624bf91da111
 				width: 690upx;
 				height: 82upx;
 				background:#050505;
