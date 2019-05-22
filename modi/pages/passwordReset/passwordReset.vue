@@ -11,7 +11,7 @@
 						<text class="iconfont">&#xe647;</text>
 						<input @change="checkRules('dynamicCode')" type="text" name="dynamicCode" placeholder="请输入验证码" v-model="dynamicCode" />
 					</view>
-					<view class="getCode" @tap="getCode" :class="canClick ? 'codeNot' : ''">{{ codeText }}</view>
+					<view class="getCode" @tap="getCode" :class="canClick ? '' : 'codeNot'">{{ codeText }}</view>
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
@@ -45,7 +45,7 @@ export default {
 			pwdCheck:false,//密码状态
 			pwdCheckSame:false,//确认密码
 			
-			canClick:true,//倒计时
+			canClick:false,//倒计时
 			codeText: '获取验证码',
 			totalTime: 60,
 			errMsg: ''
@@ -61,7 +61,7 @@ export default {
 							this.errMsg = '请输入有效的手机号码';
 						} else {
 							this.iphoneCheck = true;
-							this.canClick = false;
+							this.canClick = true;
 						}
 					} else {
 						this.errMsg = '请输入手机号码';
@@ -104,7 +104,7 @@ export default {
 		getCode: function() {
 			let succ = getDynamicCode(this.mobile);
 			if (succ.code == 0) {
-				if (this.canClick) return; //改动的是这两行代码
+				if (!this.canClick) return; //改动的是这两行代码
 				this.canClick = false;
 				this.codeText = this.totalTime + 's后重新发送';
 				let clock = window.setInterval(() => {
@@ -114,7 +114,7 @@ export default {
 						window.clearInterval(clock);
 						this.codeText = '重新发送验证码';
 						this.totalTime = 10;
-						this.canClick = true; //这里重新开启
+						this.canClick = false; //这里重新开启
 					}
 				}, 1000);
 			}
