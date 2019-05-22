@@ -5,9 +5,12 @@ export async function checkLoginName(loginName) {
 	let result = uni.request({
 		url: config.host +'/m/user/checkLoginName',
 		method: 'POST',
-		data: JSON.stringify({
+		header:{
+			"content-type":'application/x-www-form-urlencoded'
+		},
+		data:{
 			loginName
-		})
+		}
 	})
 	console.log(result)
 	return result
