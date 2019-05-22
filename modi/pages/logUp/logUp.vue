@@ -32,6 +32,7 @@
 </template>
 
 <script>
+	import {checkMobile} from '../../common/utils.js'
 	export default {
 		data() {
 			return {
@@ -43,8 +44,8 @@
 		},
 		methods: {
 			 getDyNamicCode () { // 获取验证码
-				 let phone = /^1[34578]\d{9}$/
-				 if (!phone.test(this.mobile)) alert("手机号有误！") 
+				if (checkMobile(this.mobile)) alert("手机号有误！") 
+				
 			 }
 		},
 	}
