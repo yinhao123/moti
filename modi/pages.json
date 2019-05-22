@@ -99,12 +99,13 @@
         ,{
             "path" : "pages/passwordReset/passwordReset",
             "style" : {}
-        }
-        ,{
+        },{
+            "path" : "pages/perfectInfo/perfectInfo",
+            "style" : {"navigationBarTitleText": "个人资料设置"}
+        },{
             "path" : "pages/loginCode/loginCode",
             "style" : {}
-        }
-    ],
+        }],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

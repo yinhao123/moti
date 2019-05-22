@@ -5,7 +5,10 @@
 				<view class="userImg">
 					<image src="../../static/22.png" mode=""></image>
 				</view>
-				<view class="userName">请叫我锦鲤</view>
+				<view class="userFlex" @tap="goInfo">				
+					<view class="userName">请叫我锦鲤</view>
+					<view class="personFile">完善资料 <text class="iconfont moti-right"></text> </view>
+				</view>
 			</view>
 			<view class="iconfont moti-xiaoxi" @tap="goNotes"></view>
 		</view>
@@ -45,6 +48,11 @@
 				uni.navigateTo({
 					url:"../notes/notes"
 				})
+			},
+			goInfo:function(){
+				uni.navigateTo({
+					url:'../perfectInfo/perfectInfo'
+				})
 			}
 		}
 	}
@@ -76,8 +84,16 @@
 						height: 110upx;
 					}
 				}
-				.userName{
+				.userFlex{
+					display: flex;
+					flex-direction: column;
 					margin-left: 20upx;
+					view{
+						height: 48upx;
+					}
+					.personFile{
+						color: #999999;
+					}
 				}
 			}
 		}
