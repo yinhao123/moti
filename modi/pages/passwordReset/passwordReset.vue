@@ -4,8 +4,14 @@
 			<view class="from-list">
 				<view class="from-items"> 
 					<text class="iconfont">&#xe655;</text>
-					<input type="text"  name="user" placeholder="请输入手机号" />
+					<input type="number"  name="user" placeholder="请输入手机号"  v-model="user"/>
 				</view>
+<<<<<<< HEAD
+				<view>
+					<text class="iconfont">&#xe647;</text>
+					<input type="text" name="authCode" placeholder="请输入验证码"  v-model="authCode"/>
+					<button>获取验证码</button>
+=======
 				<view class="from-items codeCon">
 					<view class="code">
 						<text class="iconfont">&#xe647;</text>
@@ -14,14 +20,15 @@
 					<view class="getCode">
 						获取验证码
 					</view>
+>>>>>>> 69eb7ff2e6a2208586bed2282c03624bf91da111
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请输入新密码" />
+					<input type="text" password="true" name="password" placeholder="请输入新密码" v-model="password" />
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请再次输入新密码" />
+					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入新密码" v-model="repeatPassword"  v-moder/>
 				</view>
 				<view class="from-items errText">
 					错误提示位置
@@ -38,7 +45,10 @@
 	export default {
 		data() {
 			return {
-
+				user:0,
+				authCode:0,
+				password:'',
+				repeatPassword:''
 			};
 		}
 	}
@@ -58,13 +68,13 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-
-			align-content: space-between;
+			align-content: center;
 			.from-list {
 				.from-items {
 					height: 98upx;
-					padding-left: 30upx;
+					padding: 0 30upx;
 					display: flex;
+					justify-content: space-between;
 					align-items: center;
 					background: #ffffff;
 					border: 1px solid #f6f6f6;
@@ -86,7 +96,17 @@
 						font-size: 48upx;
 						margin-right: 30upx;
 					}
-
+					input{
+						flex:1;
+					}
+					button{
+						width: 180upx;
+						height: 60upx;
+						background:#ff4a64;
+						border-radius:8px; 
+						font-size: 22upx;
+						color:#ffffff;
+					}
 					.lock {
 						margin-left: 5upx;
 						margin-right: 34upx;
@@ -103,8 +123,13 @@
 					color: #fa5151;
 				}
 			}
+<<<<<<< HEAD
+
+			>button {
+=======
 			
 			button {
+>>>>>>> 69eb7ff2e6a2208586bed2282c03624bf91da111
 				width: 690upx;
 				height: 82upx;
 				background:#050505;
@@ -112,6 +137,7 @@
 				color: #ffffff;
 				font-size: 24upx;
 				line-height: 82upx;
+				margin-bottom:40upx;
 			}
 		}
 	}
