@@ -1,132 +1,217 @@
 <template>
 	<view class="wrapper">
-		<from name="passwordReset">
+		<form action="" @submit="formSubmit">
 			<view class="from-list">
-				<view class="from-items"> 
+				<view class="from-items">
 					<text class="iconfont">&#xe655;</text>
-					<input type="number"  name="user" placeholder="请输入手机号"  v-model="user"/>
+					<input @change="checkRules('mobile')" type="number" name="mobile" placeholder="请输入手机号" v-model="mobile" />
 				</view>
 				<view class="from-items codeCon">
 					<view class="code">
 						<text class="iconfont">&#xe647;</text>
-						<input type="text" name="authCode" placeholder="请输入验证码" />
+						<input @change="checkRules('dynamicCode')" type="text" name="dynamicCode" placeholder="请输入验证码" v-model="dynamicCode" />
 					</view>
-					<view class="getCode">
-						获取验证码
-					</view>
+					<view class="getCode" @tap="getCode" :class="canClick ? 'codeNot' : ''">{{ codeText }}</view>
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请输入新密码" v-model="password" />
+					<input type="text" @change="checkRules('password')" password="true" name="password" placeholder="请输入新密码" v-model="password" />
+					<text class="iconfont is-show">&#xe7b2;</text>
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入新密码" v-model="repeatPassword"  v-moder/>
+					<input type="text" @change="checkRules('repeatPassword')" password="true" name="repeatPassword" placeholder="请再次输入密码" v-model="repeatPassword" />
+					<text class="iconfont is-show">&#xe7b2;</text>
 				</view>
-				<view class="from-items errText">
-					错误提示位置
-				</view>
+				<view class="from-items errText">{{ errMsg }}</view>
 			</view>
-			
 			<button>确认提交</button>
-		</from>
-		
+		</form>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				user:0,
-				authCode:0,
-				password:'',
-				repeatPassword:''
-			};
+import { getDynamicCode } from '@/common/request.js';
+export default {
+	data() {
+		return {
+			mobile: '',//手机号
+			dynamicCode: '',//验证码
+			password: '',//密码
+			repeatPassword: '',//确认密码
+			
+			iphoneCheck: false,//手机号状态
+			codeCheck:false,//验证码状态
+			pwdCheck:false,//密码状态
+			pwdCheckSame:false,//确认密码
+			
+			canClick:true,//倒计时
+			codeText: '获取验证码',
+			totalTime: 60,
+			errMsg: ''
+		};
+	},
+	methods: {
+		checkRules: function(inputType) {
+			switch (inputType) {
+				case 'mobile':
+					if (this.mobile != '') {
+						var reg = /^1[3456789]\d{9}$/;
+						if (!reg.test(this.mobile)) {
+							this.errMsg = '请输入有效的手机号码';
+						} else {
+							this.iphoneCheck = true;
+							this.canClick = false;
+						}
+					} else {
+						this.errMsg = '请输入手机号码';
+					}
+					break;
+				case 'code':
+					if(this.dynamicCode == ''){
+						this.errMsg = "请输入验证码"
+					}else{
+						this.codeCheck = true;
+					}
+					break;
+				case 'password':
+					if(this.password == ''){
+						this.errMsg = "请输入密码"
+					}else{
+						let reg = /^[\w.]{6,20}$/;
+						if (!reg.test(this.password)) {
+							this.errMsg = '密码需要由6~20位数字，字母或符号组成';
+						} else {
+							this.pwdCheck = true;
+						}
+					}
+					break;
+				case 'repeatPassword':
+					if(this.repeatPassword == ''){
+						this.errMsg = "请再次输入密码"
+					}else{
+						if(this.repeatPassword == this.password){
+							this.pwdCheckSame = true;
+						}else{
+							this.errMsg = "两次密码需保持一致"
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		},
+		getCode: function() {
+			let succ = getDynamicCode(this.mobile);
+			if (succ.code == 0) {
+				if (this.canClick) return; //改动的是这两行代码
+				this.canClick = false;
+				this.codeText = this.totalTime + 's后重新发送';
+				let clock = window.setInterval(() => {
+					this.totalTime--;
+					this.codeText = this.totalTime + 's后重新发送';
+					if (this.totalTime < 0) {
+						window.clearInterval(clock);
+						this.codeText = '重新发送验证码';
+						this.totalTime = 10;
+						this.canClick = true; //这里重新开启
+					}
+				}, 1000);
+			}
+		},
+		formSubmit: function(e) {
+			if (this.iphoneCheck && this.codeCheck && this.pwdCheck && this.pwdCheckSame) {
+				console.log("1111")
+			}
 		}
 	}
+};
 </script>
 
 <style lang="scss" scoped>
-	.wrapper {
-		height: 100%;
+.wrapper {
+	height: 100%;
+	width: 100%;
+	background: #f6f6f6;
+	padding-top: 20upx;
+	display: flex;
+	align-items: stretch;
+	form {
 		width: 100%;
-		background: #f6f6f6;
-		padding-top: 20upx;
+		height: 100%;
 		display: flex;
-		align-items: stretch;
-		from {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-content: center;
-			.from-list {
-				.from-items {
-					height: 98upx;
-					padding: 0 30upx;
+		flex-direction: column;
+		justify-content: space-between;
+		align-content: center;
+		.from-list {
+			.from-items {
+				height: 98upx;
+				padding: 0 30upx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background: #ffffff;
+				border: 1px solid #f6f6f6;
+				.code {
 					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					background: #ffffff;
-					border: 1px solid #f6f6f6;
-					.code{
-						display: flex;
-						justify-content: space-around;
-					}
-					.getCode{
-						width: 180upx;
-						height: 60upx;
-						background: #fa5151;
-						color: #fff;
-						font-size: 22upx;
-						text-align: center;
-						line-height: 60upx;
-						border-radius: 8upx;
-					}
-					.iconfont {
-						font-size: 48upx;
-						margin-right: 30upx;
-					}
-					input{
-						flex:1;
-					}
-					button{
-						width: 180upx;
-						height: 60upx;
-						background:#ff4a64;
-						border-radius:8px; 
-						font-size: 22upx;
-						color:#ffffff;
-					}
-					.lock {
-						margin-left: 5upx;
-						margin-right: 34upx;
-						font-size: 38upx;
-					}
+					justify-content: space-around;
 				}
-				.codeCon{
-					justify-content: space-between;
-					padding-right: 30upx;
-				}
-				.errText{
-					background: none;
+				.getCode {
+					width: 180upx;
+					height: 60upx;
+					background: #fa5151;
+					color: #fff;
 					font-size: 22upx;
-					color: #fa5151;
+					text-align: center;
+					line-height: 60upx;
+					border-radius: 8upx;
+				}
+				.iconfont {
+					font-size: 48upx;
+					margin-right: 30upx;
+				}
+				input {
+					flex: 1;
+				}
+				button {
+					width: 180upx;
+					height: 60upx;
+					background: #ff4a64;
+					border-radius: 8px;
+					font-size: 22upx;
+					color: #ffffff;
+				}
+				.lock {
+					margin-left: 5upx;
+					margin-right: 34upx;
+					font-size: 38upx;
 				}
 			}
-			
-			button {
-				width: 690upx;
-				height: 82upx;
-				background:#050505;
-				border-radius:10upx;
-				color: #ffffff;
-				font-size: 24upx;
-				line-height: 82upx;
-				margin-bottom:40upx;
+			.codeCon {
+				justify-content: space-between;
+				padding-right: 30upx;
+			}
+			.codeNot {
+				background: #f6f6f6 !important;
+				color: #ccc !important;
+			}
+			.errText {
+				background: none;
+				font-size: 22upx;
+				color: #fa5151;
 			}
 		}
+
+		button {
+			width: 690upx;
+			height: 82upx;
+			background: #050505;
+			border-radius: 10upx;
+			color: #ffffff;
+			font-size: 24upx;
+			line-height: 82upx;
+			margin-bottom: 40upx;
+		}
 	}
+}
 </style>
