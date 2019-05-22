@@ -81,7 +81,8 @@
 			}
 		},
 		onLoad() {
-
+			console.log("调用一下试试")
+			console.log(checkLoginName("abcdefg"))
 		},
 		methods: {
 			//轮播图指示器
