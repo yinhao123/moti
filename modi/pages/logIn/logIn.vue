@@ -15,16 +15,10 @@
 		</form>
 		<navigator>注册</navigator>
 		<view class="sign">
-			<view class="line">
-			</view>
+			
 			<view class="text">其他登录方式</view>
-			<view class="line"></view>
 		</view>
-		<view class="log-in-link">
 			<navigator class="iconfont">&#xe67a;</navigator>
-			<navigator class="iconfont">&#xe654;</navigator>
-			<navigator class="iconfont">&#xe83d;</navigator>
-		</view>
 	</view>
 </template>
 

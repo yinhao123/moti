@@ -4,19 +4,20 @@
 			<view class="from-list">
 				<view>
 					<text class="iconfont">&#xe655;</text>
-					<input type="text"  name="user" placeholder="请输入手机号" />
+					<input type="number"  name="user" placeholder="请输入手机号"  v-model="user"/>
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
-					<input type="text" name="authCode" placeholder="请输入验证码" />
+					<input type="text" name="authCode" placeholder="请输入验证码"  v-model="authCode"/>
+					<button>获取验证码</button>
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请输入新密码" />
+					<input type="text" password="true" name="password" placeholder="请输入新密码" v-model="password" />
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请再次输入新密码" />
+					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入新密码" v-model="repeatPassword"  v-moder/>
 				</view>
 			</view>
 			<button>确认提交</button>
@@ -28,7 +29,10 @@
 	export default {
 		data() {
 			return {
-
+				user:0,
+				authCode:0,
+				password:'',
+				repeatPassword:''
 			};
 		}
 	}
@@ -43,17 +47,18 @@
 		display: flex;
 		align-items: stretch;
 		from {
+			width: 100%;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-
-			align-content: space-between;
+			align-content: center;
 			.from-list {
 				view {
 					height: 98upx;
-					padding-left: 30upx;
+					padding: 0 30upx;
 					display: flex;
+					justify-content: space-between;
 					align-items: center;
 					background: #ffffff;
 					border: 1px solid #f6f6f6;
@@ -62,7 +67,17 @@
 						font-size: 48upx;
 						margin-right: 30upx;
 					}
-
+					input{
+						flex:1;
+					}
+					button{
+						width: 180upx;
+						height: 60upx;
+						background:#ff4a64;
+						border-radius:8px; 
+						font-size: 22upx;
+						color:#ffffff;
+					}
 					.lock {
 						margin-left: 5upx;
 						margin-right: 34upx;
@@ -71,7 +86,7 @@
 				}
 			}
 
-			button {
+			>button {
 				width: 690upx;
 				height: 82upx;
 				background:#050505;
@@ -79,6 +94,7 @@
 				color: #ffffff;
 				font-size: 24upx;
 				line-height: 82upx;
+				margin-bottom:40upx;
 			}
 		}
 	}
