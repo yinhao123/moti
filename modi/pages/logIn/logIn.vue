@@ -13,7 +13,7 @@
 			</view>
 			<button>登录</button>
 		</form>
-		<navigator>注册</navigator>
+		<navigator url="/pages/logUp/logUp">注册</navigator>
 		<view class="sign">
 			
 			<view class="text">其他登录方式</view>
@@ -44,7 +44,6 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
 		.logn {
 			width: 380upx;
 			height: 160upx;
