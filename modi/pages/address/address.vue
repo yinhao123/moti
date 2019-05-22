@@ -2,7 +2,7 @@
 	<view class="content">
 		<template v-if="addressList.length > 0">
 			<view class="addressCon">
-				<view class="addressItem" v-for="(item,index) in addressList" :key="index">
+				<view class="addressItem" @tap="selAddr" v-for="(item,index) in addressList" :key="index">
 					<view class="userInfo">
 						<span>{{item.name}}</span>
 						<span class="tel">{{item.tel}}</span>
@@ -64,6 +64,11 @@
 			delAddress:function (){
 				console.log("删除地址")
 			}
+			// selAddr:function(){
+			// 	uni.navigateTo({
+			// 		url:'../placeOrder/placeOrder'
+			// 	})
+			// }
 		}
 	}
 </script>

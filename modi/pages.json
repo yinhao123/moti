@@ -76,6 +76,30 @@
             "path" : "pages/notes/notes",
             "style" : {"navigationBarTitleText": "MOTI"}
         }
+        ,{
+            "path" : "pages/sign/step1/step1",
+            "style" : {"navigationBarTitleText": "MOTI"}
+        }
+        ,{
+            "path" : "pages/sign/step2/step2",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/sign/step3/step3",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/logIn/logIn",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/logUp/logUp",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/passwordReset/passwordReset",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -84,10 +108,10 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#007AFF",
-		"borderStyle": "black",
-		"backgroundColor": "#F8F8F8",
+		"color": "#9a9a9a",
+		"selectedColor": "#000000",
+		"borderStyle": "white",
+		"backgroundColor": "#FFFFFF",
 		"list": [{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/01.png",
@@ -96,6 +120,7 @@
 			},
 			{
 				"pagePath": "pages/sign/sign",
+				// "pagePath":"pages/sign/step1/step1",
 				"iconPath": "static/02.png",
 				"selectedIconPath": "static/2.png",
 				"text": "打卡"

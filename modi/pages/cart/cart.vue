@@ -96,27 +96,27 @@
 				isAllselected: false,
 				goodsList: [{
 						id: 1,
-						img: '../../static/logo.png',
-						name: '商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题',
-						spec: '规格:S码',
+						img: '../../static/22.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '经典烟草4支装',
 						price: 127.5,
 						number: 1,
 						selected: false
 					},
 					{
 						id: 2,
-						img: '../../static/logo.png',
-						name: '商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题',
-						spec: '规格:S码',
+						img: '../../static/54.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '(新品)绿豆冰沙4支装',
 						price: 127.5,
 						number: 1,
 						selected: false
 					},
 					{
 						id: 3,
-						img: '../../static/logo.png',
-						name: '商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题',
-						spec: '规格:S码',
+						img: '../../static/77.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '(新品)绿豆冰沙4支装',
 						price: 127.5,
 						number: 1,
 						selected: false

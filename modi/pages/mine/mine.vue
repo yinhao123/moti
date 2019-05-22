@@ -2,7 +2,9 @@
 	<view class="content">
 		<view class="userInfo">
 			<view class="user">
-				<view class="userImg"></view>
+				<view class="userImg">
+					<image src="../../static/22.png" mode=""></image>
+				</view>
 				<view class="userName">请叫我锦鲤</view>
 			</view>
 			<view class="iconfont moti-xiaoxi" @tap="goNotes"></view>
@@ -68,7 +70,11 @@
 					border-radius: 50%;
 					background: #d7d7d7;
 					display: inline-block;
-					overflow: hidden
+					overflow: hidden;
+					image{
+						width: 110upx;
+						height: 110upx;
+					}
 				}
 				.userName{
 					margin-left: 20upx;

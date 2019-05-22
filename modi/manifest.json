@@ -1,5 +1,5 @@
 {
-    "name" : "modi",
+    "name" : "MOTI",
     "appid" : "__UNI__A92073A",
     "description" : "",
     "versionName" : "1.0.0",
@@ -55,16 +55,13 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "",
+        "appid" : "wxeaa37f0b52aec79a",
         "setting" : {
             "urlCheck" : false,
-            "minified" : false
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
         },
-        "usingComponents" : true,
-        "permission" : {
-            "scope.userLocation" : {
-                "desc" : ""
-            }
-        }
+        "usingComponents" : true
     }
 }
