@@ -1,23 +1,33 @@
 <template>
 	<view class="wrapper">
-		<form action="">
-			<view class="input-wrapper">
-				<text class="iconfont">&#xe660;</text>
-				<input type="text" name="input" placeholder="请输入用户名" />
+		<from action="">
+			<view class="from-list">
+				<view>
+					<text class="iconfont user-icon">&#xe61a;</text>
+					<input type="text" @blur="" name="user" placeholder="请输入用户名" />
+				</view>
+				<view>
+					<text class="iconfont">&#xe655;</text>
+					<input type="number" name="user" placeholder="请输入手机号" />
+				</view>
+				<view>
+					<text class="iconfont">&#xe647;</text>
+					<input type="text" name="authCode" placeholder="请输入验证码" />
+					<button>获取验证码</button>
+				</view>
+				<view>
+					<text class="iconfont lock">&#xe6b3;</text>
+					<input type="text" password="true" name="password" placeholder="请输入登录密码" />
+					<text class="iconfont is-show">&#xe73d;</text>
+				</view>
+				<view>
+					<text class="iconfont lock">&#xe6b3;</text>
+					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入登录密码" />
+					<text class="iconfont is-show">&#xe7b2;</text>
+				</view>
 			</view>
-			<view class="input-wrapper">
-				<text class="iconfont">&#xe628;</text>
-				<input type="text" password="true" name="input" placeholder="请输入密码" />
-			</view>
-			<view class="input-wrapper">
-				<text class="iconfont">&#xe633;</text>
-				<input type="text" password="true" name="input" placeholder="请输入验证码" />
-				<navigator>发送验证码</navigator>
-			</view>
-			<button>立即注册</button>
-		</form>
-		<view class="agreement">*注册即代表您同意<navigator>《MOTI商城用户协议》</navigator>
-		</view>
+			<button>注册</button>
+		</from>
 	</view>
 </template>
 
@@ -33,74 +43,72 @@
 
 <style lang="scss">
 	.wrapper {
-		min-height: 100%;
-		background: url(../../static/zhuceybeij.png) no-repeat center/cover;
+		height: 100%;
+		width: 100%;
+		background: #f6f6f6;
+		padding-top: 20upx;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+		align-items: stretch;
 
-		form {
-			width: 670upx;
-			margin-bottom: 30upx;
-			margin-top: 640upx;
-			.input-wrapper {
-				width: 100%;
-				height: 88upx;
-				background: #ffffff;
-				border-radius: 44upx;
-				margin-bottom: 20upx;
-				display: flex;
-				align-items: center;
-
-				.iconfont {
-					margin: 0 30upx;
-					font-size: 44upx;
-					height: 88upx;
-					line-height: 88upx;
-					color: #3e3e3e;
-				}
-
-				input {
-					width: 425upx;
-					line-height: 88upx;
-					font-size: 26upx;
-				}
-
-				navigator {
-					font-size: 26upx;
-					color: #ff4a64;
-				}
-
-			}
-
-			button {
-				margin-top: 100upx;
-				width: 470upx;
-				height: 88upx;
-				background-color: #ff4a64;
-				border-radius: 44upx;
-				color: #ffffff;
-				font-size: 30upx;
-				line-height: 88upx;
-				text-align: center;
-			}
-		}
-
-		.agreement {
+		from {
 			width: 100%;
-			height: 20upx;
-			text-align: center;
-			font-family: SourceHanSansCN-Regular;
-			font-size: 20upx;
-			font-weight: normal;
-			font-stretch: normal;
-			line-height: 10upx;
-			letter-spacing: 0upx;
-			color: #ffffff;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-content: center;
 
-			navigator {
-				color: #ff4a64;
-				display: inline-block;
+			.from-list {
+				view {
+					height: 98upx;
+					padding: 0 30upx;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					background: #ffffff;
+					border: 1px solid #f6f6f6;
+
+					.iconfont {
+						font-size: 48upx;
+						margin-right: 30upx;
+						color: #999999;
+					}
+					.is-show{
+						margin-right: 0;
+						font-size: 46upx;
+					}
+					input {
+						flex: 1;
+						font-family: MicrosoftYaHei;
+						color:#999999;
+					}
+
+					button {
+						width: 180upx;
+						height: 60upx;
+						background: #ff4a64;
+						border-radius: 8px;
+						font-size: 22upx;
+						color: #ffffff;
+					}
+
+					.lock {
+						margin-left: 5upx;
+						margin-right: 34upx;
+						font-size: 38upx;
+					}
+				}
+			}
+
+			>button {
+				width: 690upx;
+				height: 82upx;
+				background: #050505;
+				border-radius: 10upx;
+				color: #ffffff;
+				font-size: 24upx;
+				line-height: 82upx;
+				margin-bottom: 40upx;
 			}
 		}
 	}
