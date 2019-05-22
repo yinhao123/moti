@@ -5,6 +5,7 @@
 			<view class="input-wrapper">
 				<text class="iconfont">&#xe660;</text>
 				<input type="text" name="input" placeholder="请输入用户名" />
+				<i class="iconfont">&#xe80d;</i>
 			</view>
 			<view class="input-wrapper">
 				<text class="iconfont">&#xe628;</text>

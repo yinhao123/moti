@@ -1,19 +1,19 @@
 <template>
 	<view class="wrapper">
-		<from action="">
+		<form action="">
 			<view class="from-list">
 				<view>
 					<text class="iconfont user-icon">&#xe61a;</text>
-					<input type="text" @blur="" name="user" placeholder="请输入用户名" />
+					<input type="text" v-model="loginName" name="user" placeholder="请输入用户名" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe655;</text>
-					<input type="number" name="user" placeholder="请输入手机号" />
+					<input type="number" v-model="mobile" name="user" placeholder="请输入手机号" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
-					<input type="text" name="authCode" placeholder="请输入验证码" />
-					<button>获取验证码</button>
+					<input type="text" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
+					<button @click="getDyNamicCode">获取验证码</button>
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
@@ -26,8 +26,8 @@
 					<text class="iconfont is-show">&#xe7b2;</text>
 				</view>
 			</view>
-			<button>注册</button>
-		</from>
+			<button class="register">注册</button>
+		</form>
 	</view>
 </template>
 
@@ -35,9 +35,18 @@
 	export default {
 		data() {
 			return {
-
-			};
-		}
+				loginName: '',
+				mobile: '',
+				dynamicCode: '',
+				password: ''
+			}
+		},
+		methods: {
+			 getDyNamicCode () { // 获取验证码
+				 let phone = /^1[34578]\d{9}$/
+				 if (!phone.test(this.mobile)) alert("手机号有误！") 
+			 }
+		},
 	}
 </script>
 
@@ -50,13 +59,14 @@
 		display: flex;
 		align-items: stretch;
 
-		from {
+		form {
 			width: 100%;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			align-content: center;
+			position: relative;
 
 			.from-list {
 				view {
@@ -100,7 +110,7 @@
 				}
 			}
 
-			>button {
+			.register {
 				width: 690upx;
 				height: 82upx;
 				background: #050505;
@@ -109,6 +119,10 @@
 				font-size: 24upx;
 				line-height: 82upx;
 				margin-bottom: 40upx;
+				position: absolute;
+				bottom: 30upx;
+				left: 50%;
+				margin-left: -345upx;
 			}
 		}
 	}
