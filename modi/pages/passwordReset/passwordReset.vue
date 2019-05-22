@@ -116,7 +116,6 @@
 					color: #fa5151;
 				}
 			}
-
 			
 			button {
 				width: 690upx;
