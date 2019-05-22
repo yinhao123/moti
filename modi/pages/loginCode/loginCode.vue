@@ -58,7 +58,8 @@
 				}
 			}
 			.right{
-				
+				font-size: 22upx;
+				color: #999;
 			}
 		}
 	}
