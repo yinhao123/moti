@@ -6,7 +6,7 @@ export async function checkLoginName(loginName) {
 		url: config.host +'/m/user/checkLoginName',
 		method: 'POST',
 		header:{
-			"content-type":'application/x-www-form-urlencoded'
+			'content-type':'application/x-www-form-urlencoded'
 		},
 		data:{
 			loginName
