@@ -1,48 +1,83 @@
 <template>
 	<view class="wrapper">
-		<from name="passwordReset">
+		<form action="" @submit="formSubmit">
 			<view class="from-list">
 				<view class="from-items"> 
 					<text class="iconfont">&#xe655;</text>
-					<input type="number"  name="user" placeholder="请输入手机号"  v-model="user"/>
+					<input @change="checkRules('mobile')" type="number" name="mobile" placeholder="请输入手机号"  v-model="mobile"/>
 				</view>
 				<view class="from-items codeCon">
 					<view class="code">
 						<text class="iconfont">&#xe647;</text>
-						<input type="text" name="authCode" placeholder="请输入验证码" />
+						<input @change="checkRules('dynamicCode')" type="text" name="dynamicCode" placeholder="请输入验证码" v-model="dynamicCode" />
 					</view>
-					<view class="getCode">
-						获取验证码
+					<view class="getCode" @tap="getCode" :class="!iphoneCheck?'codeNot':''">
+						{{codeText}}
 					</view>
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请输入新密码" v-model="password" />
+					<input type="text" @change="checkRules('password')" 
+						password="true" name="password" placeholder="请输入新密码" v-model="password" />
+					<text class="iconfont is-show">&#xe7b2;</text>
 				</view>
 				<view class="from-items">
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入新密码" v-model="repeatPassword"  v-moder/>
+					<input type="text" @change="checkRules('repeatPassword')" 
+						password="true"  name="repeatPassword" placeholder="请再次输入密码" v-model="repeatPassword"/>
+					<text class="iconfont is-show">&#xe7b2;</text>
 				</view>
 				<view class="from-items errText">
-					错误提示位置
+					{{codeText}}
 				</view>
 			</view>
-			
 			<button>确认提交</button>
-		</from>
-		
+		</form>
 	</view>
 </template>
 
 <script>
+
 	export default {
 		data() {
 			return {
-				user:0,
-				authCode:0,
+				mobile:'',
+				dynamicCode:'',
 				password:'',
-				repeatPassword:''
+				repeatPassword:'',
+				rulesCheck:false,
+				iphoneCheck:false,
+				codeText:'获取验证码',
+				errMsg:''
 			};
+		},
+		methods:{
+			checkRules: function (inputType){
+				switch (inputType){
+					case "mobile":
+						if(this.mobile != ""){
+							var reg=/^1[3456789]\d{9}$/;
+							if(!reg.test(this.mobile)){
+								this.errMsg = "请输入有效的手机号码"
+							}else{
+								this.iphoneCheck = true;
+							}
+						}else{
+							this.errMsg = "请输入手机号码"
+						}
+						break;
+					default:
+						break;
+				}
+			},
+			getCode:function (){
+				
+			},
+			formSubmit: function (e) {
+				if(rulesCheck){
+					
+				}
+			}
 		}
 	}
 </script>
@@ -55,7 +90,7 @@
 		padding-top: 20upx;
 		display: flex;
 		align-items: stretch;
-		from {
+		form {
 			width: 100%;
 			height: 100%;
 			display: flex;
@@ -109,6 +144,10 @@
 				.codeCon{
 					justify-content: space-between;
 					padding-right: 30upx;
+				}
+				.codeNot{
+					background: #f6f6f6!important;
+					color: #ccc!important;
 				}
 				.errText{
 					background: none;
