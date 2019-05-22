@@ -100,6 +100,10 @@
             "path" : "pages/passwordReset/passwordReset",
             "style" : {}
         }
+        ,{
+            "path" : "pages/perfectInfo/perfectInfo",
+            "style" : {"navigationBarTitleText": "个人资料设置"}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
