@@ -48,6 +48,8 @@
 </template>
 
 <script>
+	import {checkLoginName} from '@/common/request.js'
+
 	export default {
 		data() {
 			return {
