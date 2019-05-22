@@ -1,18 +1,22 @@
 import config from './config.js'
 
-// user-controller
-export async function checkLoginName(loginName) {
-	let result = uni.request({
-		url: config.host +'/m/user/checkLoginName',
+// 封装post方法
+async function post(url, data) {
+	return await uni.request({
+		url: config.host + url,
 		method: 'POST',
-		header:{
-			"content-type":'application/x-www-form-urlencoded'
+		header: {
+			"content-type": 'application/x-www-form-urlencoded'
 		},
-		data:{
-			loginName
-		}
+		data
 	})
-	console.log(result)
+}
+
+// user-controller
+export function checkLoginName(loginName) {
+	let result = post('/m/user/checkLoginName', {
+		loginName
+	})
 	return result
 }
 
