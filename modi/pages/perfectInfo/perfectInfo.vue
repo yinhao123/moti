@@ -32,7 +32,7 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<picker mode="selector">
+		<picker mode="selector" >
 			<view class="commonInfo mt20">
 				<text>性别</text>
 				<view class="rightContent">
@@ -41,11 +41,11 @@
 				</view>
 			</view>
 		</picker>
-		<picker mode="date">
+		<picker mode="date" @change="getData">
 			<view class="commonInfo">
 				<text>生日</text>
 				<view class="rightContent">
-					<text class="sel">选择</text>
+					<text class="sel">{{data?data:"选择"}}</text>
 					<text class="iconfont moti-right"></text>
 				</view>
 			</view>
@@ -82,6 +82,7 @@
 				name: '126321',
 				iphone: '1770001990',
 				sex: '选择',
+				data:'',
 				themeColor: '#00bb50',
 				cityPickerValueDefault: [0, 0, 1],
 				pickerText: ''
@@ -97,6 +98,9 @@
 				uni.showModal({
 					showCancel: false,
 				})
+			},
+			getData: function(e){
+				this.data = e.detail.value
 			},
 			// 三级联动选择
 			showMulLinkageThreePicker: function() {
