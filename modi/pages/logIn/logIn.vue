@@ -6,12 +6,12 @@
 				<view class="loginType" @tap="changeDefault">验证码登录</view>
 				<view class="input-wrapper">
 					<text class="iconfont">&#xe660;</text>
-					<input type="text" @change="checkInput()" name="input" placeholder="请输入用户名" v-model="loginName"/>
+					<input type="text" name="input" placeholder="请输入用户名" v-model="loginName"/>
 					<i class="iconfont clear" @tap="clear('loginName')">&#xe80d;</i>
 				</view>
 				<view class="input-wrapper">
 					<text class="iconfont">&#xe628;</text>
-					<input type="text" @change="checkInput()" password="true" name="input" placeholder="请输入密码" v-model="password" />
+					<input type="text" password="true" name="input" placeholder="请输入密码" v-model="password" />
 					<navigator url="/pages/passwordReset/passwordReset">忘记密码？</navigator>
 				</view>
 				<view class="errmsg">{{errmsg}}</view>
@@ -57,9 +57,7 @@
 			}
 		},
 		methods: {
-			checkInput:function (){
-				
-			},
+			
 			changeDefault:function (){
 				this.loginDefault == true ? this.loginDefault = false : this.loginDefault = true
 			},
