@@ -9,10 +9,10 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<view class="commonInfo">
+		<view class="commonInfo" @click="go('rename/rename')">
 			<text>用户名/昵称</text>
-			<view class="rightContent">
-				<text>MOTI1973</text>
+			<view class="rightContent" >
+				<text>{{name}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 
@@ -20,7 +20,7 @@
 		<view class="commonInfo mt20">
 			<text>手机号</text>
 			<view class="rightContent">
-				<text>17700019900</text>
+				<text>{{iphone}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 
@@ -60,9 +60,18 @@
 	export default {
 		data() {
 			return {
-
+				name:'126321',
+				iphone:'1770001990'
 			};
+		},
+		methods: {
+			go: function(url){//公用函数，用页面跳转并传递参数
+				uni.navigateTo({
+					url:url 
+				})
+			}
 		}
+
 	}
 </script>
 

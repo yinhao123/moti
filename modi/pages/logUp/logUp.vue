@@ -4,15 +4,15 @@
 			<view class="from-list">
 				<view>
 					<text class="iconfont user-icon">&#xe61a;</text>
-					<input type="text" v-model="loginName" name="user" placeholder="请输入用户名" />
+					<input type="text" confirm-type="next" v-model="loginName" focus name="user" @blur="" placeholder="请输入用户名" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe655;</text>
-					<input type="number" v-model="mobile" name="user" placeholder="请输入手机号" />
+					<input type="number" v-model="mobile" @blur="" name="user" placeholder="请输入手机号" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
-					<input type="text" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
+					<input type="number" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
 					<button @click="getDyNamicCode">获取验证码</button>
 				</view>
 				<view>
