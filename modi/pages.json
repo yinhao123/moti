@@ -105,10 +105,7 @@
         },{
             "path" : "pages/loginCode/loginCode",
             "style" : {}
-        }    ,{
-            "path" : "pages/perfectInfo/rename/rename",
-            "style" : {}
-        }
+        }    
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

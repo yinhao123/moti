@@ -11,7 +11,7 @@
 		</view>
 		<view class="commonInfo" @click="go('rename/rename')">
 			<text>用户名/昵称</text>
-			<view class="rightContent" >
+			<view class="rightContent">
 				<text>{{name}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
@@ -53,6 +53,9 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
+		<view class="save">
+			<view class="save-content">保存</view>
+		</view>
 	</view>
 </template>
 
@@ -60,14 +63,14 @@
 	export default {
 		data() {
 			return {
-				name:'126321',
-				iphone:'1770001990'
+				name: '126321',
+				iphone: '1770001990'
 			};
 		},
 		methods: {
-			go: function(url){//公用函数，用页面跳转并传递参数
+			go: function(url) { //公用函数，用页面跳转传递参数 输入跳转地址
 				uni.navigateTo({
-					url:url 
+					url: url
 				})
 			}
 		}
@@ -77,7 +80,12 @@
 
 <style lang="scss">
 	.content {
+		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
 		.headBox {
 			display: flex;
 			height: 170upx;
@@ -129,6 +137,25 @@
 
 			.sel {
 				color: #999999
+			}
+		}
+
+		.save {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: center;
+			padding-bottom:40upx; 
+			.save-content {
+				width: 690upx;
+				height: 82upx;
+				background-color: #050505;
+				border-radius: 10upx;
+				color: #ffffff;
+				line-height: 82upx;
+				text-align: center;
+				font-family: MicrosoftYaHei;
 			}
 		}
 	}
