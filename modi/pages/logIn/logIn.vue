@@ -69,15 +69,8 @@
 				}
 			},
 			//账号密码登录
-			nameLogin:async function (e){
-				e.preventDefault();
-				uni.showLoading({
-					title: 'loading'
-				});
+			nameLogin:async function (){
 				let succ = await nameLogin(this.loginName,this.password);
-				uni.hideLoading({
-					title: 'loading'
-				});
 				if(succ.data.code == 0){
 					uni.switchTab({
 						url:"/pages/index/index"
