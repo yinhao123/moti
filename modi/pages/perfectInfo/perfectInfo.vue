@@ -2,9 +2,9 @@
 	<view class="content">
 		<view class="headBox">
 			<text>头像</text>
-			<view class="imageBox">
+			<view class="imageBox" @tap="chageImage">
 				<view class="headIcon">
-					<image src="../../static/22.png"></image>
+					<image :src="headImage" mode=""></image>
 				</view>
 				<text class="iconfont moti-right"></text>
 			</view>
@@ -61,13 +61,30 @@
 		data() {
 			return {
 				name:'126321',
-				iphone:'1770001990'
+				iphone:'1770001990',
+				headImage:"../../static/22.png"
 			};
 		},
+		
 		methods: {
 			go: function(url){//公用函数，用页面跳转并传递参数
 				uni.navigateTo({
 					url:url 
+				})
+			},
+			chageImage: async function(){//更换头像方法
+				uni.chooseImage({
+					count:1,
+					sourceType:['album'],
+					success:(res) => {
+						console.log(JSON.stringify(res.tempFilePaths));
+						console.log(this);
+						console.log(res.tempFilePaths[0]);
+						this.headImage = res.tempFilePaths[0];
+						// uni.previewImage({
+						// 	urls:res.tempFilePaths
+						// })
+					}
 				})
 			}
 		}
