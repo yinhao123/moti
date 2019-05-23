@@ -30,19 +30,23 @@ export function checkLoginName(loginName) { // 参数：用户名
 	return post('m/user/checkLoginName', {
 		loginName
 	}).then(function(data) {
-		console.log(data.statusCode);
+		return data
 	})
 }
 //检测手机号是否已注册
 export function checkUserMobile(mobile) { // 参数：手机号
 	return post('m/user/checkUserMobile', {
 		mobile
+	}).then((data) => {
+		return data
 	})
 }
 //获取用户注册验证码
 export function getDynamicCode(mobile) { // 参数：手机号
 	return post('m/user/getDynamicCode', {
 		mobile
+	}).then((data) => {
+		return data
 	})
 }
 //注册
@@ -52,6 +56,8 @@ export function regist(loginName, password, mobile, dynamicCode) { // 参数：�
 		password,
 		mobile,
 		dynamicCode
+	}).then((data) => {
+		return data
 	})
 }
 

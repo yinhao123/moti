@@ -41,7 +41,9 @@
 	} from '../../common/utils.js'
 	import {
 		getDynamicCode,
-		regist
+		regist,
+		checkLoginName,
+		checkUserMobile
 	} from '@/common/request.js'
 	export default {
 		data() {
@@ -61,14 +63,9 @@
 		},
 		methods: {
 			async getDyNamicCodeButt() { // 获取验证码
-				if (!checkMobile(this.mobile)) {
-					this.showTips = true
-					// return false
-				}
-
-				if (!this.canResend) {
-					return false
-				}
+				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
+				
+				if (!this.canResend) return false
 
 				let {data} = await getDynamicCode(this.mobile) // 获取验证码
 
@@ -91,32 +88,54 @@
 					}
 				}, 1000)
 			},
-			async checkLoginName () {
-				let {data} = checkLoginName(this.loginName)
-				data.code !== "0" && this.errorHand(data.msg)
-			},
-			async checkUserMobile () {
-				let {data} = checkUserMobile(this.mobile)
-				data.code !== "0" && this.errorHand(data.msg)
-			},
 			async register() { // 注册
-				this.checkLoginName()	// 校验账号是否已注册
-				this.checkUserMobile()
+				let {data} = await checkLoginName(this.loginName)  // 校验账号是否已注册
+				if (data.code !== "0") {
+					this.errorHand( data.code === "20" || data.code === '1' ? data.msg : '账号错误')
+					return false
+				}
 				
-				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
-				!checkPassword(this.password) && this.errorHand('密码格式有误')
-				this.password !== this.repeatPassword && this.errorHand('两次密码输入不一致')
-				this.dynamicCode === "" && this.errorHand('验证码为空')
+				if (!checkMobile(this.mobile)) {
+					this.errorHand('手机号格式有误')
+					return false
+				}
 				
-				let {data} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
-				if (data.code === "0") {
-					uni.navigateTo({
-						url: 'pages/index/index'
+				let {data: dataM} = await checkUserMobile(this.mobile)  // 效验手机号是否已经注册
+				if (dataM.code !== "0") {
+					this.errorHand(dataM.code === "20" || data.codeM === "1" ? dataM.msg : '手机号错误')
+					return false
+				}
+				
+				
+				if (this.dynamicCode === "") {
+					this.errorHand('验证码为空')
+					return false
+				}
+				
+				if (!checkPassword(this.password)) {
+					this.errorHand('密码格式有误')
+					return false
+				} 
+				
+				if (this.password !== this.repeatPassword) {
+					this.errorHand('两次密码输入不一致')
+					return false
+				}
+				
+				let {data: dataR} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
+				if (dataR.code === "0") {
+				
+					uni.showToast({
+						title: '注册成功！',
 					})
+					
+					setTimeout(() => {
+						uni.navigateBack()
+					}, 1000)
+					
 				}
 				else {
-					this.showTips = true
-					this.tips = data.msg
+					this.errorHand(dataR.msg)
 					return false
 				}
 			},
