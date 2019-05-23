@@ -105,7 +105,8 @@
         },{
             "path" : "pages/loginCode/loginCode",
             "style" : {}
-        }],
+        }    
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
