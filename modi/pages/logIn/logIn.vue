@@ -41,6 +41,10 @@
 </template>
 
 <script>
+	import {
+		checkMobile,
+		checkPassword
+	} from '@/common/utils.js'
 	import { nameLogin,getDynamicCodeLogin } from '@/common/request.js';
 	export default {
 		data() {
@@ -53,6 +57,7 @@
 			}
 		},
 		methods: {
+			
 			changeDefault:function (){
 				this.loginDefault == true ? this.loginDefault = false : this.loginDefault = true
 			},
