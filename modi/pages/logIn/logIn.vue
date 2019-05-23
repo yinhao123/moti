@@ -1,37 +1,94 @@
 <template>
 	<view class="wrapper">
 		<image src="../../static/logn.png" class="logn"></image>
-		<form action="">
-			<view class="input-wrapper">
-				<text class="iconfont">&#xe660;</text>
-				<input type="text" name="input" placeholder="请输入用户名" />
-				<i class="iconfont">&#xe80d;</i>
-			</view>
-			<view class="input-wrapper">
-				<text class="iconfont">&#xe628;</text>
-				<input type="text" password="true" name="input" placeholder="请输入密码" />
-				<navigator>忘记密码？</navigator>
-			</view>
-			<button>登录</button>
-		</form>
-		<navigator url="/pages/logUp/logUp">注册</navigator>
+		<template v-if="loginDefault">
+			<form>
+				<view class="loginType" @tap="changeDefault">验证码登录</view>
+				<view class="input-wrapper">
+					<text class="iconfont">&#xe660;</text>
+					<input type="text" name="input" placeholder="请输入用户名" v-model="loginName"/>
+					<i class="iconfont clear" @tap="clear('loginName')">&#xe80d;</i>
+				</view>
+				<view class="input-wrapper">
+					<text class="iconfont">&#xe628;</text>
+					<input type="text" password="true" name="input" placeholder="请输入密码" v-model="password" />
+					<navigator url="/pages/passwordReset/passwordReset">忘记密码？</navigator>
+				</view>
+				<view class="errmsg">{{errmsg}}</view>
+				<button @tap="nameLogin" >登录</button>
+				<view class="register">还没有账号?<span>去注册→</span></view>
+			</form>
+		</template>
+		<template v-else>
+			<form>
+				<view class="loginType" @tap="changeDefault">账号密码登录</view>
+				<view class="input-wrapper">
+					<text><i class="iconfont">&#xe705;</i></text>
+					<input type="text" name="input" placeholder="请输入手机号码" v-model="mobile"/>
+					<i class="iconfont clear" @tap="clear('mobile')">&#xe80d;</i>
+				</view>
+				<button @tap="getDynamicCodeLogin">获取验证码</button>
+				<view class="agreeMoti"><span>*</span>验证即代表您同意<span>《MOTI到家用户协议》</span></view>
+			</form>
+		</template>
 		<view class="sign">
-			
-			<view class="text">其他登录方式</view>
+			<view class="text">微信登录</view>
+			<view class="wechat">
+				<i class="iconfont">&#xe67a;</i>
+			</view>
 		</view>
-			<navigator class="iconfont">&#xe67a;</navigator>
 	</view>
 </template>
 
 <script>
+	import { nameLogin,mobileLogin,getDynamicCodeLogin } from '@/common/request.js';
 	export default {
 		data() {
 			return {
-
+				loginDefault:true,
+				loginName:'',
+				password:'',
+				mobile:'',
+				errmsg:''
 			}
 		},
 		methods: {
-
+			changeDefault:function (){
+				this.loginDefault == true ? this.loginDefault = false : this.loginDefault = true
+			},
+			clear:function (type){
+				switch (type){
+					case 'loginName':
+						this.loginName = '';
+						break;
+					case 'mobile':
+						this.mobile = '';
+						break;
+					default:
+						break;
+				}
+			},
+			//账号密码登录
+			nameLogin:async function (){
+				let succ = await nameLogin(this.loginName,this.password);
+				if(succ.data.code == 0){
+					uni.switchTab({
+						url:"/pages/index/index"
+					})
+				}else{
+					this.errmsg = succ.data.msg
+				}
+			},
+			//获取验证码
+			getDynamicCodeLogin: async function (){
+				let succ = await getDynamicCodeLogin(this.mobile);
+				console.log(succ.data)
+				if(succ.data.code == 0){
+					uni.navigateTo({
+						url:'/pages/loginCode/loginCode?mobile='+this.mobile
+					})
+				}
+			}
 		}
 	}
 </script>
@@ -54,7 +111,20 @@
 			width: 670upx;
 			padding-top: 130upx;
 			margin-bottom: 30upx;
-
+			.loginType{
+				color: #fff;
+				font-size: 24upx;
+				margin-left: 20upx;
+				margin-bottom: 40upx;
+				opacity: .8;
+			}
+			.errmsg{
+				height: 25upx;
+				color: #ff4a64;
+				font-size: 22upx;
+				padding-left:10upx;
+				margin: 0;
+			}
 			.input-wrapper {
 				width: 100%;
 				height: 88upx;
@@ -64,7 +134,6 @@
 				margin-bottom: 20upx;
 				display: flex;
 				align-items: center;
-
 				.iconfont {
 					margin: 0 30upx;
 					font-size: 44upx;
@@ -72,23 +141,37 @@
 					line-height: 88upx;
 					color: #3e3e3e;
 				}
-
+				.clear{
+					opacity: .4;
+				}
+				navigator{
+					font-size: 22upx;
+					color: #ff4a64;
+				}
 				input {
 					width: 425upx;
 					line-height: 88upx;
 					font-size: 26upx;
 				}
-
-				navigator {
-					font-size: 26upx;
-					color: #ff4a64;
-				}
-
 			}
-
+			.register,.agreeMoti {
+				text-align: right;
+				font-size: 26upx;
+				color: #fefefe;
+				margin-top: 40upx;
+				span{
+					color: #ff4a64;
+					opacity: 1;
+				}
+			}
+			.agreeMoti{
+				padding-left: 20upx;
+				text-align: left;
+				font-size: 20upx;
+			}
 			button {
 				margin-top: 60upx;
-				width: 470upx;
+				width: 100%;
 				height: 88upx;
 				background-color: #ff4a64;
 				border-radius: 44upx;
@@ -97,32 +180,29 @@
 				line-height: 88upx;
 				text-align: center;
 			}
+			.register{
+				color: #fff;
+			}
 		}
-
-		navigator {
-			width: 290upx;
-			height: 68upx;
-			line-height: 68upx;
-			text-align: center;
-			background-color: #ffffff;
-			border-radius: 34upx;
-			opacity: 0.6;
-			font-size: 30upx;
-			font-family: SourceHanSansCN-Regular;
-		}
-
 		.sign {
 			margin-top: 100upx;
 			display: flex;
-			width: 670upx;
-
-			.line {
-				flex: 1;
-				position: relative;
-				top: -14upx;
-				border-bottom: 1upx solid rgba(255, 255, 255, 0.4);
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			flex-wrap: wrap;
+			.wechat {
+				width: 70upx;
+				height: 70upx;
+				text-align: center;
+				line-height: 70upx;
+				background: #fff;
+				opacity: .4;
+				border-radius: 50%;
+				.iconfont{
+					font-size: 34upx;
+				}
 			}
-
 			.text {
 				padding: 0 12upx;
 				font-weight: 700;
@@ -131,26 +211,7 @@
 				font-family: SourceHanSansCN-Regular;
 				color: #ffffff;
 				opacity: 0.4;
-			}
-		}
-
-		.log-in-link {
-			margin-top: 46upx;
-			width: 330upx;
-			height: 70upx;
-			display: flex;
-			justify-content: space-between;
-
-			navigator {
-				width: 70upx;
-				height: 70upx;
-				border-radius: 35upx;
-				text-align: center;
-				line-height: 70upx;
-				color: #000;
-				background: #ffffff;
-				font-size: 50upx;
-				opacity: 0.4;
+				margin-bottom: 20upx;
 			}
 		}
 	}
