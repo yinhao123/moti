@@ -13,8 +13,8 @@
 		</view>
 		<view class="codeCon">
 			<view class="codeItem" v-for="(item,index) in codeArr" :key="index">
-				<input @input="onInput" type="number" 
-					maxlength="1" :auto-focus="focusIndex==index?true:false" v-model="codeArr[index]">
+				<input @input="onInput($event,index)" type="number" :value="item.val"
+					maxlength="1" :focus="focusIndex==index?true:false" >
 			</view>
 		</view>
 		<view class="getCode" :class="getCode?'canClick':''" @tap="getCodeFun">
@@ -33,7 +33,7 @@
 				dynamicCode:'',
 				codeText:'',
 				time:60,
-				codeArr:['','','',''],
+				codeArr:[{val:''},{val:''},{val:''},{val:''},{val:''},{val:''}],
 				getCode:false
 			}
 		},
@@ -55,35 +55,34 @@
 					}
 				}, 1000);
 			},
-			onInput:function (){
-				for(let i = 0; i < codeArr.length; i++){
-					if(codeArr[i] != ''){
-						this.dynamicCode += String(codeArr[i]);
-					}else{
-						break;
-					}
+			onInput:function (e,index){
+				if(this.focusIndex == index){
+					this.focusIndex++;
+					this.dynamicCode += e.detail.value
+				}else{
+					this.focusIndex = 0
 				}
-				if(this.dynamicCode.length == 4){
+				if(this.dynamicCode.length == 6){
 					this.mobileLogin();
 				}
 			},
 			mobileLogin: async function (){
-				uni.showLoading({
-					title: 'loading'
-				});
 				let succ = await mobileLogin(this.mobile,this.dynamicCode);
-				uni.hideLoading({
-					title: 'loading'
-				});
 				if(succ.data.code == 0){
 					uni.switchTab({
 						url:"/pages/index/index"
 					})
 				}else{
-					this.errmsg = succ.data.msg
+					uni.showToast({
+						succ.data.msg
+					})
 				}
 			},
 			getCodeFun: async function(){
+				this.focusIndex = 0;
+				for(let i = 0; i < codeArr.length; i++){
+					codeArr[i].val = ''
+				}
 				if(this.getCode){
 					let succ = await getDynamicCodeLogin(this.mobile);
 					if(succ.data.code == 0){
@@ -135,7 +134,7 @@
 			justify-content: space-around;
 			flex-wrap: nowrap;
 			.codeItem{
-				width: 20%;
+				width: 12%;
 				height: 100upx;
 				display: flex;
 				align-items:flex-end; 

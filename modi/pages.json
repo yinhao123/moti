@@ -104,7 +104,7 @@
             "style" : {"navigationBarTitleText": "个人资料设置"}
         },{
             "path" : "pages/loginCode/loginCode",
-            "style" : {}
+            "style" : {"navigationBarTitleText": "手机号验证"}
         }],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
