@@ -8,33 +8,32 @@
 				</view>
 				<view>
 					<text class="iconfont">&#xe655;</text>
-					<input type="number" v-model="mobile" @blur="" name="user" placeholder="请输入手机号" />
+					<input type="number" v-model="mobile" name="user" placeholder="请输入手机号" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
 					<input type="text" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
-					<button @click="getDyNamicCodeButt" :class="{canResend: canResend}">{{buttonText}}</button>
+					<button @tap="getDyNamicCodeButt" :class="{canResend: canResend}">{{buttonText}}</button>
 				</view>
 				<view>
-					<text class="iconfont lock" @click="changePassword">&#xe6b3;</text>
+					<text class="iconfont lock" @tap="changePassword">&#xe6b3;</text>
 					<input type="text" :password="showRepeatPassword" name="password" v-model="password" placeholder="请输入登录密码" />
-					<text class="uni-icon uni-icon-eye" :class="[!showRepeatPassword ? 'uni-active' : '']" @click="changeRepeatPassword"></text>
+					<text class="uni-icon uni-icon-eye" :class="[!showRepeatPassword ? 'uni-active' : '']" @tap="changeRepeatPassword"></text>
 					<!-- <text class="iconfont is-show" @click="changePassword">&#xe73d;</text> -->
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
 					<input type="text" :password="showPassword" name="repeatPassword" v-model="repeatPassword" placeholder="请再次输入登录密码" />
-					<text class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @click="changePassword"></text>
+					<text class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @tap="changePassword"></text>
 					<!-- <text class="iconfont is-show" @click="changeRepeatPassword">&#xe7b2;</text> -->
 				</view>
 			</view>
-			<button class="register" @click="register">注册</button>
+			<button class="register" @tap="register">注册</button>
 		</form>
 	</view>
 </template>
 
 <script>
-	import UniPopup from '../../components/uni-popup/uni-popup'
 	import {
 		checkMobile,
 		checkPassword
@@ -63,14 +62,17 @@
 		},
 		methods: {
 			async getDyNamicCodeButt() { // 获取验证码
-				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
+				if (!checkMobile(this.mobile)) {
+					this.errorHand('手机号码格式有误')
+					return false
+				} 
 				
 				if (!this.canResend) return false
 
 				let {data} = await getDynamicCode(this.mobile) // 获取验证码
 
 				if (data.code === "0") {
-					this.countDown()
+					this.countDown() // 开始倒计时
 				}
 
 			},
