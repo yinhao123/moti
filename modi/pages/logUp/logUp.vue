@@ -12,42 +12,130 @@
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
-					<input type="number" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
-					<button @click="getDyNamicCode">获取验证码</button>
+					<input type="text" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
+					<button @click="getDyNamicCodeButt" :class="{canResend: canResend}">{{buttonText}}</button>
+				</view>
+				<view>
+					<text class="iconfont lock" @click="changePassword">&#xe6b3;</text>
+					<input type="text" :password="showRepeatPassword" name="password" v-model="password" placeholder="请输入登录密码" />
+					<text class="uni-icon uni-icon-eye" :class="[!showRepeatPassword ? 'uni-active' : '']" @click="changeRepeatPassword"></text>
+					<!-- <text class="iconfont is-show" @click="changePassword">&#xe73d;</text> -->
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="password" placeholder="请输入登录密码" />
-					<text class="iconfont is-show">&#xe73d;</text>
-				</view>
-				<view>
-					<text class="iconfont lock">&#xe6b3;</text>
-					<input type="text" password="true" name="repeatPassword" placeholder="请再次输入登录密码" />
-					<text class="iconfont is-show">&#xe7b2;</text>
+					<input type="text" :password="showPassword" name="repeatPassword" v-model="repeatPassword" placeholder="请再次输入登录密码" />
+					<text class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @click="changePassword"></text>
+					<!-- <text class="iconfont is-show" @click="changeRepeatPassword">&#xe7b2;</text> -->
 				</view>
 			</view>
-			<button class="register">注册</button>
+			<button class="register" @click="register">注册</button>
 		</form>
 	</view>
 </template>
 
 <script>
-	import {checkMobile} from '../../common/utils.js'
+	import UniPopup from '../../components/uni-popup/uni-popup'
+	import {
+		checkMobile,
+		checkPassword
+	} from '../../common/utils.js'
+	import {
+		getDynamicCode,
+		regist
+	} from '@/common/request.js'
 	export default {
 		data() {
 			return {
 				loginName: '',
 				mobile: '',
 				dynamicCode: '',
-				password: ''
+				password: '',
+				repeatPassword: '',
+				showCount: 60, // 倒计时秒数
+
+				canResend: true, // 是否可以重新发送验证码
+				buttonText: "获取验证码", // 获取验证码按钮:
+				showPassword: true,
+				showRepeatPassword: true
 			}
 		},
 		methods: {
-			 getDyNamicCode () { // 获取验证码
-				if (checkMobile(this.mobile)) alert("手机号有误！") 
+			async getDyNamicCodeButt() { // 获取验证码
+				if (!checkMobile(this.mobile)) {
+					this.showTips = true
+					// return false
+				}
+
+				if (!this.canResend) {
+					return false
+				}
+
+				let {data} = await getDynamicCode(this.mobile) // 获取验证码
+
+				if (data.code === "0") {
+					this.countDown()
+				}
+
+			},
+			countDown() { // 倒计时
+				this.canResend = false
+				this.buttonText = `${this.showCount}s后重发`
+				let timer = setInterval(() => {
+					this.showCount --
+					this.buttonText = `${this.showCount}s后重发`
+					if (this.showCount === 0) {
+						clearInterval(timer)
+						this.showCount = 60
+						this.canResend = true
+						this.buttonText = "获取验证码"
+					}
+				}, 1000)
+			},
+			async checkLoginName () {
+				let {data} = checkLoginName(this.loginName)
+				data.code !== "0" && this.errorHand(data.msg)
+			},
+			async checkUserMobile () {
+				let {data} = checkUserMobile(this.mobile)
+				data.code !== "0" && this.errorHand(data.msg)
+			},
+			async register() { // 注册
+				this.checkLoginName()	// 校验账号是否已注册
+				this.checkUserMobile()
 				
-			 }
+				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
+				!checkPassword(this.password) && this.errorHand('密码格式有误')
+				this.password !== this.repeatPassword && this.errorHand('两次密码输入不一致')
+				this.dynamicCode === "" && this.errorHand('验证码为空')
+				
+				let {data} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
+				if (data.code === "0") {
+					uni.navigateTo({
+						url: 'pages/index/index'
+					})
+				}
+				else {
+					this.showTips = true
+					this.tips = data.msg
+					return false
+				}
+			},
+			errorHand(text) { // 错误提示框
+				uni.showToast({
+					title: text,
+				})
+				return false
+			},
+			changePassword () {
+				this.showPassword = !this.showPassword;
+			},
+			changeRepeatPassword () {
+				this.showRepeatPassword = !this.showRepeatPassword
+			}
 		},
+		components: {
+			UniPopup
+		}
 	}
 </script>
 
@@ -84,23 +172,29 @@
 						margin-right: 30upx;
 						color: #999999;
 					}
-					.is-show{
+
+					.is-show {
 						margin-right: 0;
 						font-size: 46upx;
 					}
+
 					input {
 						flex: 1;
 						font-family: MicrosoftYaHei;
-						color:#999999;
+						color: #999999;
 					}
 
 					button {
 						width: 180upx;
 						height: 60upx;
-						background: #ff4a64;
 						border-radius: 8px;
 						font-size: 22upx;
+						background: #999999;
 						color: #ffffff;
+						&.canResend {
+							background: #ff4a64;
+						}
+						
 					}
 
 					.lock {

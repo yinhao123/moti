@@ -3,7 +3,7 @@ export function checkMobile (mobile) {
 	return reg.test(mobile)
 }
 
-export function checkPassword (checkPassword) {
+export function checkPassword (password) {
 	let reg = /^[\w.]{6,20}$/
 	return reg.test(password)
 }

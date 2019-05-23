@@ -15,7 +15,7 @@
 					<navigator url="/pages/passwordReset/passwordReset">忘记密码？</navigator>
 				</view>
 				<view class="errmsg">{{errmsg}}</view>
-				<button @tap="nameLogin" >登录</button>
+				<button @tap="nameLogin">登录</button>
 				<view class="register">还没有账号?<span>去注册→</span></view>
 			</form>
 		</template>
@@ -27,21 +27,21 @@
 					<input type="text" name="input" placeholder="请输入手机号码" v-model="mobile"/>
 					<i class="iconfont clear" @tap="clear('mobile')">&#xe80d;</i>
 				</view>
-				<button @tap="getDynamicCodeLogin">获取验证码</button>
+				<button @tap="getCode">获取验证码</button>
 				<view class="agreeMoti"><span>*</span>验证即代表您同意<span>《MOTI到家用户协议》</span></view>
 			</form>
 		</template>
-		<view class="sign">
+		<!-- <view class="sign">
 			<view class="text">微信登录</view>
 			<view class="wechat">
 				<i class="iconfont">&#xe67a;</i>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
-	import { nameLogin,mobileLogin,getDynamicCodeLogin } from '@/common/request.js';
+	import { nameLogin,getDynamicCodeLogin } from '@/common/request.js';
 	export default {
 		data() {
 			return {
@@ -80,9 +80,8 @@
 				}
 			},
 			//获取验证码
-			getDynamicCodeLogin: async function (){
+			getCode: async function (){
 				let succ = await getDynamicCodeLogin(this.mobile);
-				console.log(succ.data)
 				if(succ.data.code == 0){
 					uni.navigateTo({
 						url:'/pages/loginCode/loginCode?mobile='+this.mobile
