@@ -73,8 +73,8 @@
 						url:"/pages/index/index"
 					})
 				}else{
-					uni.showToast({
-						succ.data.msg
+					uni.show({
+						'title':succ.data.msg
 					})
 				}
 			},
