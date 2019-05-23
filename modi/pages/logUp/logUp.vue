@@ -30,7 +30,6 @@
 			</view>
 			<button class="register" @click="register">注册</button>
 		</form>
-		<uni-popup :show="showTips" position="middle" mode="fixed" :msg="tips" @hidePopup="togglePopup(false)" />
 	</view>
 </template>
 
@@ -41,7 +40,8 @@
 		checkPassword
 	} from '../../common/utils.js'
 	import {
-		getDynamicCode
+		getDynamicCode,
+		regist
 	} from '@/common/request.js'
 	export default {
 		data() {
@@ -51,8 +51,6 @@
 				dynamicCode: '',
 				password: '',
 				repeatPassword: '',
-				showTips: false,
-				tips: '手机号格式错误',
 				showCount: 60, // 倒计时秒数
 
 				canResend: true, // 是否可以重新发送验证码
@@ -72,16 +70,12 @@
 					return false
 				}
 
-				let result = await getDynamicCode(this.mobile) // 获取验证码
-				console.log(result)
+				let {data} = await getDynamicCode(this.mobile) // 获取验证码
 
-				if (result.code) {
+				if (data.code === "0") {
 					this.countDown()
 				}
 
-			},
-			togglePopup() { // 弹窗消失
-				this.showTips = false
 			},
 			countDown() { // 倒计时
 				this.canResend = false
@@ -97,42 +91,40 @@
 					}
 				}, 1000)
 			},
-			register() { // 注册
-				if (!checkMobile(this.mobile)) {
-					this.showTips = true
-					this.tips = '手机号格式有误'
-					return false
-				}
+			async checkLoginName () {
+				let {data} = checkLoginName(this.loginName)
+				data.code !== "0" && this.errorHand(data.msg)
+			},
+			async checkUserMobile () {
+				let {data} = checkUserMobile(this.mobile)
+				data.code !== "0" && this.errorHand(data.msg)
+			},
+			async register() { // 注册
+				this.checkLoginName()	// 校验账号是否已注册
+				this.checkUserMobile()
 				
-				if (!checkPassword(this.password)) {
-					this.showTips = true
-					this.tips = '密码格式有误'
-					return false
-				}
+				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
+				!checkPassword(this.password) && this.errorHand('密码格式有误')
+				this.password !== this.repeatPassword && this.errorHand('两次密码输入不一致')
+				this.dynamicCode === "" && this.errorHand('验证码为空')
 				
-				if (this.password !== this.repeatPassword) {
-					this.showTips = true
-					this.tips = '密码输入不一致'
-					return false
-				}
-				
-				if (this.dynamicCode === "") {
-					this.showTips = true
-					this.tips = '验证码为空'
-					return false
-				}
-				
-				let result = regist(this.loginName, this.password, this.mobile, this.dynamicCode )
-				if (result.code === 0) {
+				let {data} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
+				if (data.code === "0") {
 					uni.navigateTo({
 						url: 'pages/index/index'
 					})
 				}
 				else {
 					this.showTips = true
-					this.tips = result.msg
+					this.tips = data.msg
 					return false
 				}
+			},
+			errorHand(text) { // 错误提示框
+				uni.showToast({
+					title: text,
+				})
+				return false
 			},
 			changePassword () {
 				this.showPassword = !this.showPassword;
