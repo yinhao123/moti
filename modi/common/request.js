@@ -72,8 +72,8 @@ export function modifyPassword(password, mobile, dynamicCode) { // 参数：密�
 	})
 }
 //login-controller
-//获取修改密码手机验证码
-export function getDynamicCodeLogin(mobile,dynamicCode) { // 参数: 手机号
+//获取手机登录验证码
+export function getDynamicCodeLogin(mobile) { // 参数: 手机号
 	return post('/m/login/getDynamicCode', {
 		mobile
 	})
