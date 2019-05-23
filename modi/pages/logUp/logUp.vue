@@ -8,40 +8,41 @@
 				</view>
 				<view>
 					<text class="iconfont">&#xe655;</text>
-					<input type="number" v-model="mobile" @blur="" name="user" placeholder="请输入手机号" />
+					<input type="number" v-model="mobile" name="user" placeholder="请输入手机号" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe647;</text>
 					<input type="text" name="authCode" v-model="dynamicCode" placeholder="请输入验证码" />
-					<button @click="getDyNamicCodeButt" :class="{canResend: canResend}">{{buttonText}}</button>
+					<button @tap="getDyNamicCodeButt" :class="{canResend: canResend}">{{buttonText}}</button>
 				</view>
 				<view>
-					<text class="iconfont lock" @click="changePassword">&#xe6b3;</text>
+					<text class="iconfont lock" @tap="changePassword">&#xe6b3;</text>
 					<input type="text" :password="showRepeatPassword" name="password" v-model="password" placeholder="请输入登录密码" />
-					<text class="uni-icon uni-icon-eye" :class="[!showRepeatPassword ? 'uni-active' : '']" @click="changeRepeatPassword"></text>
+					<text class="uni-icon uni-icon-eye" :class="[!showRepeatPassword ? 'uni-active' : '']" @tap="changeRepeatPassword"></text>
 					<!-- <text class="iconfont is-show" @click="changePassword">&#xe73d;</text> -->
 				</view>
 				<view>
 					<text class="iconfont lock">&#xe6b3;</text>
 					<input type="text" :password="showPassword" name="repeatPassword" v-model="repeatPassword" placeholder="请再次输入登录密码" />
-					<text class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @click="changePassword"></text>
+					<text class="uni-icon uni-icon-eye" :class="[!showPassword ? 'uni-active' : '']" @tap="changePassword"></text>
 					<!-- <text class="iconfont is-show" @click="changeRepeatPassword">&#xe7b2;</text> -->
 				</view>
 			</view>
-			<button class="register" @click="register">注册</button>
+			<button class="register" @tap="register">注册</button>
 		</form>
 	</view>
 </template>
 
 <script>
-	import UniPopup from '../../components/uni-popup/uni-popup'
 	import {
 		checkMobile,
 		checkPassword
 	} from '../../common/utils.js'
 	import {
 		getDynamicCode,
-		regist
+		regist,
+		checkLoginName,
+		checkUserMobile
 	} from '@/common/request.js'
 	export default {
 		data() {
@@ -62,18 +63,16 @@
 		methods: {
 			async getDyNamicCodeButt() { // 获取验证码
 				if (!checkMobile(this.mobile)) {
-					this.showTips = true
-					// return false
-				}
-
-				if (!this.canResend) {
+					this.errorHand('手机号码格式有误')
 					return false
-				}
+				} 
+				
+				if (!this.canResend) return false
 
 				let {data} = await getDynamicCode(this.mobile) // 获取验证码
 
 				if (data.code === "0") {
-					this.countDown()
+					this.countDown() // 开始倒计时
 				}
 
 			},
@@ -91,32 +90,54 @@
 					}
 				}, 1000)
 			},
-			async checkLoginName () {
-				let {data} = checkLoginName(this.loginName)
-				data.code !== "0" && this.errorHand(data.msg)
-			},
-			async checkUserMobile () {
-				let {data} = checkUserMobile(this.mobile)
-				data.code !== "0" && this.errorHand(data.msg)
-			},
 			async register() { // 注册
-				this.checkLoginName()	// 校验账号是否已注册
-				this.checkUserMobile()
+				let {data} = await checkLoginName(this.loginName)  // 校验账号是否已注册
+				if (data.code !== "0") {
+					this.errorHand( data.code === "20" || data.code === '1' ? data.msg : '账号错误')
+					return false
+				}
 				
-				!checkMobile(this.mobile) && this.errorHand('手机号码格式有误')
-				!checkPassword(this.password) && this.errorHand('密码格式有误')
-				this.password !== this.repeatPassword && this.errorHand('两次密码输入不一致')
-				this.dynamicCode === "" && this.errorHand('验证码为空')
+				if (!checkMobile(this.mobile)) {
+					this.errorHand('手机号格式有误')
+					return false
+				}
 				
-				let {data} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
-				if (data.code === "0") {
-					uni.navigateTo({
-						url: 'pages/index/index'
+				let {data: dataM} = await checkUserMobile(this.mobile)  // 效验手机号是否已经注册
+				if (dataM.code !== "0") {
+					this.errorHand(dataM.code === "20" || data.codeM === "1" ? dataM.msg : '手机号错误')
+					return false
+				}
+				
+				
+				if (this.dynamicCode === "") {
+					this.errorHand('验证码为空')
+					return false
+				}
+				
+				if (!checkPassword(this.password)) {
+					this.errorHand('密码格式有误')
+					return false
+				} 
+				
+				if (this.password !== this.repeatPassword) {
+					this.errorHand('两次密码输入不一致')
+					return false
+				}
+				
+				let {data: dataR} = await regist(this.loginName, this.password, this.mobile, this.dynamicCode )
+				if (dataR.code === "0") {
+				
+					uni.showToast({
+						title: '注册成功！',
 					})
+					
+					setTimeout(() => {
+						uni.navigateBack()
+					}, 1000)
+					
 				}
 				else {
-					this.showTips = true
-					this.tips = data.msg
+					this.errorHand(dataR.msg)
 					return false
 				}
 			},
