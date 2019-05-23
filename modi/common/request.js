@@ -24,12 +24,11 @@ async function post(url, data) {
 		})
 	})
 }
-
 // user-controller
 export function checkLoginName(loginName) { // 参数：用户名
 	return post('/m/user/checkLoginName', {
 		loginName
-	}).then(function(data){
+	}).then(function(data) {
 		console.log(data.statusCode);
 	})
 }
