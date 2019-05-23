@@ -9,7 +9,7 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<view class="commonInfo" @click="go('rename/rename')">
+		<view class="commonInfo">
 			<text>用户名/昵称</text>
 			<view class="rightContent">
 				<text>{{name}}</text>
@@ -32,39 +32,59 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<view class="commonInfo mt20">
-			<text>性别</text>
-			<view class="rightContent">
-				<text class="sel">选择</text>
-				<text class="iconfont moti-right"></text>
+		<picker mode="selector">
+			<view class="commonInfo mt20">
+				<text>性别</text>
+				<view class="rightContent">
+					<text class="sel">{{sex}}</text>
+					<text class="iconfont moti-right"></text>
+				</view>
 			</view>
-		</view>
-		<view class="commonInfo">
-			<text>生日</text>
-			<view class="rightContent">
-				<text class="sel">选择</text>
-				<text class="iconfont moti-right"></text>
+		</picker>
+		<picker mode="date">
+			<view class="commonInfo">
+				<text>生日</text>
+				<view class="rightContent">
+					<text class="sel">选择</text>
+					<text class="iconfont moti-right"></text>
+				</view>
 			</view>
-		</view>
-		<view class="commonInfo">
+		</picker>
+		<view class="commonInfo" @tap="showMulLinkageThreePicker">
 			<text>城市</text>
 			<view class="rightContent">
-				<text class="sel">选择</text>
+				<text class="sel">{{pickerText.label?pickerText.label:"选择"}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
 		<view class="save">
 			<view class="save-content">保存</view>
 		</view>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+		<!-- 	<view class="modal">
+			<view>
+				<label class="radio">
+					<radio value="r1" color="red"/>选中</label>
+				<label class="radio">
+					<radio value="r2" color="red"/>未选中</label>
+			</view>
+
+		</view> -->
 	</view>
 </template>
 
 <script>
+	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
 			return {
 				name: '126321',
-				iphone: '1770001990'
+				iphone: '1770001990',
+				sex: '选择',
+				themeColor: '#00bb50',
+				cityPickerValueDefault: [0, 0, 1],
+				pickerText: ''
 			};
 		},
 		methods: {
@@ -72,7 +92,25 @@
 				uni.navigateTo({
 					url: url
 				})
+			},
+			showModal: () => {
+				uni.showModal({
+					showCancel: false,
+				})
+			},
+			// 三级联动选择
+			showMulLinkageThreePicker: function() {
+				this.$refs.mpvueCityPicker.show()
+			},
+			onConfirm: function(event) {
+				this.pickerText = event;
+			},
+			onCancel: function(e) {
+				console.log(e)
 			}
+		},
+		components: {
+			mpvueCityPicker
 		}
 
 	}
@@ -146,7 +184,8 @@
 			flex-direction: column;
 			justify-content: flex-end;
 			align-items: center;
-			padding-bottom:40upx; 
+			padding-bottom: 40upx;
+
 			.save-content {
 				width: 690upx;
 				height: 82upx;
@@ -158,5 +197,6 @@
 				font-family: MicrosoftYaHei;
 			}
 		}
+
 	}
 </style>
