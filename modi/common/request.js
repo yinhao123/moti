@@ -56,6 +56,8 @@ export function regist(loginName, password, mobile, dynamicCode) { // 参数：�
 		password,
 		mobile,
 		dynamicCode
+	}).then((data) => {
+		return data
 	})
 }
 
