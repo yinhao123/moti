@@ -97,6 +97,7 @@
 
 				input {
 					flex: 1;
+					font-size:24upx; 
 				}
 
 				.iconfont {
