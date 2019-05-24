@@ -109,6 +109,10 @@
             "path" : "pages/perfectInfo/fillInID/fillInID",
             "style" : {}
         }
+        ,{
+            "path" : "pages/perfectInfo/phoneReset/phoneReset",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

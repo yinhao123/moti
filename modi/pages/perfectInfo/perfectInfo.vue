@@ -11,15 +11,13 @@
 			</view>
 		</view>
 
-		<view class="commonInfo" @click="go('rename/rename')">
+		<view class="commonInfo">
 			<text>用户名/昵称</text>
 			<view class="rightContent">
 				<text>{{name}}</text>
-				<text class="iconfont"></text>
 			</view>
-
 		</view>
-		<view class="commonInfo mt20">
+		<view class="commonInfo mt20" @tap="go('phoneReset/phoneReset')">
 			<text>手机号</text>
 			<view class="rightContent">
 				<text>{{iphone}}</text>
