@@ -15,7 +15,7 @@
 					<navigator url="/pages/passwordReset/passwordReset">忘记密码？</navigator>
 				</view>
 				<view class="errmsg">{{errmsg}}</view>
-				<button @tap="nameLogin">登录</button>
+				<button @tap="login">登录</button>
 				<view class="register">还没有账号?<span>去注册→</span></view>
 			</form>
 		</template>
@@ -45,7 +45,7 @@
 		checkMobile,
 		checkPassword
 	} from '@/common/utils.js'
-	import { nameLogin,getDynamicCodeLogin } from '@/common/request.js';
+	import { nameLogin,getDynamicCode } from '@/common/request.js';
 	export default {
 		data() {
 			return {
@@ -74,7 +74,7 @@
 				}
 			},
 			//账号密码登录
-			nameLogin:async function (){
+			login:async function (){
 				let succ = await nameLogin(this.loginName,this.password);
 				if(succ.data.code == 0){
 					uni.switchTab({
@@ -86,7 +86,7 @@
 			},
 			//获取验证码
 			getCode: async function (){
-				let succ = await getDynamicCodeLogin(this.mobile);
+				let succ = await getDynamicCode(this.mobile,'1');
 				if(succ.data.code == 0){
 					uni.navigateTo({
 						url:'/pages/loginCode/loginCode?mobile='+this.mobile
