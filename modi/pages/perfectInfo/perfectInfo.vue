@@ -4,17 +4,14 @@
 			<text>头像</text>
 			<view class="imageBox" @tap="chageImage">
 				<view class="headIcon">
-					
 					<image :src="headImage" mode=""></image>
 				</view>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		
-		<view class="commonInfo">
+		<view class="commonInfo" @click="go('rename/rename')">
 			<text>用户名/昵称</text>
-			
-			<view class="rightContent">
+			<view class="rightContent" >
 				<text>{{name}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
@@ -35,70 +32,47 @@
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<picker mode="selector" >
-			<view class="commonInfo mt20">
-				<text>性别</text>
-				<view class="rightContent">
-					<text class="sel">{{sex}}</text>
-					<text class="iconfont moti-right"></text>
-				</view>
-			</view>
-		</picker>
-		<picker mode="date" @change="getData">
-			<view class="commonInfo">
-				<text>生日</text>
-				<view class="rightContent">
-					<text class="sel">{{data?data:"选择"}}</text>
-					<text class="iconfont moti-right"></text>
-				</view>
-			</view>
-		</picker>
-		<view class="commonInfo" @tap="showMulLinkageThreePicker">
-			<text>城市</text>
+		<view class="commonInfo mt20">
+			<text>性别</text>
 			<view class="rightContent">
-				<text class="sel">{{pickerText.label?pickerText.label:"选择"}}</text>
+				<text class="sel">选择</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<view class="save">
-			<view class="save-content">保存</view>
-		</view>
-		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
-		<!-- 	<view class="modal">
-			<view>
-				<label class="radio">
-					<radio value="r1" color="red"/>选中</label>
-				<label class="radio">
-					<radio value="r2" color="red"/>未选中</label>
+		<view class="commonInfo">
+			<text>生日</text>
+			<view class="rightContent">
+				<text class="sel">选择</text>
+				<text class="iconfont moti-right"></text>
 			</view>
-
-		</view> -->
+		</view>
+		<view class="commonInfo">
+			<text>城市</text>
+			<view class="rightContent">
+				<text class="sel">选择</text>
+				<text class="iconfont moti-right"></text>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
 			return {
-				name: '126321',
-				iphone: '1770001990',
-				sex: '选择',
-				data:'',
-				themeColor: '#00bb50',
-				cityPickerValueDefault: [0, 0, 1],
-				pickerText: ''
+				name:'126321',
+				iphone:'1770001990',
+				headImage:"../../static/22.png"
 			};
 		},
 		
 		methods: {
-			go: function(url) { //公用函数，用页面跳转传递参数 输入跳转地址
+			go: function(url){//公用函数，用页面跳转并传递参数
 				uni.navigateTo({
-					url: url
+					url:url 
 				})
 			},
-chageImage: async function(){//更换头像方法
+			chageImage: async function(){//更换头像方法
 				uni.chooseImage({
 					count:1,
 					sourceType:['album'],
@@ -107,35 +81,9 @@ chageImage: async function(){//更换头像方法
 						console.log(this);
 						console.log(res.tempFilePaths[0]);
 						this.headImage = res.tempFilePaths[0];
-						// uni.previewImage({
-						// 	urls:res.tempFilePaths
-						// })
 					}
 				})
-
-
-			},
-			showModal: () => {
-				uni.showModal({
-					showCancel: false,
-				})
-			},
-			getData: function(e){
-				this.data = e.detail.value
-			},
-			// 三级联动选择
-			showMulLinkageThreePicker: function() {
-				this.$refs.mpvueCityPicker.show()
-			},
-			onConfirm: function(event) {
-				this.pickerText = event;
-			},
-			onCancel: function(e) {
-				console.log(e)
 			}
-		},
-		components: {
-			mpvueCityPicker
 		}
 
 	}
@@ -143,12 +91,7 @@ chageImage: async function(){//更换头像方法
 
 <style lang="scss">
 	.content {
-		width: 100%;
 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-
 		.headBox {
 			display: flex;
 			height: 170upx;
@@ -202,26 +145,5 @@ chageImage: async function(){//更换头像方法
 				color: #999999
 			}
 		}
-
-		.save {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			align-items: center;
-			padding-bottom: 40upx;
-
-			.save-content {
-				width: 690upx;
-				height: 82upx;
-				background-color: #050505;
-				border-radius: 10upx;
-				color: #ffffff;
-				line-height: 82upx;
-				text-align: center;
-				font-family: MicrosoftYaHei;
-			}
-		}
-
 	}
 </style>
