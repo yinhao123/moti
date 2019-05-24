@@ -4,19 +4,19 @@
 			<text>头像</text>
 			<view class="imageBox" @tap="chageImage">
 				<view class="headIcon">
-					
+
 					<image :src="headImage" mode=""></image>
 				</view>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		
+
 		<view class="commonInfo">
 			<text>用户名/昵称</text>
-			
+
 			<view class="rightContent">
 				<text>{{name}}</text>
-				<text class="iconfont moti-right"></text>
+				<text class="iconfont"></text>
 			</view>
 
 		</view>
@@ -28,18 +28,18 @@
 			</view>
 
 		</view>
-		<view class="commonInfo">
+		<view class="commonInfo" @tap="go('fillInID/fillInID')">
 			<text>身份认证</text>
 			<view class="rightContent">
 				<text class="identify">完善个人信息，享受更多服务</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
-		<picker mode="selector" >
+		<picker :range="sexOption" range-key="sex" @change="getSex">
 			<view class="commonInfo mt20">
 				<text>性别</text>
 				<view class="rightContent">
-					<text class="sel">{{sex}}</text>
+					<text class="sel">{{sexText?sexText:'选择'}}</text>
 					<text class="iconfont moti-right"></text>
 				</view>
 			</view>
@@ -84,25 +84,34 @@
 			return {
 				name: '126321',
 				iphone: '1770001990',
-				sex: '选择',
-				data:'',
+				headImage: '',
+				sexText: '',
+				sex: 3,
+				sexOption: [{
+						sex: '男'
+					},
+					{
+						sex: '女'
+					}
+				],
+				data: '',
 				themeColor: '#00bb50',
 				cityPickerValueDefault: [0, 0, 1],
 				pickerText: ''
 			};
 		},
-		
+
 		methods: {
 			go: function(url) { //公用函数，用页面跳转传递参数 输入跳转地址
 				uni.navigateTo({
 					url: url
 				})
 			},
-chageImage: async function(){//更换头像方法
+			chageImage: async function() { //更换头像方法
 				uni.chooseImage({
-					count:1,
-					sourceType:['album'],
-					success:(res) => {
+					count: 1,
+					sourceType: ['album'],
+					success: (res) => {
 						console.log(JSON.stringify(res.tempFilePaths));
 						console.log(this);
 						console.log(res.tempFilePaths[0]);
@@ -120,8 +129,14 @@ chageImage: async function(){//更换头像方法
 					showCancel: false,
 				})
 			},
-			getData: function(e){
+			//获取生日日期
+			getData: function(e) {
 				this.data = e.detail.value
+			},
+			//获取性别
+			getSex: function(e) {
+				this.sex = e.detail.value;
+				this.sexText = ['男', '女'][this.sex]
 			},
 			// 三级联动选择
 			showMulLinkageThreePicker: function() {
