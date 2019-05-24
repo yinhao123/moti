@@ -44,7 +44,7 @@ export function checkUserMobile(mobile) { // 参数：手机号
 export function getDynamicCode(mobile,dynamicCodeType) { // 参数：手机号  验证码类型
 	return post('m/code/getDynamicCode', {
 		mobile,
-		dynamicCodeType     // 0-用户注册  1-手机号登录 2- 修改密码
+		dynamicCodeType     // 0-用户注册  1-手机号登录 2- 修改密码 ....（后续还会增加，及时增加注释）
 	}).then((data) => {
 		return data
 	})
