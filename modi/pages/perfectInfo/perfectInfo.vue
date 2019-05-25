@@ -17,7 +17,7 @@
 				<text>{{name}}</text>
 			</view>
 		</view>
-		<view class="commonInfo mt20" @tap="go('phoneReset/phoneReset')">
+		<view class="commonInfo mt20" @tap="goPhoneReset">
 			<text>手机号</text>
 			<view class="rightContent">
 				<text>{{iphone}}</text>
@@ -39,7 +39,6 @@
 					<text class="sel">{{sexText?sexText:'选择'}}</text>
 					<text class="iconfont moti-right"></text>
 				</view>
-
 			</view>
 		</picker>
 		<view class="commonInfo">
@@ -68,6 +67,7 @@
 				headImage: '',
 				sexText: '',
 				sex: 3,
+				sexArray: ['男', '女'],
 				sexOption: [{
 						sex: '男'
 					},
@@ -89,7 +89,11 @@
 					url: url
 				})
 			},
-
+			goPhoneReset: function() {
+				uni.navigateTo({
+					url: 'phoneReset/phoneReset?phone=' + this.iphone
+				})
+			},
 			chageImage: async function() { //更换头像方法
 				uni.chooseImage({
 					count: 1,
@@ -101,32 +105,33 @@
 						this.headImage = res.tempFilePaths[0];
 					}
 				})
-			}
-		},
-		showModal: () => {
-			uni.showModal({
-				showCancel: false,
-			})
-		},
-		//获取生日日期
-		getData: function(e) {
-			this.data = e.detail.value
-		},
-		//获取性别
-		getSex: function(e) {
-			this.sex = e.detail.value;
-			this.sexText = ['男', '女'][this.sex]
-		},
-		// 三级联动选择
-		showMulLinkageThreePicker: function() {
-			this.$refs.mpvueCityPicker.show()
-		},
-		onConfirm: function(event) {
-			this.pickerText = event;
-		},
-		onCancel: function(e) {
-			console.log(e)
+			},
 
+			showModal: () => {
+				uni.showModal({
+					showCancel: false,
+				})
+			},
+			//获取生日日期
+			getData: function(e) {
+				this.data = e.detail.value
+			},
+			//获取性别
+			getSex: function(e) {
+				this.sex = e.detail.value;
+				this.sexText = this.sexArray[this.sex]
+			},
+			// 三级联动选择
+			showMulLinkageThreePicker: function() {
+				this.$refs.mpvueCityPicker.show()
+			},
+			onConfirm: function(event) {
+				this.pickerText = event;
+			},
+			onCancel: function(e) {
+				console.log(e)
+
+			},
 		}
 	}
 </script>
