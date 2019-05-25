@@ -115,7 +115,7 @@
 				}
 				
 				if (!checkPassword(this.password)) {
-					this.errorHand('密码格式有误')
+					this.errorHand('密码需要由6~20位数字，字母或符号组成')
 					return false
 				} 
 				

@@ -46,6 +46,7 @@
 		checkPassword
 	} from '@/common/utils.js'
 	import { nameLogin,getDynamicCode } from '@/common/request.js';
+	import { mapMutations } from 'vuex'
 	export default {
 		data() {
 			return {
@@ -77,6 +78,7 @@
 			login:async function (){
 				let succ = await nameLogin(this.loginName,this.password);
 				if(succ.data.code == 0){
+					this.setLoginState(succ.data.result)
 					uni.switchTab({
 						url:"/pages/index/index"
 					})
@@ -92,7 +94,8 @@
 						url:'/pages/loginCode/loginCode?mobile='+this.mobile
 					})
 				}
-			}
+			},
+			...mapMutations(['setLoginState'])
 		}
 	}
 </script>

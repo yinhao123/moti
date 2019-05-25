@@ -69,7 +69,8 @@ export default {
 					}
 
 					break;
-				case 'code':
+				case 'dynamicCode':
+					console.log(this.dynamicCode)
 					if(this.dynamicCode == ''){
 						this.errMsg = "请输入验证码"
 					}else{
@@ -131,7 +132,7 @@ export default {
 			}, 1000)
 		},
 		formSubmit: async function(e) {
-
+			console.log("iphoneCheck: " + this.iphoneCheck + "; codeCheck: " + this.codeCheck + "; pwdCheck: " + this.pwdCheck + "; pwdCheckSame: " + this.pwdCheckSame)
 			if (this.iphoneCheck && this.codeCheck && this.pwdCheck && this.pwdCheckSame) {
 				
 				let {data} = await modifyPassword(this.password, this.mobile, this.dynamicCode)
