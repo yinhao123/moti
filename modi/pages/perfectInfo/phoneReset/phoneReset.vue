@@ -8,17 +8,17 @@
 			<view class="submit-item">
 				<text class="hint">+86</text>
 				<input type="number" name="newPhone" placeholder="请输入新手机号" v-model="newPhone" />
-				<text class="iconfont moti-round_close_fill_light"></text>
+				<text class="iconfont moti-round_close_fill_light" @tap="clearPhone"></text>
 			</view>
 			<view class="submit-item">
-				<text class="hint iconfont moti-yanzhengma">&#xe647;</text>
+				<text class="hint iconfont moti-yanzhengma" @tap="clear">&#xe647;</text>
 				<input type="text" name="code" placeholder="请输入验证码" v-model="code" />
-				<view class="getCode">获取验证码</view>
+				<view class="getCode" @tap="getDynamicCode">获取验证码</view>
 			</view>
 		</view>
 		<view class="hint-text">修改手机后，可以使用新手机号登录MOTI到家</view>
 		<view class="buttom-wrapper">
-			<view class="buttom">
+			<view class="buttom" >
 				确定更改手机号码
 			</view>
 		</view>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import {getDynamicCode} from '@/common/request.js'
 	export default {
 		data() {
 			return {
@@ -39,8 +40,17 @@
 			var str = option.phone
 			this.sendPhone = str;
 			 this.oldPhone = str.slice(0, 3) + ' **** ' + str.slice(7);
-				
     },
+		methods:{
+			clearPhone:function(){
+				this.newPhone=''
+			},
+			getDynamicCode: async function(){
+				let result = await getDynamicCode(this.sendPhone, 0)
+			
+				let code = result.data.code
+			}
+		}
 		
 	}
 </script>
