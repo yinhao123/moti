@@ -11,10 +11,18 @@ async function post(url, data) {
 			},
 			data,
 			success: function(data) {
+				if (data.data.code === "3") { // 未登录
+					uni.showToast({
+						icon: 'none',
+						title: '请您先登录！',
+						position: 'top'
+					})
+				}
 				resolve(data)
 			},
-			fail: function() {
+			fail: function(err) {
 				// 回调失败时
+				console.log(err)
 				if (typeof reject == 'function') {
 					reject(data);
 				} else {
@@ -29,24 +37,18 @@ async function post(url, data) {
 export function checkLoginName(loginName) { // 参数：用户名
 	return post('m/user/checkLoginName', {
 		loginName
-	}).then(function(data) {
-		return data
 	})
 }
 //检测手机号是否已注册
 export function checkUserMobile(mobile) { // 参数：手机号
 	return post('m/user/checkUserMobile', {
 		mobile
-	}).then((data) => {
-		return data
 	})
 }
 //获取用户注册验证码
 export function getDynamicCode(mobile) { // 参数：手机号
 	return post('m/user/getDynamicCode', {
 		mobile
-	}).then((data) => {
-		return data
 	})
 }
 //注册

@@ -143,6 +143,7 @@
 			},
 			errorHand(text) { // 错误提示框
 				uni.showToast({
+					icon: 'none',
 					title: text,
 				})
 				return false
