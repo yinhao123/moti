@@ -27,13 +27,13 @@
 				</view>
 				<view class="from-items errText">{{ errMsg }}</view>
 			</view>
-			<button>确认提交</button>
+			<button @tap="formSubmit">确认提交</button>
 		</form>
 	</view>
 </template>
 
 <script>
-import { getDynamicCode } from '@/common/request.js';
+import { getDynamicCode, modifyPassword } from '@/common/request.js';
 import { checkMobile, checkPassword } from '../../common/utils.js'
 export default {
 	data() {
@@ -60,34 +60,32 @@ export default {
 		checkRules: function(inputType) {
 			switch (inputType) {
 				case 'mobile':
-					if (this.mobile != '') {
-						
-						if (!checkMobile(this.mobile)) {
-							this.errMsg = '请输入有效的手机号码';
-						} else {
-							this.iphoneCheck = true;
-							this.canClick = true;
-						}
+					if (!checkMobile(this.mobile)) {
+						this.errMsg = '请输入有效的手机号码';
 					} else {
-						this.errMsg = '请输入手机号码';
+						this.iphoneCheck = true;
+						this.canClick = true;
+						this.errMsg = ''
 					}
+
 					break;
 				case 'code':
 					if(this.dynamicCode == ''){
 						this.errMsg = "请输入验证码"
 					}else{
 						this.codeCheck = true;
+						this.errMsg = ''
 					}
 					break;
 				case 'password':
 					if(this.password == ''){
 						this.errMsg = "请输入密码"
 					}else{
-						let reg = /^[\w.]{6,20}$/;
 						if (!checkPassword(this.password)) {
 							this.errMsg = '密码需要由6~20位数字，字母或符号组成';
 						} else {
 							this.pwdCheck = true;
+							this.errMsg = ''
 						}
 					}
 					break;
@@ -97,6 +95,7 @@ export default {
 					}else{
 						if(this.repeatPassword == this.password){
 							this.pwdCheckSame = true;
+							this.errMsg = ''
 						}else{
 							this.errMsg = "两次密码需保持一致"
 						}
@@ -107,20 +106,15 @@ export default {
 			}
 		},
 		async getCode () {
-			if (!checkMobile(this.mobile)) {
-				// this.errorHand('手机号码格式有误')
-				this.errMsg = '手机号码格式有误'
-				return false
-			} 
+			!checkMobile(this.mobile) && (this.errMsg = '手机号码格式有误')
 			
-			if (!this.canClick) return; //改动的是这两行代码
+			if (!this.canClick || !this.iphoneCheck) return; //改动的是这两行代码
 			
-			let {data} = await getDynamicCode(this.mobile) // 获取验证码
-			
-			if (data.code === "0") {
+			let {data} = await getDynamicCode(this.mobile, 2) // 获取验证码
+			data.code === "0" ?
 				this.countDown() // 开始倒计时
-			}
-			
+			:
+				this.errMsg = data.msg
 		},
 		countDown() { // 倒计时
 			this.canClick = false;
@@ -136,9 +130,22 @@ export default {
 				}
 			}, 1000)
 		},
-		formSubmit: function(e) {
+		formSubmit: async function(e) {
+
 			if (this.iphoneCheck && this.codeCheck && this.pwdCheck && this.pwdCheckSame) {
-				console.log("1111")
+				
+				let {data} = await modifyPassword(this.password, this.mobile, this.dynamicCode)
+				if (data.code === "0") {
+					uni.showToast({
+						title: "修改成功！",
+					})
+					setTimeout(() => {
+						uni.navigateBack()
+					}, 1000)
+				}
+				else {
+					this.errMsg = data.msg
+				}
 			}
 		},
 		changePassword () {

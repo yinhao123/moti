@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import { mobileLogin,getDynamicCodeLogin } from '@/common/request.js';
+	import { mobileLogin,getDynamicCode } from '@/common/request.js';
 	export default {
 		data() {
 			return {
@@ -73,18 +73,16 @@
 						url:"/pages/index/index"
 					})
 				}else{
-					uni.show({
-						'title':succ.data.msg
-					})
+					console.log(succ.data.msg)
 				}
 			},
 			getCodeFun: async function(){
 				this.focusIndex = 0;
-				for(let i = 0; i < codeArr.length; i++){
-					codeArr[i].val = ''
+				for(let i = 0; i < this.codeArr.length; i++){
+					this.codeArr[i].val = ''
 				}
 				if(this.getCode){
-					let succ = await getDynamicCodeLogin(this.mobile);
+					let succ = await getDynamicCode(this.mobile,'1');
 					if(succ.data.code == 0){
 						this.clock();
 					}

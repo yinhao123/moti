@@ -69,7 +69,7 @@
 				
 				if (!this.canResend) return false
 
-				let {data} = await getDynamicCode(this.mobile) // 获取验证码
+				let {data} = await getDynamicCode(this.mobile, 0) // 获取验证码
 
 				if (data.code === "0") {
 					this.countDown() // 开始倒计时
@@ -143,6 +143,7 @@
 			},
 			errorHand(text) { // 错误提示框
 				uni.showToast({
+					icon: 'none',
 					title: text,
 				})
 				return false
