@@ -2,12 +2,12 @@
 	<view class="content">
 		<view class="hint-wrapper">
 			<text class="hint-text">当前绑定手机号</text>
-			<text class="hint-phone">188 **** 4435</text>
+			<text class="hint-phone">{{oldPhone}}</text>
 		</view>
 		<view class="submit-list">
 			<view class="submit-item">
 				<text class="hint">+86</text>
-				<input type="number" name="phone" placeholder="请输入新手机号" v-model="phone" />
+				<input type="number" name="newPhone" placeholder="请输入新手机号" v-model="newPhone" />
 				<text class="iconfont moti-round_close_fill_light"></text>
 			</view>
 			<view class="submit-item">
@@ -29,10 +29,19 @@
 	export default {
 		data() {
 			return {
-				phone: '',
+				oldPhone: '',
+				sendPhone:'',
+				newPhone:'',
 				code: ''
 			};
-		}
+		},
+		onLoad: function (option) { //接收从个人设置也穿过来的手机号并隐藏中间四位
+			var str = option.phone
+			this.sendPhone = str;
+			 this.oldPhone = str.slice(0, 3) + ' **** ' + str.slice(7);
+				
+    },
+		
 	}
 </script>
 
