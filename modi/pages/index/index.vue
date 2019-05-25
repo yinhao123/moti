@@ -83,7 +83,7 @@
 			}
 		},
 		onLoad() {
-
+checkLoginName("abcdefg");
 		},
 		methods: {
 			//轮播图指示器
