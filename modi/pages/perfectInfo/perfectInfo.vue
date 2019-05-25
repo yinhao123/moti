@@ -25,7 +25,7 @@
 			</view>
 
 		</view>
-		<view class="commonInfo" @tap="go('fillInID/fillInID')">
+		<view class="commonInfo" @tap="go('addID/addID')">
 			<text>身份认证</text>
 			<view class="rightContent">
 				<text class="identify">完善个人信息，享受更多服务</text>

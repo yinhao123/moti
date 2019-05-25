@@ -95,3 +95,10 @@ export function perfectInfo(id,loginName,password) { // 参数: 用户id  用户
 		password
 	})
 }
+//提交用户身份证号码
+export function perfectId(userName, idCard){//参数：用户id 用户姓名 身份证号码
+	return post('m/userInfo/modifyPassword', {
+		userName,
+		idCard
+	})
+}

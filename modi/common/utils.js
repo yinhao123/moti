@@ -7,3 +7,7 @@ export function checkPassword (password) {
 	let reg = /^[\w.]{6,20}$/
 	return reg.test(password)
 }
+export function checkIdCard(str) {
+	let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+	return reg.test(str)
+}
