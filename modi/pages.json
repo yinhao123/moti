@@ -106,7 +106,7 @@
             "path" : "pages/loginCode/loginCode",
             "style" : {"navigationBarTitleText": "手机号验证"}
         }    ,{
-            "path" : "pages/perfectInfo/fillInID/fillInID",
+            "path" : "pages/perfectInfo/addID/addID",
             "style" : {}
         }
         ,{
