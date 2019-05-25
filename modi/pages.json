@@ -105,7 +105,15 @@
         },{
             "path" : "pages/loginCode/loginCode",
             "style" : {"navigationBarTitleText": "手机号验证"}
-        }],
+        }    ,{
+            "path" : "pages/perfectInfo/fillInID/fillInID",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/perfectInfo/phoneReset/phoneReset",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

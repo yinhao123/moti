@@ -110,8 +110,7 @@ export default {
 			
 			if (!this.canClick || !this.iphoneCheck) return; //改动的是这两行代码
 			
-			let {data} = await getDynamicCode(this.mobile) // 获取验证码
-			console.log(data)
+			let {data} = await getDynamicCode(this.mobile, 2) // 获取验证码
 			data.code === "0" ?
 				this.countDown() // 开始倒计时
 			:
