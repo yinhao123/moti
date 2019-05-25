@@ -7,8 +7,8 @@ async function post(url, data) {
 			url: config.host + url,
 			method: 'POST',
 			header: {
-				"content-type": 'application/x-www-form-urlencoded',
-				"authorization": 'e1a080ba-3a61-4049-88ba-1fe009511f62'
+				"Content-type": 'application/x-www-form-urlencoded',
+				// "Authorization": '98ae451a-17ad-4cc0-84b6-d661d2cceba0'
 			},
 			data,
 			success: function(data) {
@@ -94,5 +94,12 @@ export function perfectInfo(id,loginName,password) { // 参数: 用户id  用户
 		id,
 		loginName,
 		password
+	})
+}
+//提交用户身份证号码
+export function perfectId(userName, idCard){//参数：用户id 用户姓名 身份证号码
+	return post('m/userInfo/modifyPassword', {
+		userName,
+		idCard
 	})
 }
