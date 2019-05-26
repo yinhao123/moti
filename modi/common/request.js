@@ -7,8 +7,7 @@ async function post(url, data) {
 			url: config.host + url,
 			method: 'POST',
 			header: {
-				"Content-type": 'application/x-www-form-urlencoded',
-				// "Authorization": '98ae451a-17ad-4cc0-84b6-d661d2cceba0'
+				"content-type": 'application/x-www-form-urlencoded'
 			},
 			data,
 			success: function(data) {
@@ -33,31 +32,56 @@ async function post(url, data) {
 		})
 	})
 }
+
+//封装图片上传方法
+async function upimage(url, images) {
+	return new Promise(function(resolve,reject) {
+
+		uni.uploadFile({
+			url: config.host + url,
+			fileType: 'image',
+			// header: {
+			// 	"content-type": 'application/x-www-form-urlencoded'
+			// },
+			filePath: images,
+			name: 'file',
+			success: function(res1) {
+				console.log(res1);
+				resolve(res1);
+			},
+			fail: function(err1) {
+				console.log(err1);
+				reject(err1);
+			}
+		})
+	})
+}
+
 //检测用户名是否已注册
 export function checkLoginName(loginName) { // 参数：用户名
-	return post('/m/user/checkLoginName', {
+	return post('/user/checkLoginName', {
 		loginName
 	})
 }
 //检测手机号是否已注册
 export function checkUserMobile(mobile) { // 参数：手机号
-	return post('/m/user/checkUserMobile', {
+	return post('m/user/checkUserMobile', {
 		mobile
 	})
 }
 
 //获取手机验证码
-export function getDynamicCode(mobile,dynamicCodeType) { // 参数：手机号  验证码类型
-	return post('/m/code/getDynamicCode', {
+export function getDynamicCode(mobile, dynamicCodeType) { // 参数：手机号  验证码类型
+	return post('m/code/getDynamicCode', {
 		mobile,
-		dynamicCodeType     // 0-用户注册  1-手机号登录 2- 修改密码 ....（后续还会增加，及时增加注释）
+		dynamicCodeType // 0-用户注册  1-手机号登录 2- 修改密码 ....（后续还会增加，及时增加注释）
 	}).then((data) => {
 		return data
 	})
 }
 //注册
 export function regist(loginName, password, mobile, dynamicCode) { // 参数：用户名，密码，手机号，验证码
-	return post('/m/user/regist', {
+	return post('m/user/regist', {
 		loginName,
 		password,
 		mobile,
@@ -68,38 +92,36 @@ export function regist(loginName, password, mobile, dynamicCode) { // 参数：�
 }
 //修改密码
 export function modifyPassword(password, mobile, dynamicCode) { // 参数：密码，手机号，验证码
-	return post('/m/userInfo/modifyPassword', {
+	return post('m/userInfo/modifyPassword', {
 		password,
 		mobile,
 		dynamicCode
 	})
 }
 //手机验证码登录
-export function mobileLogin(mobile,dynamicCode) { // 参数: 手机号 验证码
-	return post('/m/login/mobileLogin', {
+export function mobileLogin(mobile, dynamicCode) { // 参数: 手机号 验证码
+	return post('m/login/mobileLogin', {
 		mobile,
 		dynamicCode
 	})
 }
 //账号密码登录
-export function nameLogin(loginName,password) { // 参数: 用户名 密码
-	return post('/m/login/nameLogin', {
+export function nameLogin(loginName, password) { // 参数: 用户名 密码
+	return post('/login/nameLogin', {
 		loginName,
 		password
 	})
 }
 //用户信息补全
-export function perfectInfo(id,loginName,password) { // 参数: 用户id  用户名  密码
-	return post('/m/login/perfectInfo', {
+export function perfectInfo(id, loginName, password) { // 参数: 用户id  用户名  密码
+	return post('m/login/perfectInfo', {
 		id,
 		loginName,
 		password
 	})
 }
-//提交用户身份证号码
-export function perfectId(userName, idCard){//参数：用户id 用户姓名 身份证号码
-	return post('m/userInfo/modifyPassword', {
-		userName,
-		idCard
-	})
+//用户修改头像
+export function changeHeadIcon(file) {
+	console.log("c测试"+file)
+	return upimage('/userInfo/uploadAvatarPic', file);
 }

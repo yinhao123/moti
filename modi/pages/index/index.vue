@@ -84,6 +84,17 @@
 		},
 		onLoad() {
 checkLoginName("abcdefg");
+// uni.request({
+// 	url:'/m/user/checkLoginName',
+// 	method: 'POST',
+// 	header: {
+// 		"content-type": 'application/x-www-form-urlencoded'
+// 	},
+// 	data:{'loginName':'sdfsdfs'},
+// 	success:(res)=>{
+// 		console.log(res.data);
+// 	}
+// })
 		},
 		methods: {
 			//轮播图指示器
