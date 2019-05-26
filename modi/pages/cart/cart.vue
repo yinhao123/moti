@@ -50,7 +50,7 @@
 											<view class="icon jian"></view>
 										</view>
 										<view class="input" @tap.stop="discard">
-											<input type="number" v-model="row.number" @input="sum($event, index, row.id)" />
+											<input type="number" v-model="row.number" @blur="sum($event, index, row.id)" />
 										</view>
 										<view class="add" @tap.stop="add(index, row.id)">
 											<view class="icon jia"></view>
@@ -343,11 +343,17 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 				}
 			},
 			// 合计
-			sum(e, index) {
+			async sum(e, index, goodsId) {
+				if (goodsId) {
+					let {data} = await subCarNum(goodsId, e.detail.value)
+					if (data.code !== "0") {
+						this.showTips(data.msg)
+						return false
+					}
+				}
 				this.sumPrice = 0;
-				console.log("修改了技术")
 				let len = this.goodsList.length;
-				for (let i = 0; i < len; i++) {
+				for (var i = 0; i < len; i++) {
 					if (this.goodsList[i].selected) {
 						if (e && i == index) {
 							this.sumPrice = this.sumPrice + (e.detail.value * this.goodsList[i].price);
@@ -360,6 +366,12 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 			},
 			discard() {
 				//丢弃
+			},
+			showTips(title) { // 弹窗
+				uni.showToast({
+					title,
+					icon: 'none'
+				})
 			}
 		}
 	}

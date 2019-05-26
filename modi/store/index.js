@@ -11,7 +11,7 @@ const store = new Vuex.Store({
 		setLoginState (state, data) { // 设置用户信息
 			state.userInfo = data
 		},
-		getLoginState () {
+		removeLoginState () { // 清空用户信息
 			
 		}
 	}
