@@ -104,6 +104,47 @@ export function perfectId(userName, idCard){//参数：用户id 用户姓名 身
 	})
 }
 
+
+// 商品模块
+// 商品spu信息
+export function goodsSpuQuery(id) { // 参数： 商品的spuId
+	return post('/m/goodsSpu/goodsSpuQuery', {
+		id
+	})
+}
+
+// 商品分类查询
+export function queryCategroyList(parentId) { // 参数： 商品分类上级id
+	return post('/m/goodsSpu/queryCategroyList', {
+		parentId
+	})
+}
+
+// 根据类目查询商品SPU
+export function queryGoodsSpuByCategroy(cId, page, rows) { // 参数：商品分类的id， 页号， 每页条数
+	return post('/m/goodsSpu/queryGoodsSpuByCategroy', {
+		cId,
+		page,
+		rows
+	})
+}
+
+// 商品SKU数据查询
+export function queryGoodsSku(spuId, attributes) { // 参数： 商品spuId， 商品属性id组合
+	return post('/m/goodsSku/queryGoodsSku', {
+		spuId,
+		attributes
+	})
+}
+
+// 购物车部分
+//增加商品到购物车
+export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加的商品数量
+	return post('/m/car/addCar', {
+		skuId,
+		num
+	})
+}
 /**
  *	收货地址相关接口
  **/

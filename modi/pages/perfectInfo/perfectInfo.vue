@@ -72,7 +72,7 @@
 			return {
 				name: '126321',
 				iphone: '15233818144',
-				headImage: '',
+				headImage: '../../static/22.png',
 				sexText: '',
 				date: '',
 				sex: 3,
@@ -150,7 +150,11 @@
 
 <style lang="scss">
 	.content {
+		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
 		.headBox {
 			display: flex;
@@ -203,6 +207,24 @@
 
 			.sel {
 				color: #999999
+			}
+		}
+		.save{
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: center;
+			padding-bottom: 40upx;
+			.save-content{
+				width: 690upx;
+				height: 82upx;
+				background: #050505;
+				border-radius: 10upx;
+				color: #ffffff;
+				line-height: 82upx;
+				text-align: center;
+				font-family: MicrosoftYaHei;
 			}
 		}
 	}
