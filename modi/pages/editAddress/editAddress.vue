@@ -1,21 +1,22 @@
 <template>
 	<view class="content">
-		<form @submit="formSubmit" >
+		<form>
 			<view class="formItem">
-				<input class="formInput" type="text" value="" placeholder="姓名"/>
+				<input class="formInput" type="text" :value="receiveName" placeholder="姓名"/>
 			</view>
 			<view class="formItem">
-				<input class="formInput" type="text" value="" placeholder="电话"/>
+				<input class="formInput" type="text" :value="receivePhone" placeholder="电话"/>
 			</view>
 			<view class="formItem">
 				<view class="formInput" :style="!pickerText.label?'color: #808080;':''" 
 					@tap="showMulLinkageThreePicker">
 					{{pickerText.label?pickerText.label:"省份 城市 区县"}}
 				</view>
-				<input type="hidden" style="display: none;" name="address" :value="pickerText.label"/>
+				<input type="hidden" style="display: none;" :value="pickerText.cityCode"/>
+				<input type="hidden" style="display: none;" :value="pickerText.label"/>
 			</view>
 			<view class="formItem">
-				<input class="formInput" type="text" value="" placeholder="详细地址"/>
+				<input class="formInput" type="text" :value="userAddress" placeholder="详细地址"/>
 			</view>
 		</form>	
 		<view class="formBtn">
@@ -30,22 +31,61 @@
 </template>
 
 <script>
+	import { saveAddress,updateAddress } from '@/common/request.js';
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
 			return {
+				editType:'',
 				// 城市三级联动
 				themeColor: '#00bb50',
 				cityPickerValueDefault: [0, 0, 1],
-				pickerText: ''
+				pickerText: '',
+				// 地址相关信息
+				receiveName:'', //姓名
+				receivePhone:'', //电话
+				userAddress:'', //详细地址
 			}
 		},
 		components:{
 			mpvueCityPicker
 		},
+		onLoad: function (e){
+			console.log(e.type);
+			this.editType = e.type;
+		},
 		methods: {
-			submitAddress:function (){
-				console.log("保存地址")
+			submitAddress:async function(){
+				if (this.receiveName === "") {
+					this.errorHand('收货人姓名不能为空')
+					return false
+				}
+				if (this.receivePhone === "") {
+					this.errorHand('收货人电话不能为空')
+					return false
+				}
+				if (this.pickerText === "") {
+					this.errorHand('请选择收货地址')
+					return false
+				}
+				if (this.userAddress === "") {
+					this.errorHand('请填写收货详细地址')
+					return false
+				}
+				let succ;
+				if(this.editType == 'add'){
+					succ = await saveAddress(this.receiveName,this.receivePhone,this.pickerText,this.userAddress);
+				}else if(this.editType == 'edit'){
+					succ = await updateAddress(this.receiveName,this.receivePhone,this.pickerText,this.userAddress);
+				}
+				console.log(succ)
+			},
+			errorHand(text) { // 错误提示框
+				uni.showToast({
+					icon: 'none',
+					title: text,
+				})
+				return false
 			},
 			// 三级联动选择
 			showMulLinkageThreePicker:function (){
@@ -53,6 +93,7 @@
 			},
 			onConfirm:function (event){
 				this.pickerText = event;
+				console.log(event)
 			},
 			onCancel:function (e){
 				console.log(e)
