@@ -66,6 +66,7 @@
 </template>
 
 <script>
+	import {changeHeadIcon} from '@/common/request.js'
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
@@ -107,14 +108,17 @@
 				})
 			},
 			chageImage: async function() { //更换头像方法
+
 				uni.chooseImage({
 					count: 1,
 					sourceType: ['album'],
-					success: (res) => {
+					success:  (res) => {
 						console.log(JSON.stringify(res.tempFilePaths));
 						console.log(this);
-						console.log(res.tempFilePaths[0]);
+						// console.log(res.tempFilePaths[0]);
+						let imag_path = res.tempFilePaths[0];
 						this.headImage = res.tempFilePaths[0];
+						changeHeadIcon(imag_path);
 					}
 				})
 			},
@@ -209,14 +213,16 @@
 				color: #999999
 			}
 		}
-		.save{
+
+		.save {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
 			align-items: center;
 			padding-bottom: 40upx;
-			.save-content{
+
+			.save-content {
 				width: 690upx;
 				height: 82upx;
 				background: #050505;

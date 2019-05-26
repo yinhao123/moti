@@ -4,7 +4,7 @@
 			<view class="from-list">
 				<view>
 					<text class="iconfont user-icon">&#xe61a;</text>
-					<input type="text" confirm-type="next" v-model="loginName" focus name="user" @blur="" placeholder="请输入用户名" />
+					<input type="text" confirm-type="next" v-model="loginName" focus name="user" placeholder="请输入用户名" />
 				</view>
 				<view>
 					<text class="iconfont">&#xe655;</text>
