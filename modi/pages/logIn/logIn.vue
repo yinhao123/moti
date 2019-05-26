@@ -46,7 +46,7 @@
 		checkPassword
 	} from '@/common/utils.js'
 	import { nameLogin,getDynamicCode } from '@/common/request.js';
-	// import { mapMutations } from 'vuex'
+	import { mapMutations } from 'vuex'
 	export default {
 		data() {
 			return {
@@ -75,10 +75,10 @@
 				}
 			},
 			//账号密码登录
-			login:async function (){
+			async login(){
 				let succ = await nameLogin(this.loginName,this.password);
 				if(succ.data.code == 0){
-					// this.setLoginState(succ.data.result)
+					this.setLoginState(succ.data.result) // vuex 记录用户登录数据
 					uni.switchTab({
 						url:"/pages/index/index"
 					})
@@ -95,7 +95,7 @@
 					})
 				}
 			},
-			// ...mapMutations(['setLoginState'])
+			...mapMutations(['setLoginState'])
 		}
 	}
 </script>

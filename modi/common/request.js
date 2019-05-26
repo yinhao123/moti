@@ -65,14 +65,14 @@ export function checkLoginName(loginName) { // 参数：用户名
 }
 //检测手机号是否已注册
 export function checkUserMobile(mobile) { // 参数：手机号
-	return post('m/user/checkUserMobile', {
+	return post('/user/checkUserMobile', {
 		mobile
 	})
 }
 
 //获取手机验证码
 export function getDynamicCode(mobile, dynamicCodeType) { // 参数：手机号  验证码类型
-	return post('m/code/getDynamicCode', {
+	return post('/code/getDynamicCode', {
 		mobile,
 		dynamicCodeType // 0-用户注册  1-手机号登录 2- 修改密码 ....（后续还会增加，及时增加注释）
 	}).then((data) => {
@@ -81,7 +81,7 @@ export function getDynamicCode(mobile, dynamicCodeType) { // 参数：手机号 
 }
 //注册
 export function regist(loginName, password, mobile, dynamicCode) { // 参数：用户名，密码，手机号，验证码
-	return post('m/user/regist', {
+	return post('/user/regist', {
 		loginName,
 		password,
 		mobile,
@@ -92,7 +92,7 @@ export function regist(loginName, password, mobile, dynamicCode) { // 参数：�
 }
 //修改密码
 export function modifyPassword(password, mobile, dynamicCode) { // 参数：密码，手机号，验证码
-	return post('m/userInfo/modifyPassword', {
+	return post('/userInfo/modifyPassword', {
 		password,
 		mobile,
 		dynamicCode
@@ -100,7 +100,7 @@ export function modifyPassword(password, mobile, dynamicCode) { // 参数：密�
 }
 //手机验证码登录
 export function mobileLogin(mobile, dynamicCode) { // 参数: 手机号 验证码
-	return post('m/login/mobileLogin', {
+	return post('/login/mobileLogin', {
 		mobile,
 		dynamicCode
 	})
@@ -114,7 +114,7 @@ export function nameLogin(loginName, password) { // 参数: 用户名 密码
 }
 //用户信息补全
 export function perfectInfo(id, loginName, password) { // 参数: 用户id  用户名  密码
-	return post('m/login/perfectInfo', {
+	return post('/login/perfectInfo', {
 		id,
 		loginName,
 		password
@@ -122,7 +122,7 @@ export function perfectInfo(id, loginName, password) { // 参数: 用户id  用�
 }
 //提交用户身份证号码
 export function perfectId(userName, idCard){//参数：用户id 用户姓名 身份证号码
-	return post('/m/userInfo/modifyPassword', {
+	return post('/userInfo/modifyPassword', {
 		userName,
 		idCard
 	})
@@ -139,21 +139,21 @@ export function changeHeadIcon(file) {
 // 商品模块
 // 商品spu信息
 export function goodsSpuQuery(id) { // 参数： 商品的spuId
-	return post('/m/goodsSpu/goodsSpuQuery', {
+	return post('/goodsSpu/goodsSpuQuery', {
 		id
 	})
 }
 
 // 商品分类查询
 export function queryCategroyList(parentId) { // 参数： 商品分类上级id
-	return post('/m/goodsSpu/queryCategroyList', {
+	return post('/goodsSpu/queryCategroyList', {
 		parentId
 	})
 }
 
 // 根据类目查询商品SPU
 export function queryGoodsSpuByCategroy(cId, page, rows) { // 参数：商品分类的id， 页号， 每页条数
-	return post('/m/goodsSpu/queryGoodsSpuByCategroy', {
+	return post('/goodsSpu/queryGoodsSpuByCategroy', {
 		cId,
 		page,
 		rows
@@ -162,7 +162,7 @@ export function queryGoodsSpuByCategroy(cId, page, rows) { // 参数：商品分
 
 // 商品SKU数据查询
 export function queryGoodsSku(spuId, attributes) { // 参数： 商品spuId， 商品属性id组合
-	return post('/m/goodsSku/queryGoodsSku', {
+	return post('/goodsSku/queryGoodsSku', {
 		spuId,
 		attributes
 	})
@@ -171,7 +171,7 @@ export function queryGoodsSku(spuId, attributes) { // 参数： 商品spuId， �
 // 购物车部分
 //增加商品到购物车
 export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加的商品数量
-	return post('/m/car/addCar', {
+	return post('/car/addCar', {
 		skuId,
 		num
 	})
@@ -179,19 +179,19 @@ export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加�
 
 // 获得用户购物车信息
 export function getCar() {
-	return post('/m/car/getCar')
+	return post('/car/getCar')
 }
 
 // 删除购物车商品
 export function subCar(skuId) { // 参数：商品id
-	return post('/m/car/subCar', {
+	return post('/car/subCar', {
 		skuId
 	})
 }
 
 // 减少购物车商品数量
 export function subCarNum(skuId, num) { // 参数： 商品ID， 减少的商品数量
-	return post('/m/car/subCarNum', {
+	return post('/car/subCarNum', {
 		skuId,
 		num
 	})
@@ -213,7 +213,7 @@ carSkuList: [
 ]
 */
 export function syncBuyCar(carSkuList) { // 参数： 商品信息集合
-	return post('/m/car/syncBuyCar', {
+	return post('/car/syncBuyCar', {
 		carSkuList
 	})
 }
@@ -223,31 +223,31 @@ export function syncBuyCar(carSkuList) { // 参数： 商品信息集合
  **/
 //根据用户id查询用户的地址列表
 export function listAddress(){//参数：用户id,这里后台可以从session中获取，不用前端传入参
-	return post('/m/receiverAddress/listAddress', {
+	return post('/receiverAddress/listAddress', {
 		
 	})
 }
 //根根据用户id查询用户默认收货地址
 export function queryUserDefaultAddress(){//参数：用户id,这里后台可以从session中获取，不用前端传入参
-	return post('/m/receiverAddress/queryUserDefaultAddress', {
+	return post('/receiverAddress/queryUserDefaultAddress', {
 	
 	})
 }
 //根据用户id设置地址对应的id的状态设置为默认地址
 export function defaultAddress(){//参数：地址id
-	return post('/m/receiverAddress/defaultAddress', {
+	return post('/receiverAddress/defaultAddress', {
 		id
 	})
 }
 //根据地址id删除一条收货地址
 export function deleteAddress(){//参数：地址id
-	return post('/m/receiverAddress/deleteAddress', {
+	return post('/receiverAddress/deleteAddress', {
 		id
 	})
 }
 //根据用户id保存用户的姓名，电话，收货地址，收货地址详情
 export function saveAddress(){ //参数：
-	return post('/m/receiverAddress/saveAddress', {
+	return post('/receiverAddress/saveAddress', {
 		receiveName,	//收货人姓名
 		receivePhone,	//收货人电话
 		codeProvinceCode,
@@ -261,7 +261,7 @@ export function saveAddress(){ //参数：
 }
 //根据用户id修改用户的姓名，电话，收货地址，收货地址详情
 export function updateAddress(){ //参数：
-	return post('/m/receiverAddress/updateAddress', {
+	return post('/receiverAddress/updateAddress', {
 		receiveName,	//收货人姓名
 		receivePhone,	//收货人电话
 		codeProvinceCode,
