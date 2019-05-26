@@ -134,8 +134,8 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 			},
 			async getCartData() { // 获取购物车信息
 				let {data} = await getCar()
-				data.code = "0"
 				if (data.code === "0") {
+					// this.goodsList = data.result
 					this.goodsList = [{
 						id: 1,
 						img: '../../static/22.png',
@@ -146,7 +146,7 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 						selected: false
 					},
 					{
-						id: 2,
+						id: 4,
 						img: '../../static/54.png',
 						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
 						spec: '(新品)绿豆冰沙4支装',
@@ -275,8 +275,16 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 					}
 				})
 			},
-			//删除商品
-			deleteGoods(id) {
+			//删除单个商品
+			async deleteGoods(id) {
+				
+				let {data} = await subCar(id) // 这里接口有问题，不能传一个数组
+				data.code = "0"
+				if (data.code !== "0") { // 若后台联动失败，那么就阻止前台更改
+					this.showTips(data.msg)
+					return false
+				}
+				
 				let len = this.goodsList.length;
 				for (let i = 0; i < len; i++) {
 					if (id == this.goodsList[i].id) {
@@ -284,19 +292,21 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 						break;
 					}
 				}
-				this.selectedList.splice(this.selectedList.indexOf(id), 1);
+				// this.selectedList.splice(this.selectedList.indexOf(id), 1);
 				this.sum();
 				this.oldIndex = null;
 				this.theIndex = null;
 			},
-			// 删除商品s
+			// 循环删除多个商品s
 			deleteList() {
-				let len = this.selectedList.length;
-				while (this.selectedList.length > 0) {
-					this.deleteGoods(this.selectedList[0]);
+				let selectedList = this.selectedList
+				let len = selectedList.length;
+				while (selectedList.length > 0) {
+					this.deleteGoods(selectedList[0])
+					selectedList.splice(selectedList.indexOf(selectedList[0]), 1) // 删除数组长度不能放到异步请求里去执行，否则会因为while一直循环不完，异步不能执行去减数组长度，出现死循环
 				}
-				this.selectedList = [];
-				this.isAllselected = this.selectedList.length == this.goodsList.length && this.goodsList.length > 0;
+				selectedList = [];
+				this.isAllselected = selectedList.length == this.goodsList.length && this.goodsList.length > 0;
 				this.sum();
 			},
 			// 选中商品
@@ -345,12 +355,14 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 			// 合计
 			async sum(e, index, goodsId) {
 				if (goodsId) {
-					let {data} = await subCarNum(goodsId, e.detail.value)
-					if (data.code !== "0") {
+					let {data} = await subCarNum(goodsId, e.detail.value) 
+					data.code = "0"
+					if (data.code !== "0") { // 若后台没有联动成功，那么就禁止前台页面操作
 						this.showTips(data.msg)
 						return false
 					}
 				}
+				
 				this.sumPrice = 0;
 				let len = this.goodsList.length;
 				for (var i = 0; i < len; i++) {
