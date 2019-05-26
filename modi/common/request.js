@@ -145,3 +145,44 @@ export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加�
 		num
 	})
 }
+
+// 获得用户购物车信息
+export function getCar() {
+	return post('/m/car/getCar')
+}
+
+// 删除购物车商品
+export function subCar(skuId) { // 参数：商品id
+	return post('/m/car/subCar', {
+		skuId
+	})
+}
+
+// 减少购物车商品数量
+export function subCarNum(skuId, num) { // 参数： 商品ID， 减少的商品数量
+	return post('/m/car/subCarNum', {
+		skuId,
+		num
+	})
+}
+
+// 登录后,同步购物车信息
+/*
+传参示例：
+carSkuList: [
+  {
+    "num": "string",
+    "price": "string",
+    "singlePrice": "string",
+    "skuId": "string",
+    "skuName": "string",
+    "spuId": "string",
+    "spuName": "string"
+  }
+]
+*/
+export function syncBuyCar(carSkuList) { // 参数： 商品信息集合
+	return post('/m/car/syncBuyCar', {
+		carSkuList
+	})
+}

@@ -3,31 +3,31 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "MOTI"
+				"navigationBarTitleText": "魔笛商城"
 			}
 		}
 	    ,{
             "path" : "pages/cart/cart",
             "style": {
-            	"navigationBarTitleText": "MOTI"
+            	"navigationBarTitleText": "购物车"
             }
         }
         ,{
             "path" : "pages/mine/mine",
             "style": {
-            	"navigationBarTitleText": "MOTI"
+            	"navigationBarTitleText": "个人中心"
             }
         }
         ,{
             "path" : "pages/sign/sign",
             "style": {
-            	"navigationBarTitleText": "MOTI"
+            	"navigationBarTitleText": "登录"
             }
         }
         ,{
             "path" : "pages/address/address",
             "style" : {
-				"navigationBarTitleText": "MOTI"
+				"navigationBarTitleText": "收货地址"
 			}
         }
         ,{
@@ -46,15 +46,15 @@
         }
         ,{
             "path" : "pages/order/order",
-            "style" : {"navigationBarTitleText": "MOTI"}
+            "style" : {"navigationBarTitleText": "我的订单"}
         }
         ,{
             "path" : "pages/orderDetail/orderDetail",
-            "style" : {"navigationBarTitleText": "MOTI"}
+            "style" : {"navigationBarTitleText": "订单详情"}
         }
         ,{
             "path" : "pages/refund/refund",
-			"style" : {"navigationBarTitleText": "MOTI"}
+			"style" : {"navigationBarTitleText": "退货"}
 		}
 		,{
             "path" : "pages/placeOrder/placeOrder",
@@ -66,7 +66,7 @@
         }
         ,{
             "path" : "pages/pay/payment/payment",
-            "style" : {"navigationBarTitleText": "MOTI"}
+            "style" : {"navigationBarTitleText": "支付"}
         }
         ,{
             "path" : "pages/pay/success/success",
@@ -90,7 +90,7 @@
         }
         ,{
             "path" : "pages/logIn/logIn",
-            "style" : {"navigationBarTitleText": "MOTI"}
+            "style" : {"navigationBarTitleText": "登录"}
         }
         ,{
             "path" : "pages/logUp/logUp",

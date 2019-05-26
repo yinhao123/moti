@@ -36,7 +36,7 @@
 							</view>
 						</view>
 						<!-- 商品信息 -->
-						<view class="goods-info" @tap="toGoods(row)">
+						<view class="goods-info" @tap="toGoods(row.id)">
 							<view class="img">
 								<image :src="row.img"></image>
 							</view>
@@ -46,13 +46,13 @@
 								<view class="price-number">
 									<view class="price">￥{{row.price}}</view>
 									<view class="number">
-										<view class="sub" @tap.stop="sub(index)">
+										<view class="sub" @tap.stop="sub(index, row.id)">
 											<view class="icon jian"></view>
 										</view>
 										<view class="input" @tap.stop="discard">
-											<input type="number" v-model="row.number" @input="sum($event,index)" />
+											<input type="number" v-model="row.number" @input="sum($event, index, row.id)" />
 										</view>
-										<view class="add" @tap.stop="add(index)">
+										<view class="add" @tap.stop="add(index, row.id)">
 											<view class="icon jia"></view>
 										</view>
 									</view>
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/request.js'
 	export default {
 		data() {
 			return {
@@ -94,34 +95,7 @@
 				statusTop: null,
 				selectedList: [],
 				isAllselected: false,
-				goodsList: [{
-						id: 1,
-						img: '../../static/22.png',
-						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
-						spec: '经典烟草4支装',
-						price: 127.5,
-						number: 1,
-						selected: false
-					},
-					{
-						id: 2,
-						img: '../../static/54.png',
-						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
-						spec: '(新品)绿豆冰沙4支装',
-						price: 127.5,
-						number: 1,
-						selected: false
-					},
-					{
-						id: 3,
-						img: '../../static/77.png',
-						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
-						spec: '(新品)绿豆冰沙4支装',
-						price: 127.5,
-						number: 1,
-						selected: false
-					}
-				],
+				goodsList: [],
 				//控制滑动效果
 				theIndex: null,
 				oldIndex: null,
@@ -149,11 +123,48 @@
 			this.statusHeight = plus.navigator.getStatusbarHeight();
 			// #endif
 		},
+		onShow() { // 页面每次显示，就更新同步一次最新的购物车信息
+			this.getCartData()
+		},
 		methods: {
-			goBuy: function() {
+			goBuy() {
 				uni.switchTab({
 					url: '/pages/index/index'
 				})
+			},
+			async getCartData() { // 获取购物车信息
+				let {data} = await getCar()
+				data.code = "0"
+				if (data.code === "0") {
+					this.goodsList = [{
+						id: 1,
+						img: '../../static/22.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '经典烟草4支装',
+						price: 127.5,
+						number: 3,
+						selected: false
+					},
+					{
+						id: 2,
+						img: '../../static/54.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '(新品)绿豆冰沙4支装',
+						price: 127.5,
+						number: 8,
+						selected: false
+					},
+					{
+						id: 3,
+						img: '../../static/77.png',
+						name: 'MOTI雾化弹 补充替换装（相同口味4颗）',
+						spec: '(新品)绿豆冰沙4支装',
+						price: 127.5,
+						number: 6,
+						selected: false
+					}
+				]
+				}
 			},
 			//加入商品 参数 goods:商品数据
 			joinGoods(goods) {
@@ -227,16 +238,15 @@
 				this.isStop = false;
 			},
 			//控制左滑删除效果-end
-
-
+			
 			//商品跳转
-			toGoods(e) {
+			toGoods(goodsId) {
 				uni.showToast({
-					title: '商品' + e.id,
+					title: '商品' + goodsId,
 					icon: "none"
 				});
 				uni.navigateTo({
-					url: '../goods/goods'
+					url: '../goods/goods?goodsId=' + goodsId
 				});
 			},
 			//跳转确认订单页面
@@ -310,21 +320,32 @@
 				this.sum();
 			},
 			// 减少数量
-			sub(index) {
-				if (this.goodsList[index].number <= 1) {
-					return;
+			async sub(index, goodsId) {
+				let goods = this.goodsList[index]
+				if (goods.number <= 1) return
+				
+				let {data} = await subCarNum(goodsId, goods.number - 1)
+				data.code = "0"
+				if (data.code === "0") { // 减少数量成功
+					goods.number --
+					this.sum()
 				}
-				this.goodsList[index].number--;
-				this.sum();
 			},
 			// 增加数量
-			add(index) {
-				this.goodsList[index].number++;
-				this.sum();
+			async add(index, goodsId) {
+				let goods = this.goodsList[index]
+				
+				let {data} = await addCar(goodsId, goods.number - 0 + 1)
+				data.code = "0"
+				if (data.code === "0") { // 增加数量成功
+					goods.number ++
+					this.sum()
+				}
 			},
 			// 合计
 			sum(e, index) {
 				this.sumPrice = 0;
+				console.log("修改了技术")
 				let len = this.goodsList.length;
 				for (let i = 0; i < len; i++) {
 					if (this.goodsList[i].selected) {
@@ -414,6 +435,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 10upx 30upx;
+		height: 40upx;
 
 		.checkAll {
 			display: flex;
@@ -524,7 +546,7 @@
 
 	.goods-list {
 		width: 100%;
-		padding: 20upx 0 120upx 0;
+		padding: 10upx 0 120upx 0;
 
 		.tis {
 			width: 100%;

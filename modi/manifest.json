@@ -63,5 +63,9 @@
             "minified" : true
         },
         "usingComponents" : true
+    },
+    "h5" : {
+        "title" : "MOTI",
+        "domain" : ""
     }
 }
