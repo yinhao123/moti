@@ -79,6 +79,11 @@
 					succ = await updateAddress(this.receiveName,this.receivePhone,this.pickerText,this.userAddress);
 				}
 				console.log(succ)
+				if(succ.data.code == 0){
+					uni.navigateTo({
+						url: '/pages/address/address'
+					})
+				}
 			},
 			errorHand(text) { // 错误提示框
 				uni.showToast({
