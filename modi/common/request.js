@@ -136,3 +136,67 @@ export function queryGoodsSku(spuId, attributes) { // 参数： 商品spuId， �
 		attributes
 	})
 }
+
+// 购物车部分
+//增加商品到购物车
+export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加的商品数量
+	return post('/m/car/addCar', {
+		skuId,
+		num
+	})
+}
+/**
+ *	收货地址相关接口
+ **/
+//根据用户id查询用户的地址列表
+export function listAddress(){//参数：用户id,这里后台可以从session中获取，不用前端传入参
+	return post('/m/receiverAddress/listAddress', {
+		
+	})
+}
+//根根据用户id查询用户默认收货地址
+export function queryUserDefaultAddress(){//参数：用户id,这里后台可以从session中获取，不用前端传入参
+	return post('/m/receiverAddress/queryUserDefaultAddress', {
+	
+	})
+}
+//根据用户id设置地址对应的id的状态设置为默认地址
+export function defaultAddress(){//参数：地址id
+	return post('/m/receiverAddress/defaultAddress', {
+		id
+	})
+}
+//根据地址id删除一条收货地址
+export function deleteAddress(){//参数：地址id
+	return post('/m/receiverAddress/deleteAddress', {
+		id
+	})
+}
+//根据用户id保存用户的姓名，电话，收货地址，收货地址详情
+export function saveAddress(){ //参数：
+	return post('/m/receiverAddress/saveAddress', {
+		receiveName,	//收货人姓名
+		receivePhone,	//收货人电话
+		codeProvinceCode,
+		codeProvinceName,
+		codeCityCode,
+		cityName,
+		codeDistrictCode,
+		districtName,
+		userAddress
+	})
+}
+//根据用户id修改用户的姓名，电话，收货地址，收货地址详情
+export function updateAddress(){ //参数：
+	return post('/m/receiverAddress/updateAddress', {
+		receiveName,	//收货人姓名
+		receivePhone,	//收货人电话
+		codeProvinceCode,
+		codeProvinceName,
+		codeCityCode,
+		cityName,
+		codeDistrictCode,
+		districtName,
+		userAddress
+	})
+}

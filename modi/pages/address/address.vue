@@ -2,14 +2,14 @@
 	<view class="content">
 		<template v-if="addressList.length > 0">
 			<view class="addressCon">
-				<view class="addressItem" @tap="selAddr" v-for="(item,index) in addressList" :key="index">
+				<view class="addressItem" v-for="(item,index) in addressList" :key="index">
 					<view class="userInfo">
 						<span>{{item.name}}</span>
 						<span class="tel">{{item.tel}}</span>
 					</view>
 					<view class="userAddres">
 						<view class="">{{item.address}}</view>
-						<view class="iconfont moti-bianji" @tap="toEditAddress"></view>
+						<view class="iconfont moti-bianji" @tap="toEditAddress('edit')"></view>
 					</view>
 					<view class="addressEdit">
 						<view class="">
@@ -20,55 +20,59 @@
 								</label>
 							</radio-group>
 						</view>
-						<view class="del" @tap="delAddress">
+						<view class="del" @tap="delAddress" data-id="item">
 							删除
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="addBtn">
-				<view class="addNewAddress" @tap="toEditAddress">添加新地址</view>
-			</view>
 		</template>
 		<template v-else>
-			<view  class="noAddress">
+			<view class="noAddress">
 				<view>
 					暂无收货地址，请添加
 				</view>
 			</view>
 		</template>
+		<view class="addBtn">
+			<view class="addNewAddress" @tap="toEditAddress('add')">添加新地址</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	import { listAddress,queryUserDefaultAddress,defaultAddress,deleteAddress } from '@/common/request.js';
 	export default {
 		data() {
 			return {
-				addressList:[
-					{id:0,name:"木木0",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:true,value:"1"},
-					{id:1,name:"木木1",tel:"13333333333",address:"北京市回龙观大街隆景源三区3号楼4单元213",checkStatus:false,value:"12"}
-				]
+				addressList:[]
 			}
 		},
+		mounted: function (){
+			this.getAddressList()
+		},
 		methods: {
+			//获取地址list
+			getAddressList: async function (){
+				let succ = await listAddress();
+				if(succ.data.code == 0){
+					this.addressList = succ.data.result.rows;
+				}
+			},
 			radioChange:function (addressId){
 				for (let i = 0; i < this.addressList.length; i++) {
 					this.addressList[i].checkStatus?this.addressList[i].checkStatus = false:this.addressList[i].checkStatus = true;
 				}
 			},
-			toEditAddress:function (){
+			toEditAddress:function (type){
 				uni.navigateTo({
-					url: "/pages/editAddress/editAddress"
+					url: "/pages/editAddress/editAddress?type="+type
 				});
 			},
-			delAddress:function (){
-				console.log("删除地址")
+			delAddress: async function (e){
+				console.log(e.target)
+				let addressId = e.target 
 			}
-			// selAddr:function(){
-			// 	uni.navigateTo({
-			// 		url:'../placeOrder/placeOrder'
-			// 	})
-			// }
 		}
 	}
 </script>

@@ -14,22 +14,22 @@
 		<view class="category-list">
 			<!-- 左侧分类导航 -->
 			<scroll-view scroll-y="true" class="left">
-				<view class="row" v-for="(category,index) in categoryList" :key="category.id" :class="[index==showCategoryIndex?'on':'']"
-				 @tap="showCategory(index)">
+				<view class="row" v-for="(category,index) in categoryList" :key="index" :class="[index==showCategoryIndex?'on':'']"
+				 @tap="switchCategory(index)">
 					<view class="text">
-						{{category.title}}
+						{{category.name}}
 					</view>
 				</view>
 
 			</scroll-view>
 			<!-- 右侧子导航 -->
-			<scroll-view scroll-y="true" class="right">
-				<view class="category" v-for="(category,index) in categoryList" :key="category.id" v-show="index==showCategoryIndex">
+			<scroll-view scroll-y="true" class="right" v-for="(category,categoryIndex) in categoryList" :key="categoryIndex" @scrolltolower="pullUpLoad(categoryIndex)" v-show="categoryIndex==showCategoryIndex">
+				<view class="category">
 					<view class="banner">
 						<image :src="category.banner"></image>
 					</view>
 					<view class="list">
-						<view class="box" v-for="(box,i) in category.list" :key="i" @tap="toGoodsDetail(box.id)">
+						<view class="box" v-if="category" v-for="(box,boxIndex) in category.list" :key="boxIndex" @tap="toGoodsDetail(box.id)">
 							<view class="boxImg">
 								<image :src="box.img"></image>
 							</view>
@@ -37,7 +37,7 @@
 								<view class="name">{{box.name}}</view>
 								<view class="other">
 									<view class="price">{{box.price}}</view>
-									<view><i class="iconfont moti-cart"></i></view>
+									<view><i class="iconfont moti-cart" @tap.stop="addToCart(box.id)"></i></view>
 								</view>
 							</view>
 						</view>
@@ -50,11 +50,9 @@
 
 <script>
 	import {
-		checkLoginName,
-		queryGoodsSku,
+		addCar,
 		queryGoodsSpuByCategroy,
 		queryCategroyList,
-		goodsSpuQuery
 	} from '@/common/request.js'
 
 	export default {
@@ -77,117 +75,101 @@
 						img: '../../static/banner1.png'
 					}
 				],
-				showCategoryIndex: 0,
-				categoryList: [{
-						id: 1,
-						title: '物化弹',
-						banner: '../../static/ad.png',
-						list: [{
-								id: "11",
-								name: 'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',
-								img: '../../static/p1.png',
-								price: "299.00"
-							},
-							{
-								id: "12",
-								name: 'MOTI物化弹（四颗装）',
-								img: '../../static/p2.png',
-								price: "299.00"
-							},
-							{
-								id: "13",
-								name: 'MOTI物化弹',
-								img: '../../static/p3.png',
-								price: "299.00"
-							},
-							{
-								id: "14",
-								name: 'MOTI物化弹',
-								img: '../../static/p1.png',
-								price: "299.00"
-							},
-							{
-								id: "15",
-								name: 'MOTI物化弹',
-								img: '../../static/p2.png',
-								price: "299.00"
-							},
-							{
-								id: "16",
-								name: 'MOTI物化弹',
-								img: '../../static/p3.png',
-								price: "299.00"
-							}
-						]
-					},
-					{
-						id: 2,
-						title: '购套装',
-						banner: '../../static/ad.png',
-						list: [{
-								id: "21",
-								name: 'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',
-								img: '../../static/t1.png',
-								price: "299.00"
-							},
-							{
-								id: "22",
-								name: 'MOTI物化弹（四颗装）',
-								img: '../../static/t1.png',
-								price: "299.00"
-							},
-							{
-								id: "23",
-								name: 'MOTI物化弹',
-								img: '../../static/t1.png',
-								price: "299.00"
-							}
-						]
-					},
-					{
-						id: 3,
-						title: '一次性',
-						banner: '../../static/ad.png',
-						list: [{
-								id: "31",
-								name: 'MOTI物化弹（四颗装）绿豆/芒果 夏日新品',
-								img: '../../static/u1.png',
-								price: "299.00"
-							},
-							{
-								id: "32",
-								name: 'MOTI物化弹（四颗装）',
-								img: '../../static/u2.png',
-								price: "299.00"
-							},
-							{
-								id: "33",
-								name: 'MOTI物化弹',
-								img: '../../static/u1.png',
-								price: "299.00"
-							}
-						]
-					}
-				]
+				showCategoryIndex: 0, // 显示类别索引
+				categoryList: [], // 商品列表数据总数组
 			}
 		},
-		async onLoad() {
-			console.log(await queryCategroyList(2))
-			console.log(await queryGoodsSpuByCategroy(3, 1, 10))
+		onLoad() {
+			this.getCategoryData()
+			// console.log(await queryGoodsSpuByCategroy(3, 1, 10))
 		},
 		methods: {
+			async getCategoryData () { // 获取商品列表左侧栏目数据
+				let {data} = await queryCategroyList(-1)
+
+				if (data.code === "0") {
+					this.categoryList = data.result.map((item) => {
+						return {
+							id: item.id,
+							name: item.name,
+							banner: '../../static/ad.png',
+							page: 1,
+							list: []
+						}
+					})
+					
+					this.getGoodsList(0, data.result[0].id) // 获取商品列表
+				}
+			},
+			async getGoodsList (index, cId, page, rows) { // 获取商品列表
+				page = page || 1 		// 默认请求第一页
+				rows = rows || 10		// 默认一页10条数据
+				let category = this.categoryList[index] 
+				
+				let {data} = await queryGoodsSpuByCategroy(cId, page, rows)
+				
+				if (data.code === "0") {
+					if (!data.result.rows.length) {
+						category.isGone = true
+						this.promptBox('没有商品了')
+						return false
+					}
+					
+					category.list = category.list.concat(data.result.rows.map(item => {
+							return {
+								id: item.id,
+								cid: item.cid,
+								name: item.name,
+								img: "../../static/u1.png", // 这个字段暂无
+								price: item.marketPrice
+							}	
+						}) 
+					)
+					category.list.total = data.result.total
+					category.isLoad = true // 存储该栏目第一次已经请求过的状态
+				}
+			},
 			//轮播图指示器
 			swiperChange(event) {
 				this.currentSwiper = event.detail.current;
 			},
 			//分类切换显示
-			showCategory(index) {
+			switchCategory (index) {
 				this.showCategoryIndex = index;
+				
+				if (this.categoryList[index].isLoad) return false // 如果已经点击栏目加载过，那么不重复请求
+				
+				this.getGoodsList(index, this.categoryList[index].id) // 获取第一页的数据
 			},
-			toGoodsDetail: function() {
+			// 点击跳转到 商品详情页面
+			toGoodsDetail (goodsId) { // 商品的ID
 				uni.navigateTo({
-					url: "/pages/goods/goods"
+					url: "/pages/goods/goods?goodsId=" + goodsId
 				});
+			},
+			// 上拉加载下一页
+			pullUpLoad (index) { // 参数：栏目的索引
+				let category = this.categoryList[index]
+				
+				if (category.isGone) { // 数据已经加载完了，拦截请求
+					this.promptBox('没有商品了')
+					return false
+				}
+				
+				// 加载下一页数据
+				this.getGoodsList(index, category.id, ++ category.page) // page属性记录的是已经加载过的页面的页码。这里加载下一页要加1
+			},
+			promptBox (title) {
+				uni.showToast({
+					title,
+					icon: 'none'
+				})
+			},
+			// 添加到购物车
+			async addToCart (id) {
+				let {data} = await addCar(id, 1)
+				let text = data.code === "0" ? '添加成功' : data.msg
+				this.promptBox(text)
 			}
 		}
 	}
