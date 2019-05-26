@@ -53,7 +53,6 @@
 		addCar,
 		queryGoodsSpuByCategroy,
 		queryCategroyList,
-		checkLoginName
 	} from '@/common/request.js'
 
 	export default {
@@ -81,9 +80,8 @@
 			}
 		},
 		onLoad() {
-checkLoginName("abcdefg");
-
 			this.getCategoryData()
+			// console.log(await queryGoodsSpuByCategroy(3, 1, 10))
 		},
 		methods: {
 			async getCategoryData () { // 获取商品列表左侧栏目数据
