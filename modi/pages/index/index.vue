@@ -37,7 +37,7 @@
 								<view class="name">{{box.name}}</view>
 								<view class="other">
 									<view class="price">{{box.price}}</view>
-									<view><i class="iconfont moti-cart"></i></view>
+									<view><i class="iconfont moti-cart" @tap.stop="addToCart(box.id)"></i></view>
 								</view>
 							</view>
 						</view>
@@ -50,9 +50,9 @@
 
 <script>
 	import {
-		checkLoginName,
+		addCar,
 		queryGoodsSpuByCategroy,
-		queryCategroyList
+		queryCategroyList,
 	} from '@/common/request.js'
 
 	export default {
@@ -111,7 +111,7 @@
 				if (data.code === "0") {
 					if (!data.result.rows.length) {
 						category.isGone = true
-						this.promptGone()
+						this.promptBox('没有商品了')
 						return false
 					}
 					
@@ -152,18 +152,24 @@
 				let category = this.categoryList[index]
 				
 				if (category.isGone) { // 数据已经加载完了，拦截请求
-					this.promptGone()
+					this.promptBox('没有商品了')
 					return false
 				}
 				
 				// 加载下一页数据
 				this.getGoodsList(index, category.id, ++ category.page) // page属性记录的是已经加载过的页面的页码。这里加载下一页要加1
 			},
-			promptGone() {
+			promptBox (title) {
 				uni.showToast({
-					title: '没有商品了',
+					title,
 					icon: 'none'
 				})
+			},
+			// 添加到购物车
+			async addToCart (id) {
+				let {data} = await addCar(id, 1)
+				let text = data.code === "0" ? '添加成功' : data.msg
+				this.promptBox(text)
 			}
 		}
 	}

@@ -136,3 +136,12 @@ export function queryGoodsSku(spuId, attributes) { // 参数： 商品spuId， �
 		attributes
 	})
 }
+
+// 购物车部分
+//增加商品到购物车
+export function addCar(skuId, num) { // 参数： skuId: 商品的id ， 增加的商品数量
+	return post('/m/car/addCar', {
+		skuId,
+		num
+	})
+}
