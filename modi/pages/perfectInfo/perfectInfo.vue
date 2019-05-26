@@ -41,24 +41,32 @@
 				</view>
 			</view>
 		</picker>
-		<view class="commonInfo">
-			<text>生日</text>
-			<view class="rightContent">
-				<text class="sel">选择</text>
-				<text class="iconfont moti-right"></text>
+		<picker mode="date" @change="getDate">
+			<view class="commonInfo">
+				<text>生日</text>
+				<view class="rightContent">
+					<text class="sel">{{date?date:'选择'}}</text>
+					<text class="iconfont moti-right"></text>
+				</view>
 			</view>
-		</view>
-		<view class="commonInfo">
+		</picker>
+		<view class="commonInfo" @tap="showMulLinkageThreePicker">
 			<text>城市</text>
 			<view class="rightContent">
-				<text class="sel">选择</text>
+				<text class="sel">{{pickerText.label?pickerText.label:"选择"}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
+		<view class="save">
+			<view class="save-content">保存</view>
+		</view>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
 </template>
 
 <script>
+	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
 			return {
@@ -66,6 +74,7 @@
 				iphone: '15233818144',
 				headImage: '',
 				sexText: '',
+				date: '',
 				sex: 3,
 				sexArray: ['男', '女'],
 				sexOption: [{
@@ -81,6 +90,9 @@
 				pickerText: ''
 
 			};
+		},
+		components: {
+			mpvueCityPicker
 		},
 
 		methods: {
@@ -113,8 +125,8 @@
 				})
 			},
 			//获取生日日期
-			getData: function(e) {
-				this.data = e.detail.value
+			getDate: function(e) {
+				this.date = e.detail.value
 			},
 			//获取性别
 			getSex: function(e) {
