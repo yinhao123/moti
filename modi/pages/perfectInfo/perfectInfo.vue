@@ -41,31 +41,40 @@
 				</view>
 			</view>
 		</picker>
-		<view class="commonInfo">
-			<text>生日</text>
-			<view class="rightContent">
-				<text class="sel">选择</text>
-				<text class="iconfont moti-right"></text>
+		<picker mode="date" @change="getDate">
+			<view class="commonInfo">
+				<text>生日</text>
+				<view class="rightContent">
+					<text class="sel">{{date?date:'选择'}}</text>
+					<text class="iconfont moti-right"></text>
+				</view>
 			</view>
-		</view>
-		<view class="commonInfo">
+		</picker>
+		<view class="commonInfo" @tap="showMulLinkageThreePicker">
 			<text>城市</text>
 			<view class="rightContent">
-				<text class="sel">选择</text>
+				<text class="sel">{{pickerText.label?pickerText.label:"选择"}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
+		<view class="save">
+			<view class="save-content">保存</view>
+		</view>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
 </template>
 
 <script>
+	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
 			return {
 				name: '126321',
 				iphone: '15233818144',
-				headImage: '',
+				headImage: '../../static/22.png',
 				sexText: '',
+				date: '',
 				sex: 3,
 				sexArray: ['男', '女'],
 				sexOption: [{
@@ -81,6 +90,9 @@
 				pickerText: ''
 
 			};
+		},
+		components: {
+			mpvueCityPicker
 		},
 
 		methods: {
@@ -113,8 +125,8 @@
 				})
 			},
 			//获取生日日期
-			getData: function(e) {
-				this.data = e.detail.value
+			getDate: function(e) {
+				this.date = e.detail.value
 			},
 			//获取性别
 			getSex: function(e) {
@@ -138,7 +150,11 @@
 
 <style lang="scss">
 	.content {
+		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
 		.headBox {
 			display: flex;
@@ -191,6 +207,24 @@
 
 			.sel {
 				color: #999999
+			}
+		}
+		.save{
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: center;
+			padding-bottom: 40upx;
+			.save-content{
+				width: 690upx;
+				height: 82upx;
+				background: #050505;
+				border-radius: 10upx;
+				color: #ffffff;
+				line-height: 82upx;
+				text-align: center;
+				font-family: MicrosoftYaHei;
 			}
 		}
 	}
