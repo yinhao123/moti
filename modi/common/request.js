@@ -19,7 +19,7 @@ async function post(url, data) {
 					})
 					setTimeout(() => {
 						uni.navigateTo({ // 跳转到登录页
-							url: '/pages/logIn/login'
+							url: '/pages/login/login'
 						})
 					}, 500)
 				}
