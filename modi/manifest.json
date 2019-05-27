@@ -65,7 +65,7 @@
 		"usingComponents": true
 	},
 	"h5": {
-		     "devServer": {
+		    "devServer": {
             "port": 8080,
             "disableHostCheck": true,
             "proxy": {

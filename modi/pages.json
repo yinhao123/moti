@@ -92,7 +92,7 @@
 			"path": "pages/sign/step3/step3",
 			"style": {}
 		}, {
-			"path": "pages/login/login",
+			"path": "pages/logIn/logIn",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
