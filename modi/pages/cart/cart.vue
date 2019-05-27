@@ -85,6 +85,7 @@
 
 <script>
 import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/request.js'
+import { setCartCache, getCartCache } from '../../common/utils.js'
 	export default {
 		data() {
 			return {
@@ -125,6 +126,7 @@ import { addCar, getCar, subCar, subCarNum, syncBuyCar } from '../../common/requ
 		},
 		onShow() { // 页面每次显示，就更新同步一次最新的购物车信息
 			this.getCartData()
+			
 		},
 		methods: {
 			goBuy() {

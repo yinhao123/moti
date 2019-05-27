@@ -21,21 +21,34 @@ export function getCookie(name) {
 		return null;
 }
 
-// 设置缓存购物车信息
-export function setCartCache(goodsMsg) {
-	let cache = JSON.parse(getCartCache())
-	let jsonString = ''
-	if (cache) {
-		cache.goodsList = cache.goodsList.concat(goodsMsg) // 添加购物车信息到缓存
-		jsonString = JSON.stringify({goodsList: cache.goodsList})
+//购物车缓存操作
+export const cartCache = {
+	// 设置缓存购物车信息
+	set(goodsMsg) {
+		let cache = this.getCartCache()
+		console.log(cache)
+		let jsonString = ''
+		
+		if (cache) { // 若已经有购物车缓存
+			cache = JSON.parse(cache)
+			cache.goodsList = cache.goodsList.concat(goodsMsg) // 追加购物车信息到缓存
+			jsonString = JSON.stringify({goodsList: cache.goodsList})
+		}
+		else { // 若无购物车缓存
+			jsonString = JSON.stringify({goodsList: [goodsMsg]})
+		}
+		
+		//设置缓存
+		uni.setStorageSync('moti_cart', jsonString)
+	},
+	
+	// 获取所有缓存的购物车信息
+	get() {
+		return JSON.parse(uni.getStorageSync('moti_cart'))
+	},
+	
+	// 删除缓存的购物车信息
+	delete() {
+		uni.removeStorageSync()
 	}
-	else {
-		jsonString = JSON.stringify({goodsList: goodsMsg})
-	}
-	uni.setStorageSync('moti_cart', jsonString)
-}
-
-// 获取所有缓存的购物车信息
-export function getCartCache() {
-	return uni.getStorageSync('moti_cart')
 }
