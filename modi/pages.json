@@ -5,115 +5,127 @@
 			"style": {
 				"navigationBarTitleText": "魔笛商城"
 			}
-		}
-	    ,{
-            "path" : "pages/cart/cart",
-            "style": {
-            	"navigationBarTitleText": "购物车"
-            }
-        }
-        ,{
-            "path" : "pages/mine/mine",
-            "style": {
-            	"navigationBarTitleText": "个人中心"
-            }
-        }
-        ,{
-            "path" : "pages/sign/sign",
-            "style": {
-            	"navigationBarTitleText": "登录"
-            }
-        }
-        ,{
-            "path" : "pages/address/address",
-            "style" : {
+		}, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		}, {
+			"path": "pages/sign/sign",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/address/address",
+			"style": {
 				"navigationBarTitleText": "收货地址"
 			}
-        }
-        ,{
-            "path" : "pages/exchange/exchange",
-            "style" : {
+		}, {
+			"path": "pages/exchange/exchange",
+			"style": {
 				"navigationBarTitleText": "MOTI"
 			}
-        }
-        ,{
-            "path" : "pages/editAddress/editAddress",
-            "style" : {"navigationBarTitleText": "编辑地址"}
-        }
-        ,{
-            "path" : "pages/coupon/coupon",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/order/order",
-            "style" : {"navigationBarTitleText": "我的订单"}
-        }
-        ,{
-            "path" : "pages/orderDetail/orderDetail",
-            "style" : {"navigationBarTitleText": "订单详情"}
-        }
-        ,{
-            "path" : "pages/refund/refund",
-			"style" : {"navigationBarTitleText": "退货"}
+		}, {
+			"path": "pages/editAddress/editAddress",
+			"style": {
+				"navigationBarTitleText": "编辑地址"
+			}
+		}, {
+			"path": "pages/coupon/coupon",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		}, {
+			"path": "pages/orderDetail/orderDetail",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		}, {
+			"path": "pages/refund/refund",
+			"style": {
+				"navigationBarTitleText": "退货"
+			}
+		}, {
+			"path": "pages/placeOrder/placeOrder",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/pay/payment/payment",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		}, {
+			"path": "pages/pay/success/success",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/notes/notes",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/sign/step1/step1",
+			"style": {
+				"navigationBarTitleText": "MOTI"
+			}
+		}, {
+			"path": "pages/sign/step2/step2",
+			"style": {}
+		}, {
+			"path": "pages/sign/step3/step3",
+			"style": {}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/register/register",
+			"style": {}
+		}, {
+			"path": "pages/passwordReset/passwordReset",
+			"style": {}
+		}, {
+			"path": "pages/perfectInfo/perfectInfo",
+			"style": {
+				"navigationBarTitleText": "个人资料设置"
+			}
+		}, {
+			"path": "pages/loginCode/loginCode",
+			"style": {
+				"navigationBarTitleText": "手机号验证"
+			}
+		}, {
+			"path": "pages/perfectInfo/addID/addID",
+			"style": {
+				"navigationBarTitleText": "身份认证",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		}, {
+			"path": "pages/perfectInfo/phoneReset/phoneReset",
+			"style": {
+				"navigationBarTitleText": "修改绑定手机",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
 		}
-		,{
-            "path" : "pages/placeOrder/placeOrder",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/goods/goods",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/pay/payment/payment",
-            "style" : {"navigationBarTitleText": "支付"}
-        }
-        ,{
-            "path" : "pages/pay/success/success",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/notes/notes",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/sign/step1/step1",
-            "style" : {"navigationBarTitleText": "MOTI"}
-        }
-        ,{
-            "path" : "pages/sign/step2/step2",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/sign/step3/step3",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/logIn/logIn",
-            "style" : {"navigationBarTitleText": "登录"}
-        }
-        ,{
-            "path" : "pages/logUp/logUp",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/passwordReset/passwordReset",
-            "style" : {}
-        },{
-            "path" : "pages/perfectInfo/perfectInfo",
-            "style" : {"navigationBarTitleText": "个人资料设置"}
-        },{
-            "path" : "pages/loginCode/loginCode",
-            "style" : {"navigationBarTitleText": "手机号验证"}
-        }    ,{
-            "path" : "pages/perfectInfo/addID/addID",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/perfectInfo/phoneReset/phoneReset",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
