@@ -44,6 +44,7 @@
 		checkLoginName,
 		checkUserMobile
 	} from '@/common/request.js'
+	
 	export default {
 		data() {
 			return {
@@ -154,10 +155,8 @@
 			changeRepeatPassword () {
 				this.showRepeatPassword = !this.showRepeatPassword
 			}
-		},
-		components: {
-			UniPopup
 		}
+	
 	}
 </script>
 
