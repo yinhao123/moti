@@ -97,7 +97,7 @@ export function regist(loginName, password, mobile, dynamicCode) { // 参数：�
 }
 //修改密码
 export function modifyPassword(password, mobile, dynamicCode) { // 参数：密码，手机号，验证码
-	return post('/userInfo/modifyPassword', {
+	return post('/user/modifyPassword', {
 		password,
 		mobile,
 		dynamicCode

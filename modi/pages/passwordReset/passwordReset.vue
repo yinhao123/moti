@@ -125,7 +125,7 @@ export default {
 				this.codeText = `${this.totalTime}s后重发`
 				if (this.totalTime === 0) {
 					clearInterval(timer)
-					this.totalTime = 60
+					this.totalTime = 90
 					this.canClick = true
 					this.codeText = "获取验证码"
 				}
