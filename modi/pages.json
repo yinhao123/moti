@@ -125,7 +125,14 @@
 				"navigationBarBackgroundColor": "#ffffff"
 			}
 		}
-	],
+	    
+        ,{
+            "path" : "pages/perfectInfo/rename/rename",
+            "style" : {
+				"navigationBarTitleText": "用户名修改"
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
