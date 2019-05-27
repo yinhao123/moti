@@ -17,6 +17,11 @@ async function post(url, data) {
 						title: '请您先登录！',
 						position: 'top'
 					})
+					setTimeout(() => {
+						uni.navigateTo({ // 跳转到登录页
+							url: '/pages/login/login'
+						})
+					}, 500)
 				}
 				resolve(data)
 			},
