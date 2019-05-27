@@ -19,7 +19,7 @@ async function post(url, data) {
 					})
 					setTimeout(() => {
 						uni.navigateTo({ // 跳转到登录页
-							url: '/pages/logIn/logIn'
+							url: '/pages/login/login'
 						})
 					}, 500)
 				}
@@ -276,5 +276,10 @@ export function updateAddress(){ //参数：
 		codeDistrictCode,
 		districtName,
 		userAddress
+	})
+}
+export function loadInfo(){//查询用户信息
+	return post('/userInfo/loadInfo').then(function(res){
+		console.log(res)
 	})
 }

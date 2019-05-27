@@ -66,8 +66,9 @@
 </template>
 
 <script>
-	import {changeHeadIcon} from '@/common/request.js'
+	import { changeHeadIcon,loadInfo } from '@/common/request.js'
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
+	import { mapMutations } from 'vuex'
 	export default {
 		data() {
 			return {
@@ -91,6 +92,11 @@
 				pickerText: ''
 
 			};
+		},
+		onShow:function(){
+			// console.log(this.$store.state.userInfo);
+			// this.headImage = $store.state.userInfo;
+			 console.log(loadInfo());
 		},
 		components: {
 			mpvueCityPicker
