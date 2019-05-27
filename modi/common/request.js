@@ -11,18 +11,18 @@ async function post(url, data) {
 			},
 			data,
 			success: function(data) {
-				if (data.data.code === "3") { // 未登录
-					uni.showToast({
-						icon: 'none',
-						title: '请您先登录！',
-						position: 'top'
-					})
-					setTimeout(() => {
-						uni.navigateTo({ // 跳转到登录页
-							url: '/pages/logIn/login'
-						})
-					}, 500)
-				}
+				// if (data.data.code === "3") { // 未登录
+				// 	uni.showToast({
+				// 		icon: 'none',
+				// 		title: '请您先登录！',
+				// 		position: 'top'
+				// 	})
+				// 	setTimeout(() => {
+				// 		uni.navigateTo({ // 跳转到登录页
+				// 			url: '/pages/logIn/login'
+				// 		})
+				// 	}, 500)
+				// }
 				resolve(data)
 			},
 			fail: function(err) {

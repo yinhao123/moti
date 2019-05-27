@@ -2,11 +2,17 @@
 	<view class="content">
 		<view class="userInfo">
 			<view class="user">
-				<view class="userImg">
+				
+				<view v-if="!headImage" class="userImg">
+					<image src="../../static/avatar.png" mode=""></image>
+				</view>
+				<view v-else class="userImg">
 					<image :src="headImage" mode=""></image>
 				</view>
+				
+				
 				<view class="userFlex" @tap="goInfo">				
-					<view class="userName">请叫我锦鲤</view>
+					<view class="userName">{{nickName?nickName:"起个好听的名字吧"}}</view>
 					<view class="personFile">完善资料 <text class="iconfont moti-right"></text> </view>
 				</view>
 			</view>
