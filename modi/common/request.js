@@ -273,3 +273,8 @@ export function updateAddress(){ //参数：
 		userAddress
 	})
 }
+export function loadInfo(){//查询用户信息
+	return post('/userInfo/loadInfo').then(function(res){
+		console.log(res)
+	})
+}
