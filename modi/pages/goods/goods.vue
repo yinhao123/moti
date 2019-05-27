@@ -145,7 +145,7 @@
 		<view class="info-box spec">
 			<view class="row" @tap="showfullReduce">
 				<view class="text">促销</view>
-				<view class="content">
+				<view class="content no-between">
 					<text class="serviceitem" v-for="activityItem in good.activityList">{{activityItem.name}}</text>
 				</view>
 				<view class="arrow">
@@ -154,7 +154,7 @@
 			</view>
 			<view class="row" @tap="showService">
 				<view class="text">优惠</view>
-				<view class="content">
+				<view class="content no-between">
 					<text class="serviceitem" v-for="couponItem in good.couponList">{{couponItem.service}}</text>
 				</view>
 				<view class="arrow">
@@ -210,6 +210,12 @@
 	import {goodsSpuQuery} from '@/common/request.js'
 	
 	const ERR_OK = 0;
+	// 后端返回的活动类型对照
+	const activityType = {
+		'1':'直降',
+		'2':'满减',
+		'3':'秒杀'
+	};
 	 
 	export default {
 		data() {
@@ -508,6 +514,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.no-between{
+		justify-content: flex-start !important;
+	}
 	.contentBody {
 		padding-bottom: 100upx;
 	}
