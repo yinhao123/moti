@@ -81,7 +81,7 @@
 			}
 		},
 		onLoad() {
-checkLoginName("abcdefg");
+//checkLoginName("abcdefg");
 
 			this.getCategoryData()
 		},
