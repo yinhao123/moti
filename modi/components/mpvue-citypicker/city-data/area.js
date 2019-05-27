@@ -1,5 +1,5 @@
 /* eslint-disable */
-var areaData = [
+var areaData = [ 
   [
     [{
         "label": "东城区",
