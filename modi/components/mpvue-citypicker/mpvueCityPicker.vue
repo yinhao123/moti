@@ -143,7 +143,13 @@
 				return pcikerLabel;
 			},
 			_getCityCode() {
-				return this.areaDataList[this.pickerValue[2]].value;
+				let pcikerCityCode = 
+					this.provinceDataList[this.pickerValue[0]].value +
+					'-' +
+					this.cityDataList[this.pickerValue[1]].value +
+					'-' +
+					this.areaDataList[this.pickerValue[2]].value;
+				return pcikerCityCode
 			}
 		}
 	};

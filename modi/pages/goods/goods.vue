@@ -61,9 +61,8 @@
 			<view class="mask"></view>
 			<view class="layer" @tap.stop="discard">
 				<view class="content">
-					<view class="row" v-for="(attrItem,index) in good.attr" :key="index">
-						
-						<view class="title">{{Object.keys(good.attr)[index]}}</view>
+					<view class="row" v-for="(item,index) in goodsData" :key="index">
+						<view class="title">{{item.title}}</view>
 						<view class="description">{{item.content}}</view>
 					</view>
 				</view>
@@ -93,7 +92,7 @@
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
 			<view class="layer" @tap.stop="discard">
-				<view class="content">
+				<view class="content" v-for="attrItem in good.attr">
 					<view class="title">口味</view>
 					<view class="sp">
 						<view v-for="(items,index0) in goodsData.spec0" @tap="setSelectSpec(0,index0)" :key="index0" :class="[selectSpec0 == index0?'on':'']">
@@ -101,14 +100,14 @@
 						</view>
 					</view>
 				</view>
-				<view class="content">
+		<!-- 		<view class="content">
 					<view class="title">规格</view>
 					<view class="sp">
 						<view v-for="(items,index1) in goodsData.spec1" @tap="setSelectSpec(1,index1)" :key="index1" :class="[selectSpec1 == index1?'on':'']">
 							{{items}}
 						</view>
 					</view>
-				</view>
+				</view> -->
 				<!-- <view class="content" v-for="(items,index) in goodsData.spec" :key="index">
 					<view class="title">{{items.title}}</view>
 					<view class="sp">

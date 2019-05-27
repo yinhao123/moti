@@ -2,21 +2,21 @@
 	<view class="content">
 		<form>
 			<view class="formItem">
-				<input class="formInput" type="text" :value="receiveName" placeholder="姓名"/>
+				<input class="formInput" type="text" v-model="receiveName" placeholder="姓名"/>
 			</view>
 			<view class="formItem">
-				<input class="formInput" type="text" :value="receivePhone" placeholder="电话"/>
+				<input class="formInput" type="text"  v-model="receivePhone" placeholder="电话"/>
 			</view>
 			<view class="formItem">
 				<view class="formInput" :style="!pickerText.label?'color: #808080;':''" 
 					@tap="showMulLinkageThreePicker">
-					{{pickerText.label?pickerText.label:"省份 城市 区县"}}
+					{{pickerText?pickerText:"省份 城市 区县"}}
 				</view>
-				<input type="hidden" style="display: none;" :value="pickerText.cityCode"/>
-				<input type="hidden" style="display: none;" :value="pickerText.label"/>
+				<input type="hidden" style="display: none;" v-model="pickerText.cityCode"/>
+				<input type="hidden" style="display: none;" v-model="pickerText.label"/>
 			</view>
 			<view class="formItem">
-				<input class="formInput" type="text" :value="userAddress" placeholder="详细地址"/>
+				<input class="formInput" type="text" v-model="userAddress" placeholder="详细地址"/>
 			</view>
 		</form>	
 		<view class="formBtn">
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-	import { saveAddress,updateAddress } from '@/common/request.js';
+	import { saveAddress,updateAddress } from '@/common/request.js'
+	import { checkMobile } from '../../common/utils.js'
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
 		data() {
@@ -41,6 +42,7 @@
 				themeColor: '#00bb50',
 				cityPickerValueDefault: [0, 0, 1],
 				pickerText: '',
+				pickerCode: '',
 				// 地址相关信息
 				receiveName:'', //姓名
 				receivePhone:'', //电话
@@ -56,12 +58,18 @@
 		},
 		methods: {
 			submitAddress:async function(){
+				console.log(1)
 				if (this.receiveName === "") {
 					this.errorHand('收货人姓名不能为空')
 					return false
 				}
 				if (this.receivePhone === "") {
 					this.errorHand('收货人电话不能为空')
+					return false
+				}
+				if (!checkMobile(this.receivePhone)) {
+					console.log(this.receivePhone)
+					this.errorHand('请输入有效的手机号码');
 					return false
 				}
 				if (this.pickerText === "") {
@@ -74,9 +82,9 @@
 				}
 				let succ;
 				if(this.editType == 'add'){
-					succ = await saveAddress(this.receiveName,this.receivePhone,this.pickerText,this.userAddress);
+					succ = await saveAddress(this.receiveName,this.receivePhone,this.pickerText,this.pickerCode,this.userAddress);
 				}else if(this.editType == 'edit'){
-					succ = await updateAddress(this.receiveName,this.receivePhone,this.pickerText,this.userAddress);
+					succ = await updateAddress(this.receiveName,this.receivePhone,this.pickerText,this.pickerCode,this.userAddress);
 				}
 				console.log(succ)
 				if(succ.data.code == 0){
@@ -97,7 +105,8 @@
 				this.$refs.mpvueCityPicker.show()
 			},
 			onConfirm:function (event){
-				this.pickerText = event;
+				this.pickerText = event.label;
+				this.pickerCode = event.cityCode;
 				console.log(event)
 			},
 			onCancel:function (e){

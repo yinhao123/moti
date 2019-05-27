@@ -13,10 +13,11 @@
 			</view>
 		</view>
 
-		<view class="commonInfo">
+		<view class="commonInfo" @tap="goRename">
 			<text>用户名/昵称</text>
 			<view class="rightContent">
 				<text>{{userInfo.name}}</text>
+				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
 		<view class="commonInfo mt20" @tap="goPhoneReset">
@@ -119,6 +120,11 @@
 			goPhoneReset: function() {
 				uni.navigateTo({
 					url: 'phoneReset/phoneReset?phone=' + this.iphone
+				})
+			},
+			goRename:function(){
+				uni.navigateTo({
+					url:'rename/rename?name='+this.name
 				})
 			},
 			chageImage: async function() { //更换头像方法
