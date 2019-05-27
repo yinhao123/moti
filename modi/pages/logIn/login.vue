@@ -1,3 +1,4 @@
+
 <template>
 	<view class="wrapper">
 		<image src="../../static/logn.png" class="logn"></image>

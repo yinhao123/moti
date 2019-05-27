@@ -272,6 +272,32 @@ export function updateAddress(receiveName,receivePhone,pickerText,pickerCode,use
 }
 export function loadInfo(){//查询用户信息
 	return post('/userInfo/loadInfo').then(function(res){
-		console.log(res)
+		
+		console.log(res);
+		uni.setStorage({
+		key: 'userInfo',
+		data: res.data.result,
+		success: function () {
+        console.log('Save userInfo success.');
+	
+    }
+});
+		
 	})
+}
+// 根据用户id修改用户的性别 生日 城市
+export function saveUserInfo(sex,birthday){
+	return post('/userInfo/updateInfo',
+	{
+		// provinceCode,
+		// provinceName,
+		// cityCode,
+		// cityName,
+		// districtCode,
+		// districtName,
+		birthday,
+		sex
+	}
+	)
+	
 }

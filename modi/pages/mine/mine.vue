@@ -3,7 +3,7 @@
 		<view class="userInfo">
 			<view class="user">
 				<view class="userImg">
-					<image src="../../static/22.png" mode=""></image>
+					<image :src="headImage" mode=""></image>
 				</view>
 				<view class="userFlex" @tap="goInfo">				
 					<view class="userName">请叫我锦鲤</view>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import { loadInfo } from '@/common/request.js'
 	export default {
 		data() {
 			return {
@@ -34,8 +35,17 @@
 					{id:0,text:"口令兑换",path:"/pages/exchange/exchange",icon:"moti-iconfontduihuan"},
 					{id:0,text:"收获地址",path:"/pages/address/address",icon:"moti-dizhi"},
 					{id:0,text:"优惠券",path:"/pages/coupon/coupon",icon:"moti-youhuiquan"}
-				]
-			}
+				],
+				headImage:null
+			};
+			
+			
+		},
+		onShow:function() {
+			loadInfo();
+			let userInfo = uni.getStorageSync("userInfo");
+			this.userInfo = userInfo;
+			this.headImage = userInfo.avatarPicSrc;
 		},
 		methods: {
 			toPath:function (path){

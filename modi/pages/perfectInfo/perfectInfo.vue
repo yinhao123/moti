@@ -3,8 +3,10 @@
 		<view class="headBox">
 			<text>头像</text>
 			<view class="imageBox" @tap="chageImage">
-				<view class="headIcon">
-
+				<view v-if="!headImage" class="headIcon">
+					<image src="../../static/avatar.png" mode=""></image>
+				</view>
+				<view v-else class="headIcon">
 					<image :src="headImage" mode=""></image>
 				</view>
 				<text class="iconfont moti-right"></text>
@@ -14,17 +16,16 @@
 		<view class="commonInfo" @tap="goRename">
 			<text>用户名/昵称</text>
 			<view class="rightContent">
-				<text>{{name}}</text>
+				<text>{{userInfo.name}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
 		</view>
 		<view class="commonInfo mt20" @tap="goPhoneReset">
 			<text>手机号</text>
 			<view class="rightContent">
-				<text>{{iphone}}</text>
+				<text>{{userInfo.mobile}}</text>
 				<text class="iconfont moti-right"></text>
 			</view>
-
 		</view>
 		<view class="commonInfo" @tap="go('addID/addID')">
 			<text>身份认证</text>
@@ -59,7 +60,7 @@
 			</view>
 		</view>
 		<view class="save">
-			<view class="save-content">保存</view>
+			<view class="save-content" @tap="updateUserInfo">保存</view>
 		</view>
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
 		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-	import { changeHeadIcon,loadInfo } from '@/common/request.js'
+	import { changeHeadIcon,loadInfo,saveUserInfo } from '@/common/request.js'
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	import { mapMutations } from 'vuex'
 	export default {
@@ -90,14 +91,21 @@
 				data: '',
 				themeColor: '#00bb50',
 				cityPickerValueDefault: [0, 0, 1],
-				pickerText: ''
-
+				pickerText: '',
+				userInfo:null
 			};
 		},
 		onShow:function(){
 			// console.log(this.$store.state.userInfo);
 			// this.headImage = $store.state.userInfo;
-			 console.log(loadInfo());
+			console.log("loadInfo");
+			loadInfo();
+			let userInfo = uni.getStorageSync("userInfo");
+			this.userInfo = userInfo;
+			this.headImage = userInfo.avatarPicSrc;
+			this.sex = userInfo.sex;
+			this.iphone = userInfo.mobile;
+			this.date = userInfo.birthday;
 		},
 		components: {
 			mpvueCityPicker
@@ -143,6 +151,7 @@
 			//获取生日日期
 			getDate: function(e) {
 				this.date = e.detail.value
+				console.log(this.date);
 			},
 			//获取性别
 			getSex: function(e) {
@@ -160,6 +169,47 @@
 				console.log(e)
 
 			},
+			// update userInfo
+			updateUserInfo:async function(e){
+				console.log("saveUserInfo");
+				
+				let result = await saveUserInfo(this.sex,this.date); // 缺少城市字段
+				let code = result.data.code;
+				switch (code) {
+					case '0':
+						uni.showModal({
+							content: "认证成功",
+							showCancel: false
+						})
+						break;
+					case '1':
+						uni.showModal({
+							content: "系统异常",
+							showCancel: false,
+						})
+						break;
+					case '2':
+						uni.showModal({
+							content: "参数错误",
+							showCancel: false
+						})
+						break;
+					case '3':
+						uni.showModal({
+							content: "您还未登录，是否返回到登录页",
+							confirmText: "确定",
+							cancelText: "取消",
+							success: function(res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url: '../../logIn/logIn'
+									})
+								}
+							}
+						})
+						break;
+				}
+			}
 		}
 	}
 </script>
