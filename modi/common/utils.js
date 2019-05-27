@@ -26,7 +26,6 @@ export const cartCache = {
 	// 设置缓存购物车信息
 	set(goodsMsg) {
 		let cache = this.getCartCache()
-		console.log(cache)
 		let jsonString = ''
 		
 		if (cache) { // 若已经有购物车缓存
@@ -44,11 +43,22 @@ export const cartCache = {
 	
 	// 获取所有缓存的购物车信息
 	get() {
-		return JSON.parse(uni.getStorageSync('moti_cart'))
+		let cache = uni.getStorageSync('moti_cart')
+		if (cache) return JSON.parse(cache)
 	},
 	
 	// 删除缓存的购物车信息
-	delete() {
-		uni.removeStorageSync()
+	delete(spuId) {
+		let cache = this.getCartCache()
+		if (!cache) return false 
+		
+		let goodsList = cache.goodsList
+		for (let i = 0; i < goodsList.length; i ++) {
+			
+		}
+	},
+	
+	isArray() {
+		
 	}
 }
