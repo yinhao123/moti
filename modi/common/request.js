@@ -19,7 +19,7 @@ async function post(url, data) {
 					})
 					setTimeout(() => {
 						uni.navigateTo({ // 跳转到登录页
-							url: '/pages/login/login'
+							url: '/pages/logIn/login'
 						})
 					}, 500)
 				}
@@ -239,47 +239,65 @@ export function queryUserDefaultAddress(){//参数：用户id,这里后台可以
 	})
 }
 //根据用户id设置地址对应的id的状态设置为默认地址
-export function defaultAddress(){//参数：地址id
+export function defaultAddress(id){//参数：地址id
 	return post('/receiverAddress/defaultAddress', {
 		id
 	})
 }
 //根据地址id删除一条收货地址
-export function deleteAddress(){//参数：地址id
+export function deleteAddress(id){//参数：地址id
 	return post('/receiverAddress/deleteAddress', {
 		id
 	})
 }
 //根据用户id保存用户的姓名，电话，收货地址，收货地址详情
-export function saveAddress(){ //参数：
+export function saveAddress(receiveName,receivePhone,pickerText,pickerCode,userAddress){ //参数：
 	return post('/receiverAddress/saveAddress', {
 		receiveName,	//收货人姓名
 		receivePhone,	//收货人电话
-		codeProvinceCode,
-		codeProvinceName,
-		codeCityCode,
-		cityName,
-		codeDistrictCode,
-		districtName,
+		pickerText,
+		pickerCode,
 		userAddress
 	})
 }
 //根据用户id修改用户的姓名，电话，收货地址，收货地址详情
-export function updateAddress(){ //参数：
+export function updateAddress(receiveName,receivePhone,pickerText,pickerCode,userAddress){ //参数：
 	return post('/receiverAddress/updateAddress', {
 		receiveName,	//收货人姓名
 		receivePhone,	//收货人电话
-		codeProvinceCode,
-		codeProvinceName,
-		codeCityCode,
-		cityName,
-		codeDistrictCode,
-		districtName,
+		pickerText,
+		pickerCode,
 		userAddress
 	})
 }
 export function loadInfo(){//查询用户信息
 	return post('/userInfo/loadInfo').then(function(res){
-		console.log(res)
+		
+		console.log(res);
+		uni.setStorage({
+		key: 'userInfo',
+		data: res.data.result,
+		success: function () {
+        console.log('Save userInfo success.');
+	
+    }
+});
+		
 	})
+}
+// 根据用户id修改用户的性别 生日 城市
+export function saveUserInfo(sex,birthday){
+	return post('/userInfo/updateInfo',
+	{
+		// provinceCode,
+		// provinceName,
+		// cityCode,
+		// cityName,
+		// districtCode,
+		// districtName,
+		birthday,
+		sex
+	}
+	)
+	
 }
